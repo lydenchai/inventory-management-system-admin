@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: #f8fafc;
+}
+
+@layer base {
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply border-[#1e3a5f] ring-1 ring-[#1e3a5f] outline-none;
+  }
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 2s linear infinite !important;
+  }
+}
+
+/* Custom Scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Table Scroll Layout Utilities */
+.h-content-available {
+  height: 100%;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.table-scroll-container {
+  flex: 1;
+  max-height: 100%;
+  padding: 0 12px;
+  border-radius: 0.75rem;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.table-sticky-header th {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+  table-layout: auto !important;
+}
+
+tbody>tr,
+tbody>th,
+tbody>td {
+  height: 40px !important;
+  max-height: 40px !important;
+  min-height: 40px !important;
+  vertical-align: middle !important;
+}
+
+thead th {
+  height: 40px !important;
+  color: #3a3a3c;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 10px !important;
+  vertical-align: middle;
+}
+
+tbody td {
+  max-width: 200px !important;
+  height: 40px !important;
+  font-size: 14px;
+  color: #495363;
+  padding: 0 10px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
+}
+
+tbody tr {
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+tbody tr:hover {
+  transform: scale(1.002);
+}
+
+th.number,
+td.number {
+  width: 100px !important;
+  min-width: 100px !important;
+}
+
+th.action,
+td.action {
+  width: 150px !important;
+}
