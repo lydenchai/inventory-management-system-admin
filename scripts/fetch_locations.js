@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 
 const url = 'https://raw.githubusercontent.com/RathanakSreang/cambodia-gazetteer/master/cambodia_gazetteer.json';
-const outputPath = 'd:\\My workspace\\IMS_G6_frontend\\src\\data\\locations.js';
+const outputPath = 'd:\\My workspace\\inventory-management-system-admin\\src\\data\\locations.js';
 
 console.log(`Fetching data from ${url}...`);
 

@@ -1,6 +1,6 @@
-# IMS-G6 Frontend
+# Inventory Management System
 
-React (Vite) frontend for Inventory Management System (Group 6).
+React (Vite) frontend for Inventory Management System.
 
 ## Setup
 
@@ -66,4 +66,4 @@ Authorization: Bearer <access_token>
   ```
 
 ## Backend
-See [IMS-G6-backend](https://github.com/SreypokD/IMS_G6_backend) for backend setup and API details.
+See [inventory-management-system-api](https://github.com/lydenchai/inventory-management-system-api) for backend setup and API details.

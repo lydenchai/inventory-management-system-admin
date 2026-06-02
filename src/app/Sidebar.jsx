@@ -215,7 +215,7 @@ const Sidebar = ({ mini }) => {
           alt="Logo"
           className={`object-contain mb-2 ${mini ? "h-8 w-8" : " h-10 w-10"}`}
         />
-        {!mini && <span>Stockify IMS</span>}
+        {!mini && <span>IMS</span>}
       </div>
       <nav className="flex-1 min-h-0">
         <ul className="space-y-2 overflow-y-auto h-[calc(100vh-85px)] px-3">
