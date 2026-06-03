@@ -126,6 +126,18 @@ const StockViewModal = ({ open, onClose, stock }) => {
                   </p>
                   <p className="text-sm text-gray-900">{stock.balance} units</p>
                 </div>
+                {stock.batch_number && (
+                  <div>
+                    <p className="text-sm text-gray-400 font-medium mb-1">Batch Number</p>
+                    <p className="text-sm text-gray-900">{stock.batch_number}</p>
+                  </div>
+                )}
+                {stock.expiry_date && (
+                  <div>
+                    <p className="text-sm text-gray-400 font-medium mb-1">Expiry Date</p>
+                    <p className="text-sm text-gray-900">{new Date(stock.expiry_date).toLocaleDateString()}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -188,7 +200,7 @@ const StockViewModal = ({ open, onClose, stock }) => {
               <h3 className="text-base">Location</h3>
             </div>
             <p className="text-sm font-medium text-gray-900 pl-7">
-              {stock.location || "N/A"}
+              {stock.location?.name || stock.location || "N/A"}
             </p>
           </div>
 
@@ -210,7 +222,7 @@ const StockViewModal = ({ open, onClose, stock }) => {
               <h3 className="text-base">Notes</h3>
             </div>
             <p className="text-sm text-gray-500 pl-7">
-              {stock.note || "No notes provided."}
+              {stock.notes || stock.note || "No notes provided."}
             </p>
           </div>
         </div>

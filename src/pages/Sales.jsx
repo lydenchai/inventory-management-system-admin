@@ -11,10 +11,12 @@ import {
   HiDotsVertical,
   HiOutlineArchive,
   HiOutlineCheckCircle,
+  HiOutlineReply,
 } from "react-icons/hi";
-import { getSales, deleteSale, getUsers, createSale, updateSale, getSalesSummary } from "../api";
+import { getSales, deleteSale, getUsers, createSale, updateSale } from "../api";
 import Pagination from "../components/Pagination";
 import SaleModal from "../components/SaleModal";
+import ProcessReturnModal from "../components/ProcessReturnModal";
 import { useAuth } from "../contexts/auth/useAuth";
 import { useDialog } from "../contexts/dialog/useDialog";
 import { formatDate } from "../utils/dateFormat";
@@ -84,6 +86,8 @@ const Sales = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editSale, setEditSale] = useState(null);
   const [viewSale, setViewSale] = useState(null);
+  const [returnSale, setReturnSale] = useState(null);
+  const [returnModalOpen, setReturnModalOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
 
   const dialog = useDialog();
@@ -187,7 +191,7 @@ const Sales = () => {
       dialog.success(`Sales marked as ${isActive ? "Active" : "Archived"} successfully.`);
       fetchData();
       setSelectedIds([]);
-    } catch (err) {
+    } catch {
       dialog.error("Failed to update sales.");
     } finally {
       setLoading(false);
@@ -277,6 +281,14 @@ const Sales = () => {
                       </button>
                     </Menu.Item>
                   )}
+                  {s.status === "Completed" && (
+                    <Menu.Item>
+                      <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-[#1e3a5f] hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                        onClick={() => { setReturnSale(s); setReturnModalOpen(true); }}>
+                        <HiOutlineReply className="mr-2 h-5 w-5" /> Process Return
+                      </button>
+                    </Menu.Item>
+                  )}
                 </Menu.Items>
               </Menu>
             )}
@@ -296,6 +308,13 @@ const Sales = () => {
         data={editSale || viewSale}
         viewOnly={!!viewSale}
         onEdit={() => { setEditSale(viewSale); setViewSale(null); }}
+      />
+      <ProcessReturnModal
+        open={returnModalOpen}
+        onClose={() => { setReturnModalOpen(false); setReturnSale(null); }}
+        data={returnSale}
+        type="customer_return"
+        onSuccess={fetchData}
       />
 
       <PageHeader

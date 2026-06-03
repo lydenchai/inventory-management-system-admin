@@ -12,16 +12,20 @@ import {
   HiOutlineCheckCircle,
   HiOutlineArchive,
   HiOutlineFilter,
-  HiOutlineRefresh
+  HiOutlineRefresh,
+  HiOutlineUpload
 } from "react-icons/hi";
 import { MdOutlineSmsFailed } from "react-icons/md";
+import { HiOutlineCamera } from "react-icons/hi";
 
 import ProductModal from "../components/ProductModal.jsx";
+import BarcodeScannerModal from "../components/BarcodeScannerModal.jsx";
 import {
   getProducts,
   createProduct,
   updateProduct,
   deleteProduct,
+  importProducts,
   getCategories,
   getSuppliers,
 } from "../api";
@@ -38,6 +42,7 @@ import useDebounce from "../hooks/useDebounce";
 import { CategoryDropdown, SupplierDropdown, StatusDropdown } from "../components/filters/FilterDropdowns";
 import CardSkeleton from "../components/CardSkeleton";
 import NoDataFound from "../components/NoDataFound";
+import BulkImportModal from "../components/BulkImportModal";
 
 const statusOptions = [
   { value: "in_stock", label: "In Stock" },
@@ -59,6 +64,8 @@ export default function Products() {
   const [suppliers, setSuppliers] = useState([]);
 
   const [modalState, setModalState] = useState({ open: false, data: null, viewOnly: false });
+  const [importModalOpen, setImportModalOpen] = useState(false);
+  const [scannerOpen, setScannerOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
 
   // Local filter states for immediate UI binding
@@ -100,6 +107,10 @@ export default function Products() {
   const handleReset = () => {
     setSearchTerm("");
     resetFilters();
+  };
+
+  const handleScan = (decodedText) => {
+    setSearchTerm(decodedText);
   };
 
   async function handleSave(product) {
@@ -230,18 +241,37 @@ export default function Products() {
         categories={categories}
         suppliers={suppliers}
       />
+      <BarcodeScannerModal
+        open={scannerOpen}
+        onClose={() => setScannerOpen(false)}
+        onScan={handleScan}
+      />
+      <BulkImportModal
+        open={importModalOpen}
+        onClose={() => setImportModalOpen(false)}
+        onImport={async (formData) => {
+          await importProducts(formData);
+          fetchData();
+        }}
+        title="Import Products"
+      />
 
       <PageHeader
         title="Product Management"
         description="Manage your product catalog and inventory"
         actions={
-          <>
+          <div className="flex items-center gap-2">
             {canCreate && (
-              <Button onClick={() => setModalState({ open: true, data: null, viewOnly: false })}>
-                <HiOutlinePlus className="text-md" /> Add Product
-              </Button>
+              <>
+                <Button onClick={() => setImportModalOpen(true)} className="!bg-white !text-[#1e3a5f] border border-gray-200 hover:!bg-gray-50 flex items-center gap-2">
+                  <HiOutlineUpload className="text-md" /> Import CSV
+                </Button>
+                <Button onClick={() => setModalState({ open: true, data: null, viewOnly: false })}>
+                  <HiOutlinePlus className="text-md" /> Add Product
+                </Button>
+              </>
             )}
-          </>
+          </div>
         }
       />
 
@@ -256,9 +286,18 @@ export default function Products() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           <div>
-            <label className="block text-gray-700 text-sm mb-1">Search</label>
-            <input className="bg-gray-50 border border-gray-100 rounded-lg py-2 px-4 text-sm w-full"
-              placeholder="Search..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+            <label className="block text-gray-700 text-sm mb-1">Search / Scan</label>
+            <div className="flex gap-2">
+              <input className="bg-gray-50 border border-gray-100 rounded-lg py-2 px-4 text-sm w-full focus:outline-none focus:ring-1 focus:ring-[#1e3a5f]"
+                placeholder="Product Code or Name" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+              <button 
+                className="bg-[#1e3a5f] hover:bg-[#16375b] text-white px-3 py-2 rounded-lg transition"
+                onClick={() => setScannerOpen(true)}
+                title="Scan Barcode"
+              >
+                <HiOutlineCamera className="text-xl" />
+              </button>
+            </div>
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-1">Category</label>

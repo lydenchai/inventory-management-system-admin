@@ -19,6 +19,8 @@ import {
   HiOutlineDocumentText,
   HiOutlineAnnotation,
   HiOutlineCurrencyDollar,
+  HiOfficeBuilding,
+  HiOutlineDocumentReport,
 } from "react-icons/hi";
 import logo from "../assets/images/logo.png";
 
@@ -66,6 +68,17 @@ const navLinks = (permissions = [], activePath = "") =>
         />
       ),
     },
+    {
+      to: "/locations",
+      label: "Locations",
+      icon: (
+        <HiOfficeBuilding
+          className={
+            activePath === "/locations" ? "text-white" : "text-teal-600"
+          }
+        />
+      ),
+    },
     permissions.includes("view_stock") && {
       to: "/stock",
       label: "Stock",
@@ -82,6 +95,17 @@ const navLinks = (permissions = [], activePath = "") =>
         <HiClipboardList
           className={
             activePath === "/order-requests" ? "text-white" : "text-orange-600"
+          }
+        />
+      ),
+    },
+    permissions.includes("view_order_request") && {
+      to: "/purchase-orders",
+      label: "Purchase Orders",
+      icon: (
+        <HiOutlineDocumentReport
+          className={
+            activePath === "/purchase-orders" ? "text-white" : "text-blue-600"
           }
         />
       ),

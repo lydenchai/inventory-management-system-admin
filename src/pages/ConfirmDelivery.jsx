@@ -141,7 +141,7 @@ const ConfirmDelivery = () => {
       dialog.success(`Deliveries marked as ${isActive ? "Active" : "Archived"} successfully.`);
       fetchData();
       setSelectedIds([]);
-    } catch (err) {
+    } catch {
       dialog.error("Failed to update deliveries.");
     } finally {
       setLoading(false);

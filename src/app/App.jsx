@@ -19,8 +19,10 @@ const Products = React.lazy(() => import("../pages/Products.jsx"));
 const Suppliers = React.lazy(() => import("../pages/Suppliers.jsx"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard.jsx"));
 const Categories = React.lazy(() => import("../pages/Categories.jsx"));
+const Locations = React.lazy(() => import("../pages/Locations.jsx"));
 const Stock = React.lazy(() => import("../pages/Stock.jsx"));
 const OrderRequests = React.lazy(() => import("../pages/OrderRequests.jsx"));
+const PurchaseOrders = React.lazy(() => import("../pages/PurchaseOrders.jsx"));
 const OrderHistory = React.lazy(() => import("../pages/OrderHistory.jsx"));
 const ApproveRequests = React.lazy(() => import("../pages/ApproveRequests.jsx"));
 const ConfirmDelivery = React.lazy(() => import("../pages/ConfirmDelivery.jsx"));
@@ -116,6 +118,10 @@ function App() {
                                       element: <OrderRequests />,
                                     },
                                     {
+                                      path: "/purchase-orders",
+                                      element: <PurchaseOrders />,
+                                    },
+                                    {
                                       path: "/approve-requests",
                                       element: <ApproveRequests />,
                                     },
@@ -129,6 +135,7 @@ function App() {
                                     },
 
                                     // Inventory / Stock
+                                    { path: "/locations", element: <Locations /> },
                                     { path: "/stock", element: <Stock /> },
 
                                     // Sales

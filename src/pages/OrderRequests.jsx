@@ -11,11 +11,12 @@ import {
   HiDotsVertical,
   HiOutlineCheckCircle,
   HiOutlineArchive,
+  HiOutlineDocumentText,
 } from "react-icons/hi";
 import { useAuth } from "../contexts/auth/useAuth.js";
 import { useDialog } from "../contexts/dialog/useDialog.js";
 import OrderRequestModal from "../components/OrderRequestModal.jsx";
-import { getOrderRequests, cancelOrderRequest, updateOrderRequest, deleteOrderRequest } from "../api";
+import { getOrderRequests, cancelOrderRequest, updateOrderRequest, deleteOrderRequest, createPurchaseOrder } from "../api";
 import { useCart } from "../contexts/cart/useCart";
 import Pagination from "../components/Pagination";
 import { formatDate } from "../utils/dateFormat";
@@ -138,6 +139,19 @@ const OrderRequests = () => {
     }
   }
 
+  async function handleGeneratePO(id) {
+    setLoading(true);
+    try {
+      await createPurchaseOrder({ order_request_id: id });
+      dialog.success("Purchase Order generated successfully.");
+      fetchData();
+    } catch (err) {
+      dialog.error(err?.response?.data?.error || "Failed to generate Purchase Order");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleBulkActive(isActive) {
     if (selectedIds.length === 0) return;
     setLoading(true);
@@ -147,7 +161,7 @@ const OrderRequests = () => {
       fetchData();
       setSelectedIds([]);
       fetchBadge();
-    } catch (err) {
+    } catch {
       dialog.error("Failed to update order requests.");
     } finally {
       setLoading(false);
@@ -221,10 +235,18 @@ const OrderRequests = () => {
           <Menu as="div" className="relative inline-block text-left">
             <Menu.Button
               className="text-[#1e3a5f] font-semibold cursor-pointer disabled:cursor-default p-2 rounded-full hover:bg-gray-200 disabled:hover:bg-transparent disabled:opacity-50"
-              disabled={String(r.requester_id) !== String(user?._id) || r.status !== "pending"}>
+              disabled={String(r.requester_id) !== String(user?._id) && !canUpdate && !canDelete && r.status !== "approved"}>
               <HiDotsVertical className="text-xl" />
             </Menu.Button>
             <Menu.Items anchor="bottom end" className="bg-white rounded-2xl shadow-lg p-2 w-40 z-50 border border-gray-100 focus:outline-none">
+              {r.status === "approved" && (
+                <Menu.Item>
+                  <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-[#1e3a5f] hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                    onClick={() => handleGeneratePO(r._id)}>
+                    <HiOutlineDocumentText className="mr-2 h-5 w-5" /> Generate PO
+                  </button>
+                </Menu.Item>
+              )}
               <Menu.Item>
                 <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
                   onClick={() => { setViewRequest(null); setUpdateRequest(r); setModalOpen(true); }}>

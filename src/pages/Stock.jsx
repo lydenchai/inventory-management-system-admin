@@ -17,13 +17,14 @@ import {
   HiDotsVertical,
   HiOutlinePencil,
 } from "react-icons/hi";
-import { getStocks, updateStock, getProducts, getStockSummary, getUsers, deleteStock } from "../api";
+import { getStocks, updateStock, getProducts, getStockSummary, getUsers, deleteStock, getLocations } from "../api";
 import Pagination from "../components/Pagination";
 import { useAuth } from "../contexts/auth/useAuth";
 import { formatDate } from "../utils/dateFormat";
 import StockOutModal from "../components/StockOutModal";
 import StockInModal from "../components/StockInModal";
 import StockViewModal from "../components/StockViewModal";
+import StockTransferModal from "../components/StockTransferModal";
 import { useDialog } from "../contexts/dialog/useDialog";
 import DatePicker from "../components/DatePicker";
 
@@ -37,7 +38,7 @@ const transactionOptions = [
   { value: "in", label: "Stock In" },
   { value: "out", label: "Stock Out" },
 ];
-const locationOptions = ["Main Warehouse", "Showroom"];
+// We will use state for locationOptions
 
 function FilterDropdown({ value, onChange, options, placeholder, isObject = false }) {
   return (
@@ -98,9 +99,11 @@ const getPermission = (user, permission) => user?.permission?.permissions?.inclu
 const Stocks = () => {
   const [products, setProducts] = useState([]);
   const [userOptions, setUserOptions] = useState([]);
+  const [locationOptions, setLocationOptions] = useState([]);
 
   const [stockOutOpen, setStockOutOpen] = useState(false);
   const [stockInOpen, setStockInOpen] = useState(false);
+  const [stockTransferOpen, setStockTransferOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [selectedStock, setSelectedStock] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -158,6 +161,7 @@ const Stocks = () => {
   useEffect(() => {
     if (user) {
       fetchProducts();
+      fetchLocations();
       if (canViewUsers) fetchUsersList();
     }
   }, [user, canViewUsers]);
@@ -186,6 +190,16 @@ const Stocks = () => {
       setUserOptions(res.data.data.filter((u) => u.user_type === "internal") || []);
     } catch {
       setUserOptions([]);
+    }
+  }
+
+  async function fetchLocations() {
+    try {
+      const res = await getLocations({ limit: -1 });
+      const options = res.data.data || res.data || [];
+      setLocationOptions(options.map(l => ({ label: l.name, value: l._id })));
+    } catch {
+      setLocationOptions([]);
     }
   }
 
@@ -234,7 +248,7 @@ const Stocks = () => {
       dialog.success(`Stocks marked as ${status} successfully.`);
       fetchData();
       setSelectedIds([]);
-    } catch (err) {
+    } catch {
       dialog.error("Failed to update stocks.");
     } finally {
       setLoading(false);
@@ -285,7 +299,7 @@ const Stocks = () => {
     { header: "Qty", className: "font-semibold", accessor: "quantity" },
     { header: "Balance", accessor: "balance" },
     { header: "User", render: (s) => s.user?.first_name ? `${s.user.first_name} ${s.user.last_name}` : "-" },
-    { header: "Location", accessor: "location" },
+    { header: "Location", render: (s) => s.location?.name || s.location || "-" },
     {
       header: "Status", render: (s) => (
         <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold text-white ${s.status === "active" ? "bg-emerald-500" : "bg-gray-400"}`}>
@@ -336,8 +350,9 @@ const Stocks = () => {
 
   return (
     <div className="h-content-available flex flex-col">
-      <StockOutModal open={stockOutOpen} onClose={() => { setStockOutOpen(false); setIsUpdating(false); setSelectedStock(null); fetchData(); fetchSummary(); fetchProducts(); }} products={products} locations={locationOptions.filter(l => l !== "All Locations")} data={isUpdating ? selectedStock : null} />
-      <StockInModal open={stockInOpen} onClose={() => { setStockInOpen(false); setIsUpdating(false); setSelectedStock(null); fetchData(); fetchSummary(); fetchProducts(); }} products={products} locations={locationOptions.filter(l => l !== "All Locations")} data={isUpdating ? selectedStock : null} />
+      <StockOutModal open={stockOutOpen} onClose={() => { setStockOutOpen(false); setIsUpdating(false); setSelectedStock(null); fetchData(); fetchSummary(); fetchProducts(); }} products={products} locations={locationOptions.map(l => ({_id: l.value, name: l.label}))} data={isUpdating ? selectedStock : null} />
+      <StockInModal open={stockInOpen} onClose={() => { setStockInOpen(false); setIsUpdating(false); setSelectedStock(null); fetchData(); fetchSummary(); fetchProducts(); }} products={products} locations={locationOptions.map(l => ({_id: l.value, name: l.label}))} data={isUpdating ? selectedStock : null} />
+      <StockTransferModal open={stockTransferOpen} onClose={() => setStockTransferOpen(false)} products={products} locations={locationOptions.map(l => ({_id: l.value, name: l.label}))} onTransferSuccess={() => { fetchData(); fetchSummary(); fetchProducts(); }} />
       <StockViewModal open={viewModalOpen} onClose={() => setViewModalOpen(false)} stock={selectedStock} />
 
       <PageHeader
@@ -352,6 +367,9 @@ const Stocks = () => {
                 </button>
                 <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl focus:outline-none flex items-center gap-2 cursor-pointer text-sm font-medium transition" onClick={() => setStockInOpen(true)}>
                   <HiDownload className="text-md" /> Stock In
+                </button>
+                <button className="bg-[#1e3a5f] hover:bg-[#16375b] text-white px-6 py-2 rounded-xl focus:outline-none flex items-center gap-2 cursor-pointer text-sm font-medium transition" onClick={() => setStockTransferOpen(true)}>
+                  <HiTrendingUp className="text-md" /> Transfer
                 </button>
               </>
             )}
@@ -458,7 +476,7 @@ const Stocks = () => {
           <div>
             <label className="block text-gray-700 text-sm mb-1">Search</label>
             <input className="bg-gray-50 border border-gray-200 rounded-lg py-2 px-4 text-sm w-full focus:outline-none focus:ring-1 focus:ring-[#1e3a5f]"
-              type="text" placeholder="Search..." value={filters.search} onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))} />
+              type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-1">Start Date</label>
@@ -474,7 +492,7 @@ const Stocks = () => {
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-1">Location</label>
-            <FilterDropdown value={filters.location} onChange={val => updateFilters({ location: val })} options={locationOptions} placeholder="All Locations" />
+            <FilterDropdown value={filters.location} onChange={val => updateFilters({ location: val })} options={locationOptions} placeholder="All Locations" isObject={true} />
           </div>
           {canViewUsers && (
             <div>
