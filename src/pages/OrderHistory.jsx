@@ -4,6 +4,7 @@ import { HiSelector, HiOutlineFilter, HiOutlineRefresh } from "react-icons/hi";
 import { useAuth } from "../contexts/auth/useAuth";
 import { getOrderRequests } from "../api";
 import Pagination from "../components/Pagination";
+import ProcessReturnModal from "../components/ProcessReturnModal";
 import { formatDate } from "../utils/dateFormat";
 import DatePicker from "../components/DatePicker";
 
@@ -49,6 +50,8 @@ const OrderHistory = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearch = useDebounce(searchTerm, 500);
+  const [returnOrder, setReturnOrder] = useState(null);
+  const [returnModalOpen, setReturnModalOpen] = useState(false);
 
   const {
     data: orders,
@@ -114,11 +117,30 @@ const OrderHistory = () => {
         );
       }
     },
-    { header: "Rejection Reason", render: (o) => o.status === "rejected" ? o.rejection_reason || "-" : "-" }
+    { header: "Rejection Reason", render: (o) => o.status === "rejected" ? o.rejection_reason || "-" : "-" },
+    {
+      header: "Actions", className: "text-center", render: (o) => (
+        <div className="flex items-center justify-center">
+          {o.status === "completed" && (
+            <button className="text-[#1e3a5f] text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg font-semibold transition"
+              onClick={() => { setReturnOrder(o); setReturnModalOpen(true); }}>
+              Return to Supplier
+            </button>
+          )}
+        </div>
+      )
+    }
   ];
 
   return (
     <div className="h-content-available flex flex-col">
+      <ProcessReturnModal
+        open={returnModalOpen}
+        onClose={() => { setReturnModalOpen(false); setReturnOrder(null); }}
+        data={returnOrder}
+        type="supplier_return"
+        onSuccess={fetchData}
+      />
       <PageHeader
         title="Order History"
         description="Review your past order requests and their statuses"

@@ -13,6 +13,7 @@ import {
   HiOutlineFilter,
   HiOutlineRefresh,
   HiDotsVertical,
+  HiOutlineUpload,
 } from "react-icons/hi";
 import { Menu } from "@headlessui/react";
 import {
@@ -20,6 +21,7 @@ import {
   createSupplier,
   updateSupplier,
   deleteSupplier,
+  importSuppliers,
 } from "../api";
 import { useDialog } from "../contexts/dialog/useDialog";
 import SupplierModal from "../components/SupplierModal";
@@ -31,6 +33,7 @@ import Button from "../components/ui/Button";
 import DataTable from "../components/ui/DataTable";
 import useDataFetch from "../hooks/useDataFetch";
 import useDebounce from "../hooks/useDebounce";
+import BulkImportModal from "../components/BulkImportModal";
 
 const statusOptions = ["Active", "Inactive"];
 const locationOptions = ["Main Warehouse", "Showroom"];
@@ -73,6 +76,7 @@ const Suppliers = () => {
   const { user } = useAuth();
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [importModalOpen, setImportModalOpen] = useState(false);
   const [editSupplier, setEditSupplier] = useState(null);
   const [viewSupplier, setViewSupplier] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -283,6 +287,15 @@ const Suppliers = () => {
         viewOnly={!!viewSupplier}
         onEdit={() => { setEditSupplier(viewSupplier); setViewSupplier(null); }}
       />
+      <BulkImportModal
+        open={importModalOpen}
+        onClose={() => setImportModalOpen(false)}
+        onImport={async (formData) => {
+          await importSuppliers(formData);
+          fetchData();
+        }}
+        title="Import Suppliers"
+      />
 
       <PageHeader
         title="Supplier Management"
@@ -290,9 +303,14 @@ const Suppliers = () => {
         actions={
           <div className="flex items-center gap-2">
             {canCreate && (
-              <Button onClick={() => { setEditSupplier(null); setViewSupplier(null); setModalOpen(true); }}>
-                <HiOutlinePlus className="text-md" /> Add Supplier
-              </Button>
+              <>
+                <Button onClick={() => setImportModalOpen(true)} className="!bg-white !text-[#1e3a5f] border border-gray-200 hover:!bg-gray-50 flex items-center gap-2">
+                  <HiOutlineUpload className="text-md" /> Import CSV
+                </Button>
+                <Button onClick={() => { setEditSupplier(null); setViewSupplier(null); setModalOpen(true); }}>
+                  <HiOutlinePlus className="text-md" /> Add Supplier
+                </Button>
+              </>
             )}
             {(canUpdate || canDelete) && (
               <Menu as="div" className="relative inline-block text-left ml-2">

@@ -157,7 +157,7 @@ const Expenses = () => {
       dialog.success(`Expenses marked as ${status} successfully.`);
       fetchData();
       setSelectedIds([]);
-    } catch (err) {
+    } catch {
       dialog.error("Failed to update expenses.");
     } finally {
       setLoading(false);

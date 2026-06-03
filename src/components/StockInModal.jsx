@@ -9,11 +9,13 @@ import {
   HiOutlineDocumentText,
   HiExclamationCircle,
   HiOutlineDownload,
+  HiOutlineCamera,
 } from "react-icons/hi";
 
 import { useDialog } from "../contexts/dialog/useDialog";
+import BarcodeScannerModal from "./BarcodeScannerModal";
 
-const StockInModal = ({ open, onClose, products, data }) => {
+const StockInModal = ({ open, onClose, products, locations = [], data }) => {
   const { user } = useAuth();
   const [productId, setProductId] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -21,10 +23,12 @@ const StockInModal = ({ open, onClose, products, data }) => {
   const [reason, setReason] = useState("");
   const [warehouse, setWarehouse] = useState("");
   const [unitPrice, setUnitPrice] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState({});
   const [validateOnSave, setValidateOnSave] = useState(false);
+  const [scannerOpen, setScannerOpen] = useState(false);
   const dialog = useDialog();
 
   useEffect(() => {
@@ -36,8 +40,9 @@ const StockInModal = ({ open, onClose, products, data }) => {
           setQuantity(data.quantity || "");
           setBatchNumber(data.batch_number || "");
           setReason(data.reason || "");
-          setWarehouse(data.location || "Main Warehouse");
-          setNotes(data.note || "");
+          setWarehouse(data.location_id || data.location?._id || data.location || "");
+          setNotes(data.notes || "");
+          setExpiryDate(data.expiry_date ? new Date(data.expiry_date).toISOString().split('T')[0] : "");
           setTouched({});
           setValidateOnSave(false);
         }, 0);
@@ -47,9 +52,10 @@ const StockInModal = ({ open, onClose, products, data }) => {
           setQuantity("");
           setBatchNumber("");
           setReason("");
-          setWarehouse("Main Warehouse");
+          setWarehouse("");
           setNotes("");
           setUnitPrice("");
+          setExpiryDate("");
           setTouched({});
           setValidateOnSave(false);
         }, 0);
@@ -77,8 +83,9 @@ const StockInModal = ({ open, onClose, products, data }) => {
         quantity: Number(quantity),
         batch_number: batchNumber,
         reason,
-        location: warehouse,
-        note: notes,
+        location_id: warehouse,
+        notes: notes,
+        expiry_date: expiryDate ? new Date(expiryDate).toISOString() : undefined,
         type: "in",
         user_id: user?._id,
         completed_at: new Date(),
@@ -104,10 +111,26 @@ const StockInModal = ({ open, onClose, products, data }) => {
     }
   };
 
+  const handleScan = (decodedText) => {
+    // Find product with matching code
+    const scannedProduct = products.find(p => p.code === decodedText);
+    if (scannedProduct) {
+      setProductId(scannedProduct._id);
+      dialog.success(`Product ${scannedProduct.name} selected via barcode`);
+    } else {
+      dialog.error(`No product found with barcode: ${decodedText}`);
+    }
+  };
+
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/5 backdrop-blur-sm">
+      <BarcodeScannerModal
+        open={scannerOpen}
+        onClose={() => setScannerOpen(false)}
+        onScan={handleScan}
+      />
       <div className="bg-white rounded-2xl p-5 w-full max-w-[40%] max-h-[80vh] shadow-xl relative">
         <div className="mb-6 text-center">
           <HiOutlineDownload className="text-3xl text-green-600 mx-auto mb-2" />
@@ -128,8 +151,9 @@ const StockInModal = ({ open, onClose, products, data }) => {
             >
               Product <sup className="text-red-500">*</sup>
             </label>
-            <Listbox value={productId} onChange={setProductId}>
-              <div className="relative">
+            <div className="flex gap-2">
+              <Listbox value={productId} onChange={setProductId}>
+                <div className="relative flex-1">
                 <Listbox.Button
                   id="product-listbox"
                   className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!productId && (touched.productId || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
@@ -165,6 +189,15 @@ const StockInModal = ({ open, onClose, products, data }) => {
                 </Listbox.Options>
               </div>
             </Listbox>
+            <button 
+                type="button"
+                className="bg-[#1e3a5f] hover:bg-[#16375b] text-white px-3 py-2 rounded-lg transition"
+                onClick={() => setScannerOpen(true)}
+                title="Scan Barcode"
+              >
+                <HiOutlineCamera className="text-xl" />
+              </button>
+            </div>
           </div>
           <div className="flex gap-3">
             <div className="flex-1">
@@ -229,8 +262,21 @@ const StockInModal = ({ open, onClose, products, data }) => {
             >
               Reason <sup className="text-red-500">*</sup>
             </label>
+            <label
+              htmlFor="expiryDate"
+              className="text-sm font-medium text-gray-700 mt-3 block"
+            >
+              Expiry Date
+            </label>
+            <input
+              id="expiryDate"
+              type="date"
+              className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 border-gray-100 mt-1"
+              value={expiryDate}
+              onChange={(e) => setExpiryDate(e.target.value)}
+            />
             <Listbox value={reason} onChange={setReason}>
-              <div className="relative">
+              <div className="relative mt-3">
                 <Listbox.Button
                   id="reason"
                   className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!reason && (touched.reason || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
@@ -270,20 +316,20 @@ const StockInModal = ({ open, onClose, products, data }) => {
                   className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!warehouse && (touched.warehouse || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                 >
                   <span className="truncate">
-                    {warehouse || "Select Warehouse"}
+                    {locations.find(l => l._id === warehouse)?.name || "Select Location"}
                   </span>
                   <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
                 </Listbox.Button>
                 <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none text-sm">
-                  {["Main Warehouse", "Showroom"].map((loc) => (
+                  {locations.map((loc) => (
                     <Listbox.Option
-                      key={loc}
-                      value={loc}
+                      key={loc._id}
+                      value={loc._id}
                       className={({ selected }) =>
                         `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                       }
                     >
-                      {loc}
+                      {loc.name}
                     </Listbox.Option>
                   ))}
                 </Listbox.Options>

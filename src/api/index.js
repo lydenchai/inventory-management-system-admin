@@ -86,6 +86,7 @@ const activityLogs = "/reports/activity-logs";
 const trends = "/reports/trends";
 const permissions = "/permissions";
 const users = "/users";
+const stockTransfers = "/stock-transfers";
 
 // Notifications
 const notifications = "/notifications";
@@ -106,10 +107,12 @@ export const getRecentOrders = () => api.get(orderRequests, { params: { limit: 5
 export const getRecentActivity = () => api.get(activityLogs, { params: { limit: 5, page: 1 } });
 
 // Product CRUD
-export const getProducts = (params = {}) => api.get(products, { params });
+export const getProducts = (params) => api.get(products, { params });
+export const getProduct = (id) => api.get(`${products}/${id}`);
 export const createProduct = (data) => api.post(products, data);
 export const updateProduct = (id, data) => api.patch(`${products}/${id}`, data);
 export const deleteProduct = (id) => api.delete(`${products}/${id}`);
+export const importProducts = (formData) => api.post(`${products}/import`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
 // Category CRUD
 export const getCategories = (params = {}) => api.get(categories, { params });
@@ -118,10 +121,12 @@ export const updateCategory = (id, data) => api.patch(`${categories}/${id}`, dat
 export const deleteCategory = (id) => api.delete(`${categories}/${id}`);
 
 // Get Supplier
-export const getSuppliers = (params = {}) => api.get(suppliers, { params });
+export const getSuppliers = (params) => api.get(suppliers, { params });
+export const getSupplier = (id) => api.get(`${suppliers}/${id}`);
 export const createSupplier = (data) => api.post(suppliers, data);
 export const updateSupplier = (id, data) => api.patch(`${suppliers}/${id}`, data);
 export const deleteSupplier = (id) => api.delete(`${suppliers}/${id}`);
+export const importSuppliers = (formData) => api.post(`${suppliers}/import`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 
 // Order request CRUD for current user
 export const getOrderRequests = (params) => api.get(orderRequests, { params });
@@ -155,6 +160,26 @@ export const getStockSummary = (params = {}) => api.get(`${stocks}/summary`, { p
 export const createStock = (data) => api.post(stocks, data);
 export const updateStock = (id, data) => api.put(`${stocks}/${id}`, data);
 export const deleteStock = (id) => api.delete(`${stocks}/${id}`);
+
+// Locations
+export const createLocation = (data) => api.post("/locations", data);
+export const getLocations = (params) => api.get("/locations", { params });
+export const updateLocation = (id, data) => api.put(`/locations/${id}`, data);
+export const deleteLocation = (id) => api.delete(`/locations/${id}`);
+
+// Purchase Orders
+export const createPurchaseOrder = (data) => api.post("/purchase-orders", data);
+export const getPurchaseOrders = (params) => api.get("/purchase-orders", { params });
+export const downloadPurchaseOrderPdf = (id) => api.get(`/purchase-orders/${id}/pdf`, { responseType: 'blob' });
+export const updatePurchaseOrderStatus = (id, status) => api.put(`/purchase-orders/${id}/status`, { status });
+
+// Returns
+export const createReturn = (data) => api.post("/returns", data);
+export const getReturns = (params) => api.get("/returns", { params });
+
+// Stock Transfers
+export const getStockTransfers = (params = {}) => api.get(stockTransfers, { params });
+export const createStockTransfer = (data) => api.post(stockTransfers, data);
 
 // Activity Logs
 export const getActivityLogs = (params = {}) => api.get(activityLogs, { params });

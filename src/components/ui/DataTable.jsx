@@ -37,7 +37,7 @@ export default function DataTable({
               <tr key={i}>
                 {columns.map((_, j) => (
                   <td key={j} className="px-4 py-3">
-                    <div className="h-6 bg-gray-100 rounded w-full animate-pulse"></div>
+                    <div className={`h-4 bg-gray-200 rounded animate-pulse ${j === 0 ? "w-6 h-6" : j % 3 === 0 ? "w-1/2" : j % 2 === 0 ? "w-3/4" : "w-2/3"}`}></div>
                   </td>
                 ))}
               </tr>
