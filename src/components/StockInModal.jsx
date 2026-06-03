@@ -114,7 +114,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
           <h2 className="text-xl font-bold mb-2 text-center">
             {data ? "Update Stock In" : "Stock In"}
           </h2>
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-500">
             {data
               ? "Update transaction details"
               : "Record inventory transaction"}
@@ -132,7 +132,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
               <div className="relative">
                 <Listbox.Button
                   id="product-listbox"
-                  className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${!productId && (touched.productId || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                  className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!productId && (touched.productId || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                 >
                   <span className="truncate">
                     {products.find((p) => p._id === productId)
@@ -148,7 +148,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
                         key={p._id}
                         value={p._id}
                         className={({ selected }) =>
-                          `px-3 py-2 text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] cursor-pointer rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                          `px-3 py-2 text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] cursor-pointer rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                         }
                       >
                         {({ selected }) => (
@@ -233,7 +233,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
               <div className="relative">
                 <Listbox.Button
                   id="reason"
-                  className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${!reason && (touched.reason || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                  className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!reason && (touched.reason || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                 >
                   <span>{reason || "Select transaction reason"}</span>
                   <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
@@ -245,7 +245,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
                         key={option}
                         value={option}
                         className={({ selected }) =>
-                          `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                          `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                         }
                       >
                         {option}
@@ -267,7 +267,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
               <div className="relative">
                 <Listbox.Button
                   id="warehouse"
-                  className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${!warehouse && (touched.warehouse || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                  className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!warehouse && (touched.warehouse || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                 >
                   <span className="truncate">
                     {warehouse || "Select Warehouse"}
@@ -280,7 +280,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
                       key={loc}
                       value={loc}
                       className={({ selected }) =>
-                        `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                        `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                       }
                     >
                       {loc}
@@ -305,7 +305,7 @@ const StockInModal = ({ open, onClose, products, data }) => {
               placeholder="Add any additional notes or comments..."
             />
           </div>
-          <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-600 flex gap-2">
+          <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-500 flex gap-2">
             <HiExclamationCircle className="inline-block text-3xl" />
             <div className="flex flex-col">
               <span className="font-semibold">Transaction Information</span>

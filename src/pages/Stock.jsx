@@ -43,21 +43,21 @@ function FilterDropdown({ value, onChange, options, placeholder, isObject = fals
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
+        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-gray-900 text-sm flex items-center justify-between">
           <span className="truncate">
             {isObject ? options.find(o => o.value === value)?.label || placeholder : value || placeholder}
           </span>
           <HiSelector className="w-5 h-5 text-gray-400 ml-2 flex-shrink-0" />
         </Listbox.Button>
         <Listbox.Options className="absolute z-50 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none">
-          <Listbox.Option value="" className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
+          <Listbox.Option value="" className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
             {placeholder}
           </Listbox.Option>
           {options.map((option) => {
             const val = isObject ? option.value : option;
             const label = isObject ? option.label : option;
             return (
-              <Listbox.Option key={val} value={val} className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
+              <Listbox.Option key={val} value={val} className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
                 {label}
               </Listbox.Option>
             );
@@ -72,18 +72,18 @@ function UserDropdown({ value, onChange, userOptions }) {
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
+        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-gray-900 text-sm flex items-center justify-between">
           <span className="truncate">
             {userOptions.find((u) => u._id === value) ? `${userOptions.find((u) => u._id === value).first_name} ${userOptions.find((u) => u._id === value).last_name}` : "All Users"}
           </span>
           <HiSelector className="w-5 h-5 text-gray-400 ml-2 flex-shrink-0" />
         </Listbox.Button>
         <Listbox.Options className="absolute z-50 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none">
-          <Listbox.Option value="" className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
+          <Listbox.Option value="" className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
             All Users
           </Listbox.Option>
           {userOptions.map((user) => (
-            <Listbox.Option key={user._id} value={user._id} className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
+            <Listbox.Option key={user._id} value={user._id} className={({ selected }) => `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`}>
               {user.first_name} {user.last_name}
             </Listbox.Option>
           ))}
@@ -311,7 +311,7 @@ const Stocks = () => {
                 <Menu.Items anchor="bottom end" className="bg-white rounded-2xl shadow-lg p-2 w-40 z-50 border border-gray-100 focus:outline-none">
                   {canUpdate && (
                     <Menu.Item>
-                      <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                      <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
                         onClick={() => handleUpdate(s)}>
                         <HiOutlinePencil className="mr-2 h-5 w-5" /> Update
                       </button>
@@ -362,12 +362,12 @@ const Stocks = () => {
                 </Menu.Button>
                 <Menu.Items anchor="bottom end" className="bg-white rounded-2xl shadow-lg p-2 w-50 z-50 border border-gray-100 focus:outline-none">
                   <Menu.Item>
-                    <button onClick={() => handleBulkStatus("active")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                    <button onClick={() => handleBulkStatus("active")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
                       <HiOutlineCheckCircle className="mr-2 h-5 w-5" /> Active Stocks
                     </button>
                   </Menu.Item>
                   <Menu.Item>
-                    <button onClick={() => handleBulkStatus("inactive")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                    <button onClick={() => handleBulkStatus("inactive")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
                       <HiOutlineArchive className="mr-2 h-5 w-5" /> Archive Stocks
                     </button>
                   </Menu.Item>
@@ -384,7 +384,7 @@ const Stocks = () => {
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-3 flex-shrink-0">
-        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:shadow-md">
+        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:scale-101">
           <div className="flex items-center justify-between">
             <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
               <HiDownload className="text-xl text-green-600" />
@@ -399,7 +399,7 @@ const Stocks = () => {
             <div className="text-2xl font-bold">{summary.totalStockIn || 0}</div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:shadow-md">
+        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:scale-101">
           <div className="flex items-center justify-between">
             <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
               <HiLogout className="text-xl text-red-500 rotate-270" />
@@ -414,10 +414,10 @@ const Stocks = () => {
             <div className="text-2xl font-bold">{summary.totalStockOut || 0}</div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:shadow-md">
+        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:scale-101">
           <div className="flex items-center justify-between">
-            <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-              <HiCube className="text-xl text-blue-600" />
+            <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center">
+              <HiCube className="text-xl text-[#1e3a5f]" />
             </div>
             <div className={`flex items-center gap-1 text-sm font-medium ${summary.trends?.currentBalance >= 0 ? "text-green-600" : "text-red-600"}`}>
               {summary.trends?.currentBalance >= 0 ? <HiTrendingUp /> : <HiTrendingDown />}
@@ -429,7 +429,7 @@ const Stocks = () => {
             <div className="text-2xl font-bold">{summary.currentBalance || 0}</div>
           </div>
         </div>
-        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:shadow-md">
+        <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:scale-101">
           <div className="flex items-center justify-between">
             <div className="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center">
               <HiOutlineExclamation className="text-xl text-yellow-600" />
@@ -450,15 +450,15 @@ const Stocks = () => {
           <h3 className="flex items-center gap-2 text-base font-semibold text-[#1e3a5f]">
             <HiOutlineFilter /> Filters
           </h3>
-          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-black cursor-pointer hover:text-gray-600 transition">
+          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-gray-900 cursor-pointer hover:text-gray-500 transition">
             <HiOutlineRefresh /> Reset
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
           <div>
             <label className="block text-gray-700 text-sm mb-1">Search</label>
-            <input className="bg-gray-50 border border-gray-100 rounded-lg py-2 px-4 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-500"
-              placeholder="Search..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+            <input className="bg-gray-50 border border-gray-200 rounded-lg py-2 px-4 text-sm w-full focus:outline-none focus:ring-1 focus:ring-[#1e3a5f]"
+              type="text" placeholder="Search..." value={filters.search} onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))} />
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-1">Start Date</label>

@@ -272,12 +272,12 @@ const OrderRequestModal = ({
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-2">
-                  <HiOutlineDocumentText className="inline-block text-xl text-black" />
+                  <HiOutlineDocumentText className="inline-block text-xl text-gray-900" />
                   <span>Basic Information</span>
                 </div>
                 {viewOnly && data?.status && (
                   <span
-                    className={`px-3 py-2 rounded-full text-sm text-white capitalize ${data.status === "pending" ? "bg-yellow-400" : data.status === "approved" ? "bg-green-400" : data.status === "rejected" ? "bg-red-400" : data.status === "completed" ? "bg-blue-400" : data.status === "cancelled" ? "bg-red-400" : data.status === "on_hold" ? "bg-orange-400" : "bg-gray-400"}`}
+                    className={`px-3 py-2 rounded-full text-sm text-white capitalize ${data.status === "pending" ? "bg-yellow-400" : data.status === "approved" ? "bg-green-400" : data.status === "rejected" ? "bg-red-400" : data.status === "completed" ? "bg-gray-400" : data.status === "cancelled" ? "bg-red-400" : data.status === "on_hold" ? "bg-orange-400" : "bg-gray-400"}`}
                   >
                     {data.status}
                   </span>
@@ -326,7 +326,7 @@ const OrderRequestModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="supplier"
-                      className={`${viewOnly ? "cursor-default" : "cursor-pointer"} w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${!order.supplier_id && (touched.supplier_id || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`${viewOnly ? "cursor-default" : "cursor-pointer"} w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!order.supplier_id && (touched.supplier_id || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                     >
                       <span>
                         {suppliers.find(
@@ -348,7 +348,7 @@ const OrderRequestModal = ({
                           key={supplier._id}
                           value={supplier}
                           className={({ selected }) =>
-                            `px-3 py-2 text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""} ${supplier.products_count <= 0 ? "opacity-50 cursor-default bg-gray-50 text-gray-400" : "cursor-pointer"}`
+                            `px-3 py-2 text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""} ${supplier.products_count <= 0 ? "opacity-50 cursor-default bg-gray-50 text-gray-400" : "cursor-pointer"}`
                           }
                           disabled={supplier.products_count <= 0}
                         >
@@ -390,7 +390,7 @@ const OrderRequestModal = ({
           </div>
           <div className="col-span-2 mb-2">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiCube className="inline-block text-xl text-black" />
+              <HiCube className="inline-block text-xl text-gray-900" />
               <span>Products</span>
             </h3>
             {(order.orderItems || []).map((item, idx) => (
@@ -432,7 +432,7 @@ const OrderRequestModal = ({
                           <div className="relative">
                             <Listbox.Button
                               id={`product_${idx}`}
-                              className={`${viewOnly || !order.supplier_id ? "cursor-default" : "cursor-pointer"} bg-gray-50 w-full border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${!item.product_id && validateOnSave ? "border-red-500" : "border-gray-100"}`}
+                              className={`${viewOnly || !order.supplier_id ? "cursor-default" : "cursor-pointer"} bg-gray-50 w-full border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!item.product_id && validateOnSave ? "border-red-500" : "border-gray-100"}`}
                             >
                               <span>{productPlaceholder}</span>
                               {!viewOnly && (
@@ -475,7 +475,7 @@ const OrderRequestModal = ({
                                       key={product._id}
                                       value={product}
                                       className={({ selected }) =>
-                                        `px-3 py-2 text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""} ${isDisabled ? "opacity-50 cursor-default bg-gray-50 text-gray-400" : "cursor-pointer"}`
+                                        `px-3 py-2 text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""} ${isDisabled ? "opacity-50 cursor-default bg-gray-50 text-gray-400" : "cursor-pointer"}`
                                       }
                                       disabled={isDisabled}
                                     >
@@ -587,7 +587,7 @@ const OrderRequestModal = ({
             )}
           </div>
           <div className="w-full bg-gray-50 border rounded-lg px-3 py-4 text-sm text-gray-800 border-gray-100 flex items-center justify-end gap-2">
-            <h3 className="flex items-center justify-end text-lg text-black">
+            <h3 className="flex items-center justify-end text-lg text-gray-900">
               <BsCurrencyDollar className="inline-block" />
               <span>Total:</span>
               <span className="ml-2 font-bold">
@@ -625,7 +625,7 @@ const OrderRequestModal = ({
               data?.rejection_reason) && (
               <div>
                 <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-                  <HiOutlineDocumentText className="inline-block text-xl text-black" />
+                  <HiOutlineDocumentText className="inline-block text-xl text-gray-900" />
                   <span>Workflow History</span>
                 </h3>
                 <div className="flex flex-col gap-3 text-sm">
@@ -648,7 +648,7 @@ const OrderRequestModal = ({
                           {formatDate(data.approved_at, true)}
                         </span>
                         {data.admin_remark && (
-                          <div className="mt-1 text-gray-600 italic">
+                          <div className="mt-1 text-gray-500 italic">
                             "{data.admin_remark}"
                           </div>
                         )}
@@ -656,10 +656,10 @@ const OrderRequestModal = ({
                     </div>
                   )}
                   {data?.confirmed_at && (
-                    <div className="flex items-start gap-3 p-3 rounded-lg bg-blue-50 border border-blue-200">
-                      <HiOutlineCheckCircle className="text-blue-500 text-xl mt-0.5" />
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 border border-gray-200">
+                      <HiOutlineCheckCircle className="text-[#1e3a5f] text-xl mt-0.5" />
                       <div>
-                        <span className="block font-semibold text-blue-500">
+                        <span className="block font-semibold text-[#1e3a5f]">
                           Confirmed
                         </span>
                         <span className="block text-gray-700">

@@ -124,7 +124,7 @@ const Dashboard = () => {
       header: "Status", render: (order) => {
         const statusColor = order.status === "approved" ? "bg-green-400"
           : order.status === "rejected" ? "bg-red-400"
-            : order.status === "completed" ? "bg-blue-400"
+            : order.status === "completed" ? "bg-gray-400"
               : "bg-yellow-400";
         return (
           <span className={`px-3 py-1.5 rounded-full text-sm capitalize text-white ${statusColor}`}>
@@ -196,7 +196,7 @@ const Dashboard = () => {
           </div>
           <button
             onClick={fetchData}
-            className="p-2 bg-white border border-gray-100 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors cursor-pointer"
+            className="p-2 bg-white border border-gray-100 rounded-xl hover:bg-gray-50 text-gray-500 transition-colors cursor-pointer"
             title="Refresh Data"
           >
             <HiOutlineRefresh className="text-xl" />
@@ -290,7 +290,7 @@ const Dashboard = () => {
           {isAllowed && (
             <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-gray-100">
               <h2 className="text-sm font-semibold mb-6 flex items-center gap-2">
-                <HiChartBar className="text-xl text-blue-600" /> Inventory Trend
+                <HiChartBar className="text-xl text-[#1e3a5f]" /> Inventory Trend
                 (
                 {Math.ceil(
                   Math.abs(
@@ -449,12 +449,12 @@ const Dashboard = () => {
           <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-gray-100">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-sm font-semibold flex items-center gap-2">
-                <HiClipboardList className="text-xl text-gray-600" /> Recent
+                <HiClipboardList className="text-xl text-gray-500" /> Recent
                 Orders
               </h2>
               <Link
                 to="/order-requests"
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-[#1e3a5f] hover:underline"
               >
                 View all
               </Link>
@@ -469,12 +469,12 @@ const Dashboard = () => {
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-sm font-semibold flex items-center gap-2">
-                  <HiOutlineClock className="text-xl text-gray-600" /> Recent
+                  <HiOutlineClock className="text-xl text-gray-500" /> Recent
                   Activity
                 </h2>
                 <Link
                   to="/activity-logs"
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-[#1e3a5f] hover:underline"
                 >
                   View all
                 </Link>
@@ -486,8 +486,8 @@ const Dashboard = () => {
                       key={log._id}
                       className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0"
                     >
-                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-                        <span className="font-bold text-blue-600 text-sm">
+                      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center">
+                        <span className="font-bold text-[#1e3a5f] text-sm">
                           {log.user?.first_name?.[0] || "U"}
                         </span>
                       </div>

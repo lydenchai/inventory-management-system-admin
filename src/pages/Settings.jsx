@@ -246,7 +246,7 @@ export default function Settings() {
             onClick={() => handleTabChange("profile")}
             className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${activeTab === "profile"
                 ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
+                : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-gray-900"
               }`}
           >
             <HiUser className="text-xl" />
@@ -256,7 +256,7 @@ export default function Settings() {
             onClick={() => handleTabChange("account")}
             className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${activeTab === "account"
                 ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
+                : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-gray-900"
               }`}
           >
             <HiOutlineCog className="text-xl" />
@@ -266,7 +266,7 @@ export default function Settings() {
             onClick={() => handleTabChange("help")}
             className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${activeTab === "help"
                 ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
+                : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-gray-900"
               }`}
           >
             <HiOutlineQuestionMarkCircle className="text-xl" />
@@ -403,7 +403,7 @@ export default function Settings() {
                         onChange={handleProvinceChange}
                       >
                         <div className="relative">
-                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between cursor-pointer border-gray-100">
+                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between cursor-pointer border-gray-100">
                             <span>{profileData.address.province}</span>
                             <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
                           </Listbox.Button>
@@ -413,7 +413,7 @@ export default function Settings() {
                                 key={province.name}
                                 value={province.name}
                                 className={({ selected }) =>
-                                  `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                  `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                                 }
                               >
                                 {province.name}
@@ -433,7 +433,7 @@ export default function Settings() {
                         disabled={!profileData.address.province}
                       >
                         <div className="relative">
-                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between cursor-pointer border-gray-100">
+                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between cursor-pointer border-gray-100">
                             <span>{profileData.address.district}</span>
                             <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
                           </Listbox.Button>
@@ -447,7 +447,7 @@ export default function Settings() {
                                   key={district.name}
                                   value={district.name}
                                   className={({ selected }) =>
-                                    `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                    `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                                   }
                                 >
                                   {district.name}
@@ -467,7 +467,7 @@ export default function Settings() {
                         disabled={!profileData.address.district}
                       >
                         <div className="relative">
-                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between cursor-pointer border-gray-100">
+                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between cursor-pointer border-gray-100">
                             <span>{profileData.address.commune}</span>
                             <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
                           </Listbox.Button>
@@ -484,7 +484,7 @@ export default function Settings() {
                                   key={commune.name}
                                   value={commune.name}
                                   className={({ selected }) =>
-                                    `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                    `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                                   }
                                 >
                                   {commune.name}
@@ -504,7 +504,7 @@ export default function Settings() {
                         disabled={!profileData.address.commune}
                       >
                         <div className="relative">
-                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between cursor-pointer border-gray-100">
+                          <Listbox.Button className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between cursor-pointer border-gray-100">
                             <span>{profileData.address.village}</span>
                             <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
                           </Listbox.Button>
@@ -524,7 +524,7 @@ export default function Settings() {
                                   key={village}
                                   value={village}
                                   className={({ selected }) =>
-                                    `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                    `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                                   }
                                 >
                                   {village}
@@ -673,8 +673,8 @@ export default function Settings() {
                     Contact Support
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-blue-50 p-4 rounded-xl flex items-start gap-3">
-                      <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
+                    <div className="bg-gray-50 p-4 rounded-xl flex items-start gap-3">
+                      <div className="bg-gray-100 p-2 rounded-lg text-[#1e3a5f]">
                         <HiOutlineMail className="w-6 h-6" />
                       </div>
                       <div>
@@ -684,7 +684,7 @@ export default function Settings() {
                         </p>
                         <a
                           href={`mailto:${import.meta.env.VITE_SMTP_USER}`}
-                          className="text-blue-600 font-medium text-sm hover:underline"
+                          className="text-[#1e3a5f] font-medium text-sm hover:underline"
                         >
                           {import.meta.env.VITE_SMTP_USER}
                         </a>
@@ -717,7 +717,7 @@ export default function Settings() {
                     Frequently Asked Questions
                   </h3>
                   <div className="space-y-3">
-                    <div className="border border-gray-100 rounded-xl p-4 hover:border-blue-100 transition-colors cursor-help">
+                    <div className="border border-gray-100 rounded-xl p-4 hover:border-gray-100 transition-colors cursor-help">
                       <h4 className="font-medium text-gray-900 mb-2">
                         How do I reset my password?
                       </h4>
@@ -727,7 +727,7 @@ export default function Settings() {
                         your administrator.
                       </p>
                     </div>
-                    <div className="border border-gray-100 rounded-xl p-4 hover:border-blue-100 transition-colors cursor-help">
+                    <div className="border border-gray-100 rounded-xl p-4 hover:border-gray-100 transition-colors cursor-help">
                       <h4 className="font-medium text-gray-900 mb-2">
                         How do I update my profile picture?
                       </h4>
@@ -736,7 +736,7 @@ export default function Settings() {
                         icon on your profile picture to upload a new one.
                       </p>
                     </div>
-                    <div className="border border-gray-100 rounded-xl p-4 hover:border-blue-100 transition-colors cursor-help">
+                    <div className="border border-gray-100 rounded-xl p-4 hover:border-gray-100 transition-colors cursor-help">
                       <h4 className="font-medium text-gray-900 mb-2">
                         Can I change my role?
                       </h4>

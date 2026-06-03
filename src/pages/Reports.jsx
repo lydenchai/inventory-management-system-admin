@@ -175,7 +175,7 @@ const Reports = () => {
             </div>
             <button
               onClick={fetchData}
-              className="p-2 bg-white border border-gray-100 rounded-xl hover:bg-gray-50 text-gray-600 transition-colors cursor-pointer"
+              className="p-2 bg-white border border-gray-100 rounded-xl hover:bg-gray-50 text-gray-500 transition-colors cursor-pointer"
               title="Refresh Data"
             >
               <HiOutlineRefresh className="text-xl" />
@@ -205,7 +205,7 @@ const Reports = () => {
                           "Financial Summary.csv",
                         )
                       }
-                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-black hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
                     >
                       <HiOutlineDownload className="text-base" />
                       Financial Summary
@@ -229,7 +229,7 @@ const Reports = () => {
                           "Order Statistics.csv",
                         )
                       }
-                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-black hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
                     >
                       <HiOutlineDownload className="text-base" />
                       Order Statistics
@@ -249,7 +249,7 @@ const Reports = () => {
                           "Inventory Trends.csv",
                         )
                       }
-                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-black hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
                     >
                       <HiOutlineDownload className="text-base" />
                       Inventory Trends
@@ -270,7 +270,7 @@ const Reports = () => {
                           "Low Stock Products.csv",
                         )
                       }
-                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-black hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
+                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] rounded-xl cursor-pointer"
                     >
                       <HiOutlineDownload className="text-base" />
                       Low Stock Products
@@ -356,7 +356,7 @@ const Reports = () => {
                   </div>
                 </div>
                 <div className="bg-white rounded-2xl p-6 flex flex-col gap-3 border border-gray-100 transition-all duration-300 hover:scale-101">
-                  <MdInventory className="text-2xl text-blue-600" />
+                  <MdInventory className="text-2xl text-[#1e3a5f]" />
                   <div>
                     <div className="text-gray-500 text-sm font-medium">
                       Total Inventory Value
@@ -429,7 +429,7 @@ const Reports = () => {
                     </span>
                   </div>
                   <div className="bg-[#1e3a5f] p-4 rounded-xl border border--[#1e3a5f] transition-all duration-300 hover:scale-101">
-                    <span className="text-blue-200 text-sm font-medium">
+                    <span className="text-gray-200 text-sm font-medium">
                       Net Profit
                     </span>
                     <span
@@ -451,7 +451,7 @@ const Reports = () => {
                 <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-100">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                      <HiOutlineChartBar className="text-blue-600" /> Inventory
+                      <HiOutlineChartBar className="text-[#1e3a5f]" /> Inventory
                       Trends (
                       {Math.ceil(
                         Math.abs(

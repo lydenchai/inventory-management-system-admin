@@ -337,7 +337,7 @@ const UserModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="userType"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span className="capitalize">{user.user_type}</span>
                       {!viewOnly && (
@@ -350,7 +350,7 @@ const UserModal = ({
                           key={type}
                           value={type}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm capitalize hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm capitalize hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {type}
@@ -381,7 +381,7 @@ const UserModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="role"
-                      className={`${viewOnly ? "cursor-default" : "cursor-pointer"} w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${!user.role && (touched.role || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`${viewOnly ? "cursor-default" : "cursor-pointer"} w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!user.role && (touched.role || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                     >
                       <span>
                         {roles.find((role) => role.name === user.role)?.name ||
@@ -397,7 +397,7 @@ const UserModal = ({
                           key={role._id || role.id}
                           value={role}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {role.name}
@@ -440,7 +440,7 @@ const UserModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="status"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span className="capitalize">{user.status}</span>
                       {!viewOnly && (
@@ -453,7 +453,7 @@ const UserModal = ({
                           key={status}
                           value={status}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm capitalize hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm capitalize hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {status}
@@ -488,7 +488,7 @@ const UserModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="province"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span>{user.address.province}</span>
                       {!viewOnly && (
@@ -501,7 +501,7 @@ const UserModal = ({
                           key={province.name}
                           value={province.name}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {province.name}
@@ -526,7 +526,7 @@ const UserModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="district"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span>{user.address.district}</span>
                       {!viewOnly && (
@@ -541,7 +541,7 @@ const UserModal = ({
                             key={district.name}
                             value={district.name}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {district.name}
@@ -566,7 +566,7 @@ const UserModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="commune"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span>{user.address.commune}</span>
                       {!viewOnly && (
@@ -584,7 +584,7 @@ const UserModal = ({
                             key={commune.name}
                             value={commune.name}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {commune.name}
@@ -609,7 +609,7 @@ const UserModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="village"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-200 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span>{user.address.village}</span>
                       {!viewOnly && (
@@ -628,7 +628,7 @@ const UserModal = ({
                             key={village}
                             value={village}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {village}
@@ -795,7 +795,7 @@ const UserModal = ({
                 </label>
                 <p
                   id="customerNote"
-                  className="text-sm text-gray-600 bg-gray-50 p-2 rounded border border-gray-200"
+                  className="text-sm text-gray-500 bg-gray-50 p-2 rounded border border-gray-200"
                 >
                   {user.note_from_customer || "-"}
                 </p>
@@ -843,7 +843,7 @@ const UserModal = ({
                           href={`https://www.google.com/maps?q=${user.location_lat},${user.location_lng}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="ml-2 underline text-blue-500 hover:text-blue-600"
+                          className="ml-2 underline text-[#1e3a5f] hover:text-[#1e3a5f]"
                         >
                           View on Google Maps
                         </a>
@@ -903,9 +903,9 @@ const UserModal = ({
                     ) : (
                       <div className="flex flex-col items-center">
                         <HiOutlineUpload className="text-4xl text-gray-400 mb-2" />
-                        <span className="text-gray-600">
+                        <span className="text-gray-500">
                           Drag and drop your image here, or{" "}
-                          <span className="text-blue-600 underline ml-1">
+                          <span className="text-[#1e3a5f] underline ml-1">
                             browse files
                           </span>
                         </span>

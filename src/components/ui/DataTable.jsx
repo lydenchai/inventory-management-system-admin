@@ -15,11 +15,11 @@ export default function DataTable({
     <div className="overflow-auto min-h-0 max-h-full bg-white rounded-xl border border-gray-100 w-full relative">
       {loading && data?.length > 0 && (
         <div className="absolute inset-0 bg-white/50 z-20 flex items-center justify-center">
-          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-8 h-8 border-4 border-[#1e3a5f] border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
       <table className="w-full text-left text-sm text-gray-700 min-w-max">
-        <thead className="bg-white text-gray-600 border-b border-gray-100 uppercase text-xs sticky top-0 z-10">
+        <thead className="bg-white text-gray-500 border-b border-gray-100 uppercase text-xs sticky top-0 z-10">
           <tr>
             {columns.map((col, i) => (
               <th

@@ -270,12 +270,12 @@ const OrderRequestApproval = () => {
               </Menu.Button>
               <Menu.Items anchor="bottom end" className="bg-white rounded-2xl shadow-lg p-2 w-50 z-50 border border-gray-100 focus:outline-none">
                 <Menu.Item>
-                  <button onClick={() => handleBulkActive(true)} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                  <button onClick={() => handleBulkActive(true)} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
                     <HiOutlineCheckCircle className="mr-2 h-5 w-5" /> Active Requests
                   </button>
                 </Menu.Item>
                 <Menu.Item>
-                  <button onClick={() => handleBulkActive(false)} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                  <button onClick={() => handleBulkActive(false)} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
                     <HiOutlineArchive className="mr-2 h-5 w-5" /> Archive Requests
                   </button>
                 </Menu.Item>
@@ -295,14 +295,14 @@ const OrderRequestApproval = () => {
           <h3 className="flex items-center gap-2 text-base font-semibold text-[#1e3a5f]">
             <HiOutlineFilter /> Filters
           </h3>
-          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-black cursor-pointer hover:text-gray-600 transition">
+          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-gray-900 cursor-pointer hover:text-gray-500 transition">
             <HiOutlineRefresh /> Reset
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           <div>
             <label className="block text-gray-700 text-sm mb-1">Search</label>
-            <input className="w-full bg-gray-50 border border-gray-100 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+            <input className="w-full bg-gray-50 border border-gray-100 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#1e3a5f]"
               placeholder="Search..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
           </div>
           <div>

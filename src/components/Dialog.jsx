@@ -95,7 +95,7 @@ const Dialog = ({
             <span className={`${iconColor}`}>{icon}</span>
           </div>
         </div>
-        <h2 className="text-xl mb-2 text-center text-black">
+        <h2 className="text-xl mb-2 text-center text-gray-900">
           {title || defaultTitle}
         </h2>
         <p

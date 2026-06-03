@@ -11,7 +11,7 @@ export function PermissionDropdown({
   return (
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
+        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-gray-900 text-sm flex items-center justify-between">
           <span>
             {permissions.find((p) => p._id === selected)?.name || "All Roles"}
           </span>
@@ -23,7 +23,7 @@ export function PermissionDropdown({
               key={option._id}
               value={option._id}
               className={({ selected }) =>
-                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
               }
             >
               {option.name}
@@ -46,7 +46,7 @@ export function TypesDropdown({ selected, setSelected }) {
   return (
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
+        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-gray-900 text-sm flex items-center justify-between">
           <span className="capitalize">
             {selected ? selected : "All Types"}
           </span>
@@ -56,7 +56,7 @@ export function TypesDropdown({ selected, setSelected }) {
           <Listbox.Option
             value=""
             className={({ selected }) =>
-              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
             }
           >All Types</Listbox.Option>
           {types.map((s) => (
@@ -64,7 +64,7 @@ export function TypesDropdown({ selected, setSelected }) {
               key={s}
               value={s}
               className={({ selected }) =>
-                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
               }
             >
               {s}
@@ -86,7 +86,7 @@ export function UserStatusDropdown({ selected, setSelected }) {
   return (
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
+        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-gray-900 text-sm flex items-center justify-between">
           <span className="capitalize">
             {selected ? selected : "All Status"}
           </span>
@@ -96,7 +96,7 @@ export function UserStatusDropdown({ selected, setSelected }) {
           <Listbox.Option
             value=""
             className={({ selected }) =>
-              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
             }
           >All Status</Listbox.Option>
           {statuses.map((s) => (
@@ -104,7 +104,7 @@ export function UserStatusDropdown({ selected, setSelected }) {
               key={s}
               value={s}
               className={({ selected }) =>
-                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
               }
             >
               {s}

@@ -95,7 +95,7 @@ const ProductModal = ({
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-2">
-                  <HiOutlineDocumentText className="inline-block text-xl text-black" />
+                  <HiOutlineDocumentText className="inline-block text-xl text-gray-900" />
                   <span>Basic Information</span>
                 </div>
                 {viewOnly && (
@@ -181,7 +181,7 @@ const ProductModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="product_category"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!product.category && !data && (touched.category || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!product.category && !data && (touched.category || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                       disabled={viewOnly}
                     >
                       <span>
@@ -203,7 +203,7 @@ const ProductModal = ({
                           key={cat._id}
                           value={cat}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {cat.name}
@@ -240,7 +240,7 @@ const ProductModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="product_supplier"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!product.supplier && !data && (touched.supplier || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!product.supplier && !data && (touched.supplier || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                       disabled={viewOnly}
                     >
                       <span>
@@ -262,7 +262,7 @@ const ProductModal = ({
                           key={sup._id}
                           value={sup}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {sup.company_name}
@@ -360,7 +360,7 @@ const ProductModal = ({
           {(!viewOnly || product.image) && (
             <div className="col-span-2 mb-2">
               <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-                <HiOutlineCamera className="inline-block text-xl text-black" />
+                <HiOutlineCamera className="inline-block text-xl text-gray-900" />
                 <span>Image</span>
               </h3>
               <div className="mb-3">
@@ -411,9 +411,9 @@ const ProductModal = ({
                     ) : (
                       <div className="flex flex-col items-center">
                         <HiOutlineUpload className="text-4xl text-gray-400 mb-2" />
-                        <span className="text-gray-600">
+                        <span className="text-gray-500">
                           Drag and drop your image here, or{" "}
-                          <span className="text-blue-600 underline ml-1">
+                          <span className="text-[#1e3a5f] underline ml-1">
                             browse files
                           </span>
                         </span>

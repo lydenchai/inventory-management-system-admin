@@ -257,13 +257,13 @@ const Users = () => {
                   {canUpdate && (
                     <>
                       <Menu.Item>
-                        <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                        <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
                           onClick={() => { setEditUser(u); setViewUser(null); setModalOpen(true); }}>
                           <HiOutlinePencil className="mr-2 h-5 w-5" /> Update
                         </button>
                       </Menu.Item>
                       <Menu.Item>
-                        <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                        <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
                           onClick={() => handleResetPassword(u._id)}>
                           <HiOutlineKey className="mr-2 h-5 w-5" /> Reset Password
                         </button>
@@ -323,17 +323,17 @@ const Users = () => {
                 </Menu.Button>
                 <Menu.Items className="absolute right-0 bg-white rounded-2xl shadow-lg p-2 w-50 z-50 border border-gray-100">
                   <Menu.Item>
-                    <button onClick={() => handleBulkStatus("active")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                    <button onClick={() => handleBulkStatus("active")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
                       <HiOutlineRefresh className="mr-2 h-5 w-5" /> Activate Users
                     </button>
                   </Menu.Item>
                   <Menu.Item>
-                    <button onClick={() => handleBulkStatus("pending")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                    <button onClick={() => handleBulkStatus("pending")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
                       <HiOutlineFilter className="mr-2 h-5 w-5" /> Mark as Pending
                     </button>
                   </Menu.Item>
                   <Menu.Item>
-                    <button onClick={() => handleBulkStatus("inactive")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                    <button onClick={() => handleBulkStatus("inactive")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
                       <HiOutlineArchive className="mr-2 h-5 w-5" /> Deactivate Users
                     </button>
                   </Menu.Item>
@@ -354,7 +354,7 @@ const Users = () => {
           <h3 className="flex items-center gap-2 text-base font-semibold text-[#1e3a5f]">
             <HiOutlineFilter /> Filters
           </h3>
-          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-black cursor-pointer">
+          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-gray-900 cursor-pointer">
             <HiOutlineRefresh /> Reset
           </button>
         </div>

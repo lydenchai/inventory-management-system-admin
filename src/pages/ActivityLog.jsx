@@ -79,14 +79,14 @@ const ActivityLog = () => {
           <h3 className="flex items-center gap-2 text-base font-semibold text-[#1e3a5f]">
             <HiOutlineFilter /> Filters
           </h3>
-          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-black cursor-pointer hover:text-gray-600 transition">
+          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-gray-900 cursor-pointer hover:text-gray-500 transition">
             <HiOutlineRefresh /> Reset
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           <div>
             <label className="block text-gray-700 text-sm mb-1">Search</label>
-            <input className="w-full bg-gray-50 border border-gray-100 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+            <input className="w-full bg-gray-50 border border-gray-100 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-[#1e3a5f]"
               placeholder="Search description..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
           </div>
           <div>
