@@ -201,14 +201,14 @@ const PermissionModal = ({
         <form className="flex flex-col flex-1 max-h-[50vh] gap-5 px-1">
           <div className="col-span-2 shrink-0">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiOutlineDocumentText className="inline-block text-xl text-black" />
+              <HiOutlineDocumentText className="inline-block text-xl text-gray-900" />
               <span>Basic Information</span>
             </h3>
             <div className="mb-3 grid lg:grid-cols-2 md:grid-cols-1 gap-3">
               <div>
                 <label
                   htmlFor="role_name"
-                  className="block text-gray-600 mb-1 text-sm font-medium"
+                  className="block text-gray-500 mb-1 text-sm font-medium"
                 >
                   Name
                   {!viewOnly && <sup className="text-red-500">*</sup>}
@@ -228,7 +228,7 @@ const PermissionModal = ({
               <div>
                 <label
                   htmlFor="role_description"
-                  className="block text-gray-600 mb-1 text-sm font-medium"
+                  className="block text-gray-500 mb-1 text-sm font-medium"
                 >
                   Description
                 </label>
@@ -249,8 +249,8 @@ const PermissionModal = ({
             </div>
           </div>
           <div className="col-span-2 mb-2 flex flex-col flex-1 min-h-0">
-            <h3 className="flex items-center gap-2 text-base mb-2 text-black shrink-0">
-              <HiOutlineKey className="inline-block text-xl text-black" />
+            <h3 className="flex items-center gap-2 text-base mb-2 text-gray-900 shrink-0">
+              <HiOutlineKey className="inline-block text-xl text-gray-900" />
               <span>Permissions</span>
             </h3>
             <div className="bg-white rounded-xl border border-gray-100 flex-1 flex flex-col min-h-0">

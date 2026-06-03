@@ -50,19 +50,19 @@
 
 .react-datepicker__day--selected:hover,
 .react-datepicker__day--keyboard-selected:hover {
-  background-color: #1e3a5f !important;
+  background-color: #4f46e5 !important;
   color: white !important;
 }
 
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  background-color: #1e3a5f !important;
+  background-color: #4f46e5 !important;
   color: white !important;
 }
 
 .react-datepicker__day--today {
   font-weight: bold;
-  color: #1e3a5f;
+  color: #4f46e5;
   border-radius: 50%;
 }
 

@@ -132,7 +132,7 @@ const SupplierModal = ({
         <form className="space-y-5 overflow-auto max-h-[50vh] px-1">
           <div className="col-span-2 mb-2">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiOutlineOfficeBuilding className="inline-block text-xl text-black" />
+              <HiOutlineOfficeBuilding className="inline-block text-xl text-gray-900" />
               <span>Company Info</span>
             </h3>
             <div className="mb-3 grid lg:grid-cols-2 md:grid-cols-1 gap-3">
@@ -185,7 +185,7 @@ const SupplierModal = ({
           {canUpdate && (
             <div className="col-span-2 mb-2">
               <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-                <HiOutlineUser className="inline-block text-xl text-black" />
+                <HiOutlineUser className="inline-block text-xl text-gray-900" />
                 <span>Primary Contact Details</span>
               </h3>
               <div className="mb-3 grid lg:grid-cols-2 md:grid-cols-1 gap-3">
@@ -306,7 +306,7 @@ const SupplierModal = ({
           )}
           <div className="col-span-2 mb-2">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiOutlineLocationMarker className="inline-block text-xl text-black" />
+              <HiOutlineLocationMarker className="inline-block text-xl text-gray-900" />
               <span>Address</span>
             </h3>
             <div className="mb-3 grid lg:grid-cols-2 md:grid-cols-1 gap-3">
@@ -326,7 +326,7 @@ const SupplierModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="province"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.province && !data && (touched.province || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.province && !data && (touched.province || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                     >
                       <span>{supplier.address.province}</span>
                       {!viewOnly && (
@@ -339,7 +339,7 @@ const SupplierModal = ({
                           key={province.name}
                           value={province.name}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {province.name}
@@ -365,7 +365,7 @@ const SupplierModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="district"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.district && !data && (touched.district || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.district && !data && (touched.district || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                     >
                       <span>{supplier.address.district}</span>
                       {!viewOnly && (
@@ -380,7 +380,7 @@ const SupplierModal = ({
                             key={district.name}
                             value={district.name}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {district.name}
@@ -406,7 +406,7 @@ const SupplierModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="commune"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.commune && !data && (touched.commune || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.commune && !data && (touched.commune || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                     >
                       <span>{supplier.address.commune}</span>
                       {!viewOnly && (
@@ -424,7 +424,7 @@ const SupplierModal = ({
                             key={commune.name}
                             value={commune.name}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {commune.name}
@@ -450,7 +450,7 @@ const SupplierModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="village"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.village && !data && (touched.village || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.address.village && !data && (touched.village || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                     >
                       <span>{supplier.address.village}</span>
                       {!viewOnly && (
@@ -471,7 +471,7 @@ const SupplierModal = ({
                             key={village}
                             value={village}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {village}
@@ -559,7 +559,7 @@ const SupplierModal = ({
                     <div className="relative">
                       <Listbox.Button
                         id="supplierStatus"
-                        className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.status && !data && (touched.status || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                        className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!supplier.status && !data && (touched.status || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                         disabled={viewOnly}
                       >
                         <span>
@@ -581,7 +581,7 @@ const SupplierModal = ({
                             key={st._id}
                             value={st}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {st.name}

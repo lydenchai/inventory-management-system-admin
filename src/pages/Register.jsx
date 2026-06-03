@@ -387,7 +387,7 @@ const Register = () => {
                               key={p.name}
                               value={p.name}
                               className={({ selected }) =>
-                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                               }
                             >
                               {p.name}
@@ -416,7 +416,7 @@ const Register = () => {
                       <div className="relative">
                         <Listbox.Button
                           id="district"
-                          className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between bg-gray-50 ${
+                          className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between bg-gray-50 ${
                             !formData.address.province
                               ? "cursor-default"
                               : "cursor-pointer"
@@ -431,7 +431,7 @@ const Register = () => {
                               key={d.name}
                               value={d.name}
                               className={({ selected }) =>
-                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                               }
                             >
                               {d.name}
@@ -459,7 +459,7 @@ const Register = () => {
                       <div className="relative">
                         <Listbox.Button
                           id="commune"
-                          className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between bg-gray-50 ${
+                          className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between bg-gray-50 ${
                             !formData.address.district
                               ? "cursor-default"
                               : "cursor-pointer"
@@ -474,7 +474,7 @@ const Register = () => {
                               key={c.name}
                               value={c.name}
                               className={({ selected }) =>
-                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                               }
                             >
                               {c.name}
@@ -499,7 +499,7 @@ const Register = () => {
                       <div className="relative">
                         <Listbox.Button
                           id="village"
-                          className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between bg-gray-50 ${
+                          className={`w-full border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between bg-gray-50 ${
                             !formData.address.commune
                               ? "cursor-default"
                               : "cursor-pointer"
@@ -514,7 +514,7 @@ const Register = () => {
                               key={v}
                               value={v}
                               className={({ selected }) =>
-                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                               }
                             >
                               {v}
@@ -600,7 +600,7 @@ const Register = () => {
                       <div className="relative">
                         <Listbox.Button
                           id="expected_order_volume"
-                          className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between"
+                          className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between"
                         >
                           <span className="capitalize">
                             {formData.expected_order_volume}
@@ -613,7 +613,7 @@ const Register = () => {
                               key={vol}
                               value={vol}
                               className={({ selected }) =>
-                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                               }
                             >
                               {vol}
@@ -642,7 +642,7 @@ const Register = () => {
                       <div className="relative">
                         <Listbox.Button
                           id="order_frequency"
-                          className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between"
+                          className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between"
                         >
                           <span className="capitalize">
                             {formData.order_frequency}
@@ -655,7 +655,7 @@ const Register = () => {
                               key={freq}
                               value={freq}
                               className={({ selected }) =>
-                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                               }
                             >
                               {freq}
@@ -688,7 +688,7 @@ const Register = () => {
                       <div className="relative mt-1">
                         <Listbox.Button
                           id="product_categories"
-                          className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between min-h-10.5"
+                          className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between min-h-10.5"
                         >
                           <span className="block truncate">
                             {formData.product_categories.length > 0
@@ -709,7 +709,7 @@ const Register = () => {
                                 value={cat.name}
                                 className={({ active, selected }) =>
                                   `px-3 py-2 cursor-pointer text-[#64748b] text-sm rounded-lg flex items-center justify-between
-                                  ${selected ? "bg-[#1e3a5f] text-white" : active ? "bg-blue-50 text-[#1e3a5f]" : "hover:text-black hover:bg-[#f1f5f9]"}`
+                                  ${selected ? "bg-[#1e3a5f] text-white" : active ? "bg-gray-50 text-[#1e3a5f]" : "hover:text-gray-900 hover:bg-[#f1f5f9]"}`
                                 }
                               >
                                 {({ selected, active }) => (
@@ -769,7 +769,7 @@ const Register = () => {
                         </div>
                       ) : (
                         <>
-                          <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                          <div className="w-12 h-12 bg-gray-100 text-[#1e3a5f] rounded-full flex items-center justify-center mx-auto mb-2">
                             <HiOutlineUpload />
                           </div>
                           <span className="text-xs text-gray-500">
@@ -882,7 +882,7 @@ const Register = () => {
                   />
                   <label
                     htmlFor="agree_terms"
-                    className="text-sm text-gray-600 cursor-pointer"
+                    className="text-sm text-gray-500 cursor-pointer"
                   >
                     I agree to the{" "}
                     <span className="text-[#1e3a5f] font-medium">

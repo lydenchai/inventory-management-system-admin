@@ -122,7 +122,7 @@ const Header = ({ onBellClick }) => {
         <div className="relative" ref={cartRef}>
           <button
             tabIndex={0}
-            className="relative mt-2 focus:outline-none hover:text-blue-700 transition hover:cursor-pointer"
+            className="relative mt-2 focus:outline-none hover:text-gray-900 transition hover:cursor-pointer"
             onClick={() => setCartOpen((v) => !v)}
             title="Cart"
           >
@@ -200,7 +200,7 @@ const Header = ({ onBellClick }) => {
         </div>        <div className="relative" ref={notificationRef}>
           <button
             tabIndex={0}
-            className="relative mt-2 focus:outline-none hover:text-blue-700 transition hover:cursor-pointer"
+            className="relative mt-2 focus:outline-none hover:text-gray-900 transition hover:cursor-pointer"
             onClick={() => setNotificationOpen((v) => !v)}
           >
             <HiOutlineBell className="text-gray-500 hover:text-[#1e3a5f] text-xl" />
@@ -227,7 +227,7 @@ const Header = ({ onBellClick }) => {
                       e.stopPropagation();
                       markAllAsRead();
                     }}
-                    className="flex items-center gap-1 text-xs text-[#64748b] hover:text-black font-medium transition cursor-pointer"
+                    className="flex items-center gap-1 text-xs text-[#64748b] hover:text-gray-900 font-medium transition cursor-pointer"
                     title="Mark all as read"
                   >
                     <HiCheckCircle className="text-base" />
@@ -269,7 +269,7 @@ const Header = ({ onBellClick }) => {
                           e.stopPropagation();
                           setShowAll((v) => !v);
                         }}
-                        className="w-full text-center text-sm text-[#64748b] hover:text-black font-medium py-2 hover:bg-blue-50 rounded-xl transition cursor-pointer"
+                        className="w-full text-center text-sm text-[#64748b] hover:text-gray-900 font-medium py-2 hover:bg-gray-50 rounded-xl transition cursor-pointer"
                       >
                         {showAll
                           ? "Show less"
@@ -329,7 +329,7 @@ const Header = ({ onBellClick }) => {
                   setMenuOpen(false);
                   navigate("/settings?tab=profile");
                 }}
-                className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
+                className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
               >
                 <HiUser className="text-xl" />
                 <span>Profile Settings</span>
@@ -339,7 +339,7 @@ const Header = ({ onBellClick }) => {
                   setMenuOpen(false);
                   navigate("/settings?tab=account");
                 }}
-                className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
+                className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
               >
                 <HiOutlineCog className="text-xl" />
                 <span>Account Settings</span>
@@ -349,7 +349,7 @@ const Header = ({ onBellClick }) => {
                   setMenuOpen(false);
                   navigate("/settings?tab=help");
                 }}
-                className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
+                className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
               >
                 <HiOutlineQuestionMarkCircle className="text-xl" />
                 <span>Help & Support</span>

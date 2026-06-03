@@ -169,7 +169,7 @@ const SaleModal = ({
         <form className="space-y-5 overflow-auto max-h-[60vh] px-1">
           <div className="col-span-2 mb-2">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiOutlineDocumentText className="inline-block text-xl text-black" />
+              <HiOutlineDocumentText className="inline-block text-xl text-gray-900" />
               <span> Customer Information</span>
             </h3>
             <div className="mb-3 grid grid-cols-1 gap-3">
@@ -191,7 +191,7 @@ const SaleModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="customer"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-100 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-100 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span className={sale.customer ? "" : "text-gray-400"}>
                         {sale.customer
@@ -213,7 +213,7 @@ const SaleModal = ({
                       <Listbox.Option
                         value=""
                         className={({ selected }) =>
-                          `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                          `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                         }
                       >
                         Walk-in Customer (Guest)
@@ -223,7 +223,7 @@ const SaleModal = ({
                           key={u._id}
                           value={u._id}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {u.first_name} {u.last_name} ({u.email})
@@ -237,7 +237,7 @@ const SaleModal = ({
           </div>
           <div className="col-span-1 mb-2">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiCube className="inline-block text-xl text-black" />
+              <HiCube className="inline-block text-xl text-gray-900" />
               <span>Products</span>
             </h3>
             {sale.items.map((item, idx) => {
@@ -263,7 +263,7 @@ const SaleModal = ({
                         <div className="relative">
                           <Listbox.Button
                             id={`product-${idx}`}
-                            className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-100 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                            className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-100 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                           >
                             <span
                               className={item.product ? "" : "text-gray-400"}
@@ -297,7 +297,7 @@ const SaleModal = ({
                                   key={p._id}
                                   value={p._id}
                                   className={({ selected }) =>
-                                    `px-3 py-2 text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""} ${isDisabled ? "opacity-50 cursor-default bg-gray-50 text-gray-400" : "cursor-pointer "}`
+                                    `px-3 py-2 text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""} ${isDisabled ? "opacity-50 cursor-default bg-gray-50 text-gray-400" : "cursor-pointer "}`
                                   }
                                   disabled={isDisabled}
                                 >
@@ -432,7 +432,7 @@ const SaleModal = ({
           </div>
           <div className="col-span-1 mb-2">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiOutlineDocumentText className="inline-block text-xl text-black" />
+              <HiOutlineDocumentText className="inline-block text-xl text-gray-900" />
               <span>Payment Details</span>
             </h3>
             <div className="mb-3 grid lg:grid-cols-2 md:grid-cols-1 gap-3">
@@ -455,7 +455,7 @@ const SaleModal = ({
                   <div className="relative">
                     <Listbox.Button
                       id="payment-method"
-                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-black flex items-center justify-between border-gray-100 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
+                      className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between border-gray-100 ${viewOnly ? "cursor-default" : "cursor-pointer"}`}
                     >
                       <span>{sale.payment_method}</span>
                       {!viewOnly && (
@@ -468,7 +468,7 @@ const SaleModal = ({
                           key={method}
                           value={method}
                           className={({ selected }) =>
-                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                            `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                           }
                         >
                           {method}

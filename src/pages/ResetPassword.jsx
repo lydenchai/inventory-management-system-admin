@@ -58,7 +58,7 @@ const ResetPassword = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <h2 className="text-xl font-semibold text-red-600">Invalid Link</h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-500 mt-2">
             This password reset link is invalid or missing a token.
           </p>
           <button
@@ -97,7 +97,7 @@ const ResetPassword = () => {
           </span>
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-gray-600 mb-1 text-sm font-medium">
+              <label className="block text-gray-500 mb-1 text-sm font-medium">
                 New Password <sup className="text-red-500">*</sup>
               </label>
               <div className="relative">
@@ -123,7 +123,7 @@ const ResetPassword = () => {
               </div>
             </div>
             <div>
-              <label className="block text-gray-600 mb-1 text-sm font-medium">
+              <label className="block text-gray-500 mb-1 text-sm font-medium">
                 Confirm Password <sup className="text-red-500">*</sup>
               </label>
               <div className="relative">

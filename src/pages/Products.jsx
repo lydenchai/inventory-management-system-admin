@@ -157,8 +157,8 @@ export default function Products() {
     { header: "No.", render: (_, i) => i + 1 + (pagination.page - 1) * pagination.limit },
     { header: "Product Code", render: (p) => `#${p.code || "-"}` },
     { header: "Product Name", accessor: "name" },
-    { header: "Category", render: (p) => <span className="text-blue-500/80">{p.category?.name || "-"}</span> },
-    { header: "Supplier", render: (p) => <span className="text-blue-500/80">{p.supplier?.company_name || "-"}</span> },
+    { header: "Category", render: (p) => <span className="text-[#1e3a5f]/80">{p.category?.name || "-"}</span> },
+    { header: "Supplier", render: (p) => <span className="text-[#1e3a5f]/80">{p.supplier?.company_name || "-"}</span> },
     {
       header: "Stock", className: "text-right", render: (p) => (
         <span className={p.stock === 0 ? "text-red-600" : p.stock < 10 ? "text-orange-600" : "text-green-600"}>
@@ -195,7 +195,7 @@ export default function Products() {
                 <Menu.Items anchor="bottom end" className="bg-white rounded-2xl shadow-lg p-2 w-40 z-50 border border-gray-100 focus:outline-none">
                   {canUpdate && (
                     <Menu.Item>
-                      <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                      <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-gray-900 hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
                         onClick={() => setModalState({ open: true, data: p, viewOnly: false })}>
                         <HiOutlinePencil className="mr-2 h-5 w-5" /> Update
                       </button>
@@ -250,7 +250,7 @@ export default function Products() {
           <h3 className="flex items-center gap-2 text-base font-semibold text-[#1e3a5f]">
             <HiOutlineFilter /> Filters
           </h3>
-          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-black cursor-pointer">
+          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-gray-900 cursor-pointer">
             <HiOutlineRefresh /> Reset
           </button>
         </div>
@@ -317,7 +317,7 @@ export default function Products() {
                     <div className="text-sm text-gray-500 mb-3">#{product.code}</div>
                     <div className="mt-auto flex items-center justify-between">
                       <span className="font-bold text-xl text-[#1e3a5f]">${Number(product.price).toFixed(2)}</span>
-                      <span className="text-sm font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded-lg">{product.stock} units</span>
+                      <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-lg">{product.stock} units</span>
                     </div>
                   </div>
                 </div>

@@ -94,7 +94,7 @@ const ExpenseModal = ({
         <form className="space-y-5 overflow-auto max-h-[50vh] px-1">
           <div className="col-span-2 mb-2">
             <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-              <HiOutlineDocumentText className="inline-block text-xl text-black" />
+              <HiOutlineDocumentText className="inline-block text-xl text-gray-900" />
               <span>Expense Details</span>
             </h3>
             <div className="mb-3 grid grid-cols-1 gap-3">
@@ -177,7 +177,7 @@ const ExpenseModal = ({
                     <div className="relative">
                       <Listbox.Button
                         id="category"
-                        className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!expense.category && !data && (touched.category || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                        className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-gray-900 text-sm flex items-center justify-between ${viewOnly ? "cursor-default" : "cursor-pointer"} ${!expense.category && !data && (touched.category || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                         disabled={viewOnly}
                       >
                         <span>{expense.category || "Select category"}</span>
@@ -196,7 +196,7 @@ const ExpenseModal = ({
                             key={cat._id}
                             value={cat}
                             className={({ selected }) =>
-                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                              `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
                             }
                           >
                             {({ selected }) => (
@@ -240,7 +240,7 @@ const ExpenseModal = ({
           {(!viewOnly || expense.receipt_image) && (
             <div className="col-span-2 mb-2">
               <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold border-b border-gray-100 pb-2">
-                <HiOutlineCamera className="inline-block text-xl text-black" />
+                <HiOutlineCamera className="inline-block text-xl text-gray-900" />
                 <span>Receipt</span>
               </h3>
               <div className="mb-3">
@@ -259,7 +259,7 @@ const ExpenseModal = ({
                     style={viewOnly ? { pointerEvents: "none" } : {}}
                   >
                     <HiOutlineUpload className="text-4xl text-gray-400 mb-2" />
-                    <span className="text-gray-600">Upload Receipt</span>
+                    <span className="text-gray-500">Upload Receipt</span>
                   </label>
                   {(selectedImage || expense.receipt_image) && (
                     <div className="mt-2 flex items-center">

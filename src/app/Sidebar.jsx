@@ -29,7 +29,7 @@ const navLinks = (permissions = [], activePath = "") =>
       label: "Dashboard",
       icon: (
         <HiViewGrid
-          className={activePath === "/" ? "text-white" : "text-blue-700"}
+          className={activePath === "/" ? "text-white" : "text-[#16375b]"}
         />
       ),
     },
@@ -138,7 +138,7 @@ const navLinks = (permissions = [], activePath = "") =>
       icon: (
         <HiOutlineDocumentText
           className={
-            activePath === "/order-history" ? "text-white" : "text-blue-500"
+            activePath === "/order-history" ? "text-white" : "text-[#1e3a5f]"
           }
         />
       ),
@@ -160,7 +160,7 @@ const navLinks = (permissions = [], activePath = "") =>
       icon: (
         <HiChartBar
           className={
-            activePath === "/reports" ? "text-white" : "text-indigo-600"
+            activePath === "/reports" ? "text-white" : "text-[#1e3a5f]"
           }
         />
       ),
@@ -187,7 +187,7 @@ const navLinks = (permissions = [], activePath = "") =>
           icon: (
             <HiUserGroup
               className={
-                activePath === "/users" ? "text-white" : "text-blue-700"
+                activePath === "/users" ? "text-white" : "text-[#16375b]"
               }
             />
           ),
@@ -226,7 +226,7 @@ const Sidebar = ({ mini }) => {
               return (
                 <li key={parentKey}>
                   <div
-                    className={`group flex items-center justify-between cursor-pointer px-3 py-2 rounded-xl transition text-sm space-x-3 mb-2 text-[#64748b] hover:bg-[#f1f5f9] hover:text-black`}
+                    className={`group flex items-center justify-between cursor-pointer px-3 py-2 rounded-xl transition text-sm space-x-3 mb-2 text-[#64748b] hover:bg-[#f1f5f9] hover:text-gray-900`}
                     onClick={() => setExpanded(isExpanded ? null : parentKey)}
                   >
                     <div className="flex items-center space-x-3">
@@ -258,7 +258,7 @@ const Sidebar = ({ mini }) => {
                               className={`group flex items-center px-3 py-2 rounded-xl transition text-sm space-x-3
                             ${location.pathname === submenu.to
                                   ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                                  : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
+                                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                                 }`}
                             >
                               <span className="text-xl">{submenu.icon}</span>
@@ -284,7 +284,7 @@ const Sidebar = ({ mini }) => {
                     ${location.pathname === link.to ||
                         location.pathname.includes(link.to + "/")
                         ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                        : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
+                        : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                       }
                   `}
                   >
