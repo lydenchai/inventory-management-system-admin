@@ -154,13 +154,13 @@ const OrderHistory = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto min-h-0">
+      <div className="overflow-auto min-h-0 flex flex-col">
         <DataTable columns={columns} data={filteredOrders} loading={loading} error={error} />
       </div>
 
       {filteredOrders.length > 0 && (
         <div className="flex justify-end mt-3 flex-shrink-0">
-          <Pagination total={pagination.totalItems} page={pagination.page} limit={pagination.limit} onChange={({ page }) => updatePage(page)} />
+          <Pagination total={pagination.totalItems} page={pagination.page} limit={pagination.limit} onChange={updatePage} />
         </div>
       )}
     </div>

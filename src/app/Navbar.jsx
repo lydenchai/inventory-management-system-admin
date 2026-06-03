@@ -113,7 +113,7 @@ const Header = ({ onBellClick }) => {
   };
 
   return (
-    <header className="glass-panel flex items-center justify-between px-4 py-3 z-30 relative border-b-0 shadow-sm">
+    <header className="bg-white flex items-center justify-between px-4 py-3 z-30 relative">
       <HiOutlineMenuAlt2
         onClick={onBellClick}
         className="text-gray-500 hover:text-[#1e3a5f] text-xl cursor-pointer transition"

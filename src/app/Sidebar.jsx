@@ -205,7 +205,7 @@ const Sidebar = ({ mini }) => {
 
   return (
     <aside
-      className={`glassmorphism h-screen flex flex-col transition-all duration-300 z-30 ${mini ? "w-18" : "w-64"}`}
+      className={`bg-white h-screen flex flex-col transition-all duration-300 z-30 ${mini ? "w-18" : "w-64"}`}
     >
       <div
         className={`text-lg font-bold m-3 tracking-tight flex items-center justify-center gap-3 ${mini ? "flex-col" : ""}`}
