@@ -379,13 +379,13 @@ const Users = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto min-h-0">
+      <div className="overflow-auto min-h-0 flex flex-col">
         <DataTable columns={columns} data={users} loading={loading} error={error} />
       </div>
 
       {users.length > 0 && (
         <div className="flex justify-end mt-3 flex-shrink-0">
-          <Pagination total={pagination.totalItems} page={pagination.page} limit={pagination.limit} onChange={({ page, limit }) => updatePage(page)} />
+          <Pagination total={pagination.totalItems} page={pagination.page} limit={pagination.limit} onChange={updatePage} />
         </div>
       )}
     </div>

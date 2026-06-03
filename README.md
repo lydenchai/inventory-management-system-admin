@@ -24,46 +24,43 @@ React (Vite) frontend for Inventory Management System.
 ## Project Structure
 
 - `src/`
-  - `components/` - Reusable UI components
-  - `pages/` - Main app pages (Dashboard, Products, Order Requests, etc.)
-  - `app/` - App shell, layout, navigation
-  - `context/` - React context for authentication and global state
-  - `api/` - API utility functions
+  - `components/` - Reusable UI components (`DataTable`, `PageHeader`, `Dialog`, etc.)
+  - `pages/` - Main app pages (Dashboard, Products, Order Requests, Activity Logs, etc.)
+  - `app/` - App shell, layout, Sidebar, Navbar
+  - `contexts/` - React context for authentication, dialogs, badges
+  - `hooks/` - Custom hooks (e.g., `useDataFetch`, `useDebounce`)
+  - `api/` - Axios API utility functions
 
 ## Features
-- User authentication (JWT)
-- Role-based access (admin, staff, supplier)
-- Product, category, supplier, and order request management
-- Inventory and report dashboard
-- Responsive, modern UI
+- **User Authentication (JWT):** Secure login, token refresh, and profile management.
+- **Role-Based Access (RBAC):** UI elements dynamically render based on user permissions (admin, staff, supplier).
+- **Core Management:** Complete CRUD for Products, Categories, Suppliers, Users, and Permissions.
+- **Inventory & Orders:** Track stocks in/out, manage order requests, approvals, and deliveries.
+- **Standardized UI System:** Uses a common `DataTable` and `PageHeader` for consistent layout, loading skeletons, and empty states.
+- **Centralized Data Fetching:** `useDataFetch` custom hook handles pagination, debounced searching, and filtering cleanly.
+- **Analytics Dashboard:** Visualizing financial summaries, inventory trends, and order stats using Recharts.
+- **Activity Logging:** Tracks system events and user actions.
+- **Modern Tech Stack:** Vite, React, TailwindCSS, Headless UI, and React Icons.
 
-## User Login Example
+## Architecture Patterns
 
-To log in from the frontend, use the login form or call the API directly:
+### Data Fetching & Tables
+The application uses a standardized approach for fetching data and displaying tables:
+```javascript
+const { data, loading, filters, pagination, updateFilters, updatePage } = useDataFetch(getProducts, { search: "" });
 
-```
-POST /api/auth/login
-Content-Type: application/json
+// Search with debounce
+const debouncedSearch = useDebounce(searchTerm, 500);
 
-{
-  "email": "admin@example.com",
-  "password": "admin123"
-}
-```
-
-On success, the JWT access token is stored (usually in localStorage or context) and used for authenticated requests:
-
-```
-Authorization: Bearer <access_token>
+<DataTable columns={columns} data={data} loading={loading} />
 ```
 
-## Role-Based Access
-- The frontend checks the user's permissions array (from the JWT or profile API) to show/hide UI elements and restrict routes.
-- Example:
-  ```js
-  // Check if user can view products
-  const canViewProducts = user.permissions.includes('view_product');
-  ```
+### Role-Based Access
+The frontend checks the user's permissions array (from the JWT or profile API) to show/hide UI elements and restrict routes:
+```javascript
+const canViewProducts = user?.permission?.permissions?.includes('view_product');
+const canCreate = user?.permission?.permissions?.includes('create_product');
+```
 
 ## Backend
 See [inventory-management-system-api](https://github.com/lydenchai/inventory-management-system-api) for backend setup and API details.

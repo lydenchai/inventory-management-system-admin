@@ -70,8 +70,12 @@ export default function useDataFetch(fetchFn, initialFilters = {}) {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
-  const updatePage = (newPage) => {
-    setPagination((prev) => ({ ...prev, page: newPage }));
+  const updatePage = (params) => {
+    if (typeof params === "object" && params !== null) {
+      setPagination((prev) => ({ ...prev, ...params }));
+    } else {
+      setPagination((prev) => ({ ...prev, page: params }));
+    }
   };
 
   const resetFilters = (overrideFilters) => {

@@ -11,36 +11,13 @@ export default function DataTable({
   onRowClick,
   rowClassName,
 }) {
-  if (loading) {
-    return (
-      <div className="animate-pulse space-y-4 w-full">
-        <div className="h-10 bg-gray-100 rounded-lg w-full mb-2"></div>
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-12 bg-gray-50 rounded-lg w-full"></div>
-        ))}
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center p-8 text-red-500">
-        <MdOutlineSmsFailed className="text-6xl mb-4" />
-        <div className="text-center">{error}</div>
-      </div>
-    );
-  }
-
-  if (!data || data.length === 0) {
-    return (
-      <div className="p-8 text-center text-gray-500 bg-white rounded-xl border border-gray-100">
-        No data found
-      </div>
-    );
-  }
-
   return (
-    <div className="overflow-x-auto bg-white rounded-xl border border-gray-100 w-full">
+    <div className="overflow-auto min-h-0 max-h-full bg-white rounded-xl border border-gray-100 w-full relative">
+      {loading && data?.length > 0 && (
+        <div className="absolute inset-0 bg-white/50 z-20 flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       <table className="w-full text-left text-sm text-gray-700 min-w-max">
         <thead className="bg-white text-gray-600 border-b border-gray-100 uppercase text-xs sticky top-0 z-10">
           <tr>
@@ -55,19 +32,46 @@ export default function DataTable({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {data.map((row, i) => (
-            <tr
-              key={keyExtractor ? keyExtractor(row) : i}
-              className={`hover:bg-gray-50 transition-colors ${onRowClick ? "cursor-pointer" : ""} ${rowClassName ? rowClassName(row) : ""}`}
-              onClick={() => onRowClick && onRowClick(row)}
-            >
-              {columns.map((col, j) => (
-                <td key={j} className={`px-4 py-3 ${col.className || ""}`}>
-                  {col.render ? col.render(row) : row[col.accessor]}
-                </td>
-              ))}
+          {loading && (!data || data.length === 0) ? (
+            [...Array(5)].map((_, i) => (
+              <tr key={i}>
+                {columns.map((_, j) => (
+                  <td key={j} className="px-4 py-3">
+                    <div className="h-6 bg-gray-100 rounded w-full animate-pulse"></div>
+                  </td>
+                ))}
+              </tr>
+            ))
+          ) : error ? (
+            <tr>
+              <td colSpan={columns.length} className="p-8">
+                <div className="flex flex-col items-center justify-center text-red-500">
+                  <MdOutlineSmsFailed className="text-6xl mb-4" />
+                  <div className="text-center">{error}</div>
+                </div>
+              </td>
             </tr>
-          ))}
+          ) : !data || data.length === 0 ? (
+            <tr>
+              <td colSpan={columns.length} className="p-8 text-center text-gray-500">
+                No data found
+              </td>
+            </tr>
+          ) : (
+            data.map((row, i) => (
+              <tr
+                key={keyExtractor ? keyExtractor(row) : i}
+                className={`hover:bg-gray-50 transition-colors ${onRowClick ? "cursor-pointer" : ""} ${rowClassName ? rowClassName(row) : ""}`}
+                onClick={() => onRowClick && onRowClick(row)}
+              >
+                {columns.map((col, j) => (
+                  <td key={j} className={`px-4 py-3 ${col.className || ""}`}>
+                    {col.render ? col.render(row, i) : row[col.accessor]}
+                  </td>
+                ))}
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
