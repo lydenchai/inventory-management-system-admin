@@ -1,16 +1,34 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary-50: #f0fdfa;
+  --color-primary-100: #ccfbf1;
+  --color-primary-500: #14b8a6;
+  --color-primary-600: #0d9488;
+  --color-primary-900: #134e4a;
+  --color-dark-800: #1e293b;
+  --color-dark-900: #0f172a;
+}
+
+:root {
+  --theme-bg: #f8fafc;
+  --theme-text: #334155;
+  --theme-primary: #1e3a5f;
+  --theme-primary-hover: #16375b;
+}
+
 body {
   font-family: "Outfit", sans-serif;
-  background-color: #f8fafc;
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  -webkit-font-smoothing: antialiased;
 }
 
 @layer base {
-
   input:focus,
   textarea:focus,
   select:focus {
-    @apply border-[#1e3a5f] ring-1 ring-[#1e3a5f] outline-none;
+    @apply border-[#1e3a5f] ring-1 ring-[#1e3a5f] outline-none transition-all duration-300;
   }
 }
 
@@ -18,9 +36,36 @@ body {
   .animate-spin-slow {
     animation: spin 2s linear infinite !important;
   }
+  
+  .glassmorphism {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+  
+  .glass-panel {
+    @apply bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-[1.02];
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
 }
 
-/* Custom Scrollbar for Webkit browsers */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -62,8 +107,10 @@ body {
 .table-sticky-header th {
   position: sticky;
   top: 0;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
   z-index: 1;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 table {
@@ -77,46 +124,46 @@ table {
 tbody>tr,
 tbody>th,
 tbody>td {
-  height: 40px !important;
-  max-height: 40px !important;
-  min-height: 40px !important;
+  height: 48px !important;
+  max-height: 48px !important;
+  min-height: 48px !important;
   vertical-align: middle !important;
 }
 
 thead th {
-  height: 40px !important;
-  color: #3a3a3c;
-  font-size: 14px;
+  height: 48px !important;
+  color: #475569;
+  font-size: 13px;
   font-weight: 600;
-  padding: 0 10px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 16px !important;
   vertical-align: middle;
 }
 
 tbody td {
   max-width: 200px !important;
-  height: 40px !important;
+  height: 48px !important;
   font-size: 14px;
-  color: #495363;
-  padding: 0 10px !important;
+  color: #334155;
+  padding: 0 16px !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis !important;
 }
 
 tbody tr {
-  transition:
-    background 0.15s ease,
-    transform 0.15s ease;
+  transition: background-color 0.15s ease;
 }
 
 tbody tr:hover {
-  transform: scale(1.002);
+  background-color: #f1f5f9 !important;
 }
 
 th.number,
 td.number {
-  width: 100px !important;
-  min-width: 100px !important;
+  width: 80px !important;
+  min-width: 80px !important;
 }
 
 th.action,

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import {
-  HiSelector,
   HiOutlineFilter,
   HiOutlineRefresh,
   HiOutlinePlus,
@@ -12,7 +10,6 @@ import {
   HiDotsVertical,
   HiOutlineArchive,
 } from "react-icons/hi";
-import { MdOutlineSmsFailed } from "react-icons/md";
 import {
   getUsers,
   createUser,
@@ -24,160 +21,50 @@ import {
 import UserModal from "../components/UserModal";
 import { useAuth } from "../contexts/auth/useAuth";
 import Pagination from "../components/Pagination";
-import NoDataFound from "../components/NoDataFound";
-import Loading from "../components/Loading";
-import { Listbox, Menu } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 import { useDialog } from "../contexts/dialog/useDialog";
 
-function PermissionDropdown({
-  selected,
-  setSelected,
-  permissionOptions: permissions,
-}) {
-  return (
-    <Listbox value={selected} onChange={setSelected}>
-      <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
-          <span>
-            {permissions.find((p) => p._id === selected)?.name || "All Roles"}
-          </span>
-          <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
-        </Listbox.Button>
-        <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none">
-          {permissions.map((option) => (
-            <Listbox.Option
-              key={option._id}
-              value={option._id}
-              className={({ selected }) =>
-                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
-              }
-            >
-              {option.name}
-            </Listbox.Option>
-          ))}
-        </Listbox.Options>
-      </div>
-    </Listbox>
-  );
-}
-
-PermissionDropdown.propTypes = {
-  selected: PropTypes.string.isRequired,
-  setSelected: PropTypes.func.isRequired,
-  permissionOptions: PropTypes.array.isRequired,
-};
-
-function TypesDropdown({ selected, setSelected }) {
-  const types = ["internal", "external"];
-  return (
-    <Listbox value={selected} onChange={setSelected}>
-      <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
-          <span className="capitalize">
-            {selected ? selected : "All Types"}
-          </span>
-          <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
-        </Listbox.Button>
-        <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none">
-          {types.map((s) => (
-            <Listbox.Option
-              key={s}
-              value={s}
-              className={({ selected }) =>
-                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
-              }
-            >
-              {s}
-            </Listbox.Option>
-          ))}
-        </Listbox.Options>
-      </div>
-    </Listbox>
-  );
-}
-
-TypesDropdown.propTypes = {
-  selected: PropTypes.string.isRequired,
-  setSelected: PropTypes.func.isRequired,
-};
-
-function StatusDropdown({ selected, setSelected }) {
-  const statuses = ["active", "inactive", "pending"];
-  return (
-    <Listbox value={selected} onChange={setSelected}>
-      <div className="relative">
-        <Listbox.Button className="cursor-pointer w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-left text-black text-sm flex items-center justify-between">
-          <span className="capitalize">
-            {selected ? selected : "All Status"}
-          </span>
-          <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
-        </Listbox.Button>
-        <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none">
-          {statuses.map((s) => (
-            <Listbox.Option
-              key={s}
-              value={s}
-              className={({ selected }) =>
-                `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-black hover:bg-[#f1f5f9] rounded-lg capitalize ${selected ? "bg-[#1e3a5f] text-white" : ""}`
-              }
-            >
-              {s}
-            </Listbox.Option>
-          ))}
-        </Listbox.Options>
-      </div>
-    </Listbox>
-  );
-}
-
-StatusDropdown.propTypes = {
-  selected: PropTypes.string.isRequired,
-  setSelected: PropTypes.func.isRequired,
-};
+import PageHeader from "../components/ui/PageHeader";
+import Button from "../components/ui/Button";
+import DataTable from "../components/ui/DataTable";
+import useDataFetch from "../hooks/useDataFetch";
+import useDebounce from "../hooks/useDebounce";
+import { PermissionDropdown, TypesDropdown, UserStatusDropdown } from "../components/filters/UserFilterDropdowns";
 
 const getPermission = (user, permission) => {
   return user?.permission?.permissions?.includes(permission);
 };
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
-
-  // View User
-  const [viewUser, setViewUser] = useState(null);
-
-  // Pagination
-  const [pagination, setPagination] = useState({
-    page: 1,
-    limit: 10,
-    totalItems: 0,
-    totalPages: 1,
-  });
-
-  // Modal
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editUser, setEditUser] = useState(null);
-
-  // Loading and Error
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  // Dialog
   const dialog = useDialog();
   const { user } = useAuth();
 
-  // Permissions
   const [permissions, setPermissions] = useState([]);
 
-  // Filters
-  const [search, setSearch] = useState("");
-  const [permission, setPermission] = useState("");
-  const [status, setStatus] = useState("");
-  const [user_type, setUserType] = useState("");
+  // Modal states
+  const [modalOpen, setModalOpen] = useState(false);
+  const [viewUser, setViewUser] = useState(null);
+  const [editUser, setEditUser] = useState(null);
 
-  // Select All
   const [selectedIds, setSelectedIds] = useState([]);
 
-  // Permissions
+  // Local filter states
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 500);
+
+  const {
+    data: users,
+    loading,
+    error,
+    filters,
+    pagination,
+    updateFilters,
+    updatePage,
+    resetFilters,
+    fetchData,
+    setLoading
+  } = useDataFetch(getUsers, { search: "", permission_id: "", user_type: "", status: "" });
+
   const canView = getPermission(user, "view_user");
   const canCreate = getPermission(user, "create_user");
   const canUpdate = getPermission(user, "update_user");
@@ -196,66 +83,25 @@ const Users = () => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      const delayDebounceFn = setTimeout(() => {
-        fetchUsers(1, pagination.limit, search, permission, user_type, status);
-        setPagination((prev) => ({ ...prev, page: 1 }));
-      }, 500);
-      return () => clearTimeout(delayDebounceFn);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, search, permission, user_type, status]);
+    updateFilters({ search: debouncedSearch });
+  }, [debouncedSearch]);
 
-  async function handleSelectAll(e) {
-    if (e.target.checked) {
-      setLoading(true);
-      try {
-        const params = {
-          limit: -1,
-          search,
-        };
-        if (permission) params.permission_id = permission;
-        if (user_type) params.user_type = user_type;
-        if (status) params.status = status;
+  useEffect(() => {
+    if (user) fetchData();
+  }, [user, filters, pagination.page, pagination.limit]);
 
-        const res = await getUsers(params);
-        const allIds = res.data.data.map((u) => u._id);
-        setSelectedIds(allIds);
-      } catch (err) {
-        console.error(err);
-        setSelectedIds([]);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      setSelectedIds([]);
-    }
-  }
-
-  function handleSelectOne(e, id) {
-    if (e.target.checked) {
-      setSelectedIds((prev) => [...prev, id]);
-    } else {
-      setSelectedIds((prev) => prev.filter((i) => i !== id));
-    }
-  }
+  const handleReset = () => {
+    setSearchTerm("");
+    resetFilters();
+  };
 
   async function handleBulkStatus(newStatus) {
     if (selectedIds.length === 0) return;
     setLoading(true);
     try {
-      await Promise.all(
-        selectedIds.map((id) => updateUser(id, { status: newStatus })),
-      );
+      await Promise.all(selectedIds.map((id) => updateUser(id, { status: newStatus })));
       await dialog.success(`Users marked as ${newStatus} successfully.`);
-      fetchUsers(
-        pagination.page,
-        pagination.limit,
-        search,
-        permission,
-        user_type,
-        status,
-      );
+      fetchData();
       setSelectedIds([]);
     } catch {
       await dialog.error("Failed to update users.");
@@ -279,14 +125,7 @@ const Users = () => {
     try {
       await Promise.all(selectedIds.map((id) => deleteUser(id)));
       await dialog.success("Users deleted successfully.");
-      fetchUsers(
-        pagination.page,
-        pagination.limit,
-        search,
-        permission,
-        user_type,
-        status,
-      );
+      fetchData();
       setSelectedIds([]);
     } catch {
       await dialog.error("Failed to delete users.");
@@ -295,59 +134,15 @@ const Users = () => {
     }
   }
 
-  // Fetch users from API
-  async function fetchUsers(
-    page = 1,
-    limit = 10,
-    search,
-    permission_id,
-    user_type,
-    status,
-  ) {
+  async function handleSave(userData) {
     setLoading(true);
-    setError("");
     try {
-      const params = { page, limit, search };
-      if (permission_id) params.permission_id = permission_id;
-      if (user_type) params.user_type = user_type;
-      if (status) params.status = status;
-      const res = await getUsers(params);
-      setUsers(res.data.data);
-      setPagination((prev) => ({
-        ...prev,
-        ...res.data.pagination,
-        page,
-        limit,
-      }));
-    } catch {
-      setError("Failed to load users");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function handleView(user) {
-    setEditUser(null);
-    setViewUser(user);
-    setModalOpen(true);
-  }
-
-  // Save user (create or update)
-  async function handleSave(user) {
-    setLoading(true);
-    setError("");
-    try {
-      // Always send permission_id if present (for role/permission patching)
-      const userPayload = { ...user };
-      if (
-        user.permission_id === undefined &&
-        user.role &&
-        Array.isArray(permissions)
-      ) {
-        // Try to find permission_id by role name if not set
-        const found = permissions.find((p) => p.name === user.role);
+      const userPayload = { ...userData };
+      if (userPayload.permission_id === undefined && userPayload.role && Array.isArray(permissions)) {
+        const found = permissions.find((p) => p.name === userPayload.role);
         if (found) userPayload.permission_id = found._id;
       }
+
       if (editUser && editUser._id) {
         await updateUser(editUser._id, userPayload);
         dialog.success("User updated successfully");
@@ -355,18 +150,17 @@ const Users = () => {
         await createUser(userPayload);
         dialog.success("User created successfully");
       }
-      fetchUsers(1, pagination.limit, search, permission, user_type, status);
+
+      fetchData();
       setModalOpen(false);
       setEditUser(null);
-    } catch {
-      setError("Failed to save user");
-      dialog.error("Failed to save user");
+    } catch (err) {
+      dialog.error(err?.response?.data?.error || "Failed to save user");
     } finally {
       setLoading(false);
     }
   }
 
-  // Delete user
   async function handleDelete(id) {
     const confirmed = await dialog.ask({
       type: "confirm",
@@ -380,21 +174,13 @@ const Users = () => {
       try {
         await deleteUser(id);
         dialog.success("User deleted successfully");
-        fetchUsers(
-          pagination.page,
-          pagination.limit,
-          search,
-          permission,
-          user_type,
-          status,
-        );
+        fetchData();
       } finally {
         setLoading(false);
       }
     }
   }
 
-  // Reset Password
   async function handleResetPassword(id) {
     const password = await dialog.prompt({
       title: "Reset Password",
@@ -421,17 +207,88 @@ const Users = () => {
     }
   }
 
-  const handleReset = () => {
-    setSearch("");
-    setPermission("");
-    setUserType("");
-    setStatus("");
-    setPagination((prev) => ({ ...prev, page: 1 }));
-    fetchUsers(1, pagination.limit, "", "", "");
-  };
+  const columns = [
+    ...(canUpdate || canDelete ? [{
+      header: <input type="checkbox" className="w-4 h-4 accent-[#1e3a5f] cursor-pointer"
+        checked={users.length > 0 && selectedIds.length === users.length}
+        onChange={(e) => setSelectedIds(e.target.checked ? users.map(u => u._id) : [])} />,
+      className: "w-15",
+      render: (u) => (
+        <input type="checkbox" className="w-4 h-4 accent-[#1e3a5f] cursor-pointer"
+          checked={selectedIds.includes(u._id)}
+          onChange={(e) => setSelectedIds(prev => e.target.checked ? [...prev, u._id] : prev.filter(id => id !== u._id))}
+        />
+      )
+    }] : []),
+    { header: "No.", className: "number", render: (_, i) => i + 1 + (pagination.page - 1) * pagination.limit },
+    { header: "Name", render: (u) => `${u.first_name} ${u.last_name}` },
+    { header: "Email", accessor: "email" },
+    { header: "Phone", render: (u) => u.phone || "-" },
+    { header: "Role", render: (u) => <span className="capitalize">{u.role || "-"}</span> },
+    { header: "Type", render: (u) => <span className="capitalize">{u.user_type || "-"}</span> },
+    {
+      header: "Status", render: (u) => (
+        <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold text-white ${u.status === "active" ? "bg-emerald-500" : u.status === "pending" ? "bg-amber-500" : "bg-rose-500"
+          }`}>
+          {u.status ? u.status.charAt(0).toUpperCase() + u.status.slice(1) : "Active"}
+        </span>
+      )
+    },
+    ...(canView || canUpdate || canDelete ? [
+      {
+        header: "Actions", className: "text-center action", render: (u) => (
+          <div className="flex items-center gap-1 justify-center">
+            {canView && (
+              <button className="text-[#1e3a5f] font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200 transition"
+                onClick={() => {
+                  setEditUser(null);
+                  setViewUser(u);
+                  setModalOpen(true);
+                }}>
+                <HiOutlineEye className="text-xl" />
+              </button>
+            )}
+            {(canUpdate || canDelete) && (
+              <Menu as="div" className="relative inline-block text-left">
+                <Menu.Button className="text-[#1e3a5f] font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200 transition">
+                  <HiDotsVertical className="text-xl" />
+                </Menu.Button>
+                <Menu.Items anchor="bottom end" className="bg-white rounded-2xl shadow-lg p-2 w-45 z-50 border border-gray-100 focus:outline-none">
+                  {canUpdate && (
+                    <>
+                      <Menu.Item>
+                        <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                          onClick={() => { setEditUser(u); setViewUser(null); setModalOpen(true); }}>
+                          <HiOutlinePencil className="mr-2 h-5 w-5" /> Update
+                        </button>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <button className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl"
+                          onClick={() => handleResetPassword(u._id)}>
+                          <HiOutlineKey className="mr-2 h-5 w-5" /> Reset Password
+                        </button>
+                      </Menu.Item>
+                    </>
+                  )}
+                  {canDelete && (
+                    <Menu.Item>
+                      <button className="w-full flex items-center px-2 py-3 text-red-500 hover:bg-red-50 transition text-sm space-x-2 rounded-xl"
+                        onClick={() => handleDelete(u._id)}>
+                        <HiOutlineTrash className="mr-2 h-5 w-5" /> Delete
+                      </button>
+                    </Menu.Item>
+                  )}
+                </Menu.Items>
+              </Menu>
+            )}
+          </div>
+        )
+      }
+    ] : [])
+  ];
 
   return (
-    <div className="h-content-available">
+    <div className="h-content-available flex flex-col">
       <UserModal
         key={modalOpen ? (editUser ? editUser._id : "new") : "closed"}
         open={modalOpen}
@@ -448,319 +305,87 @@ const Users = () => {
           setViewUser(null);
         }}
       />
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex flex-col">
-          <h1 className="text-xl font-semibold">User Management</h1>
-          <span className="text-gray-500 text-sm">Manage users</span>
-        </div>
-        <div className="flex items-center gap-2">
-          {canCreate && (
-            <button
-              className="bg-[#1e3a5f] hover:bg-[#16375b] text-white px-6 py-2 rounded-xl focus:outline-none flex items-center gap-2 cursor-pointer text-sm"
-              onClick={() => {
-                setEditUser(null);
-                setViewUser(null);
-                setModalOpen(true);
-              }}
-            >
-              <HiOutlinePlus className="text-md" /> Add User
-            </button>
-          )}
-          {(canUpdate || canDelete) && (
-            <Menu as="div" className="relative inline-block text-left ml-2">
-              <Menu.Button className="text-[#1e3a5f] font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200">
-                <HiDotsVertical className="text-xl" />
-              </Menu.Button>
-              <Menu.Items
-                anchor="bottom end"
-                className="bg-white rounded-2xl shadow-lg p-2 w-50 z-50 animate-fade-in-up border border-gray-100"
-              >
-                <Menu.Item>
-                  {() => (
-                    <button
-                      onClick={() => handleBulkStatus("active")}
-                      className={`w-full flex items-center px-2 py-3 text-[#64748b] transition text-sm space-x-2 rounded-xl ${selectedIds.length === 0 ? "opacity-50 cursor-default" : "cursor-pointer hover:text-black hover:bg-[#f1f5f9]"}`}
-                    >
-                      <HiOutlineRefresh
-                        className="mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                      Activate Users
+
+      <PageHeader
+        title="User Management"
+        description="Manage your staff and external users"
+        actions={
+          <div className="flex items-center gap-2">
+            {canCreate && (
+              <Button onClick={() => { setEditUser(null); setViewUser(null); setModalOpen(true); }}>
+                <HiOutlinePlus className="text-md" /> Add User
+              </Button>
+            )}
+            {(canUpdate || canDelete) && (
+              <Menu as="div" className="relative inline-block text-left ml-2">
+                <Menu.Button className="text-[#1e3a5f] font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200">
+                  <HiDotsVertical className="text-xl" />
+                </Menu.Button>
+                <Menu.Items className="absolute right-0 bg-white rounded-2xl shadow-lg p-2 w-50 z-50 border border-gray-100">
+                  <Menu.Item>
+                    <button onClick={() => handleBulkStatus("active")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                      <HiOutlineRefresh className="mr-2 h-5 w-5" /> Activate Users
                     </button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {() => (
-                    <button
-                      onClick={() => handleBulkStatus("pending")}
-                      className={`w-full flex items-center px-2 py-3 text-[#64748b] transition text-sm space-x-2 rounded-xl ${selectedIds.length === 0 ? "opacity-50 cursor-default" : "cursor-pointer hover:text-black hover:bg-[#f1f5f9]"}`}
-                    >
-                      <HiOutlineFilter
-                        className="mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                      Mark as Pending
+                  </Menu.Item>
+                  <Menu.Item>
+                    <button onClick={() => handleBulkStatus("pending")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                      <HiOutlineFilter className="mr-2 h-5 w-5" /> Mark as Pending
                     </button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {() => (
-                    <button
-                      onClick={() => handleBulkStatus("inactive")}
-                      className={`w-full flex items-center px-2 py-3 text-[#64748b] transition text-sm space-x-2 rounded-xl ${selectedIds.length === 0 ? "opacity-50 cursor-default" : "cursor-pointer hover:text-black hover:bg-[#f1f5f9]"}`}
-                    >
-                      <HiOutlineArchive
-                        className="mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                      Deactivate Users
+                  </Menu.Item>
+                  <Menu.Item>
+                    <button onClick={() => handleBulkStatus("inactive")} className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl">
+                      <HiOutlineArchive className="mr-2 h-5 w-5" /> Deactivate Users
                     </button>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {() => (
-                    <button
-                      onClick={handleBulkDelete}
-                      className={`w-full flex items-center px-2 py-3 text-red-500 transition text-sm space-x-2 rounded-xl ${selectedIds.length === 0 ? "opacity-50 cursor-default" : "cursor-pointer hover:bg-red-50"}`}
-                    >
-                      <HiOutlineTrash
-                        className="text-red-500 mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                      Delete Users
+                  </Menu.Item>
+                  <Menu.Item>
+                    <button onClick={handleBulkDelete} className="w-full flex items-center px-2 py-3 text-red-500 hover:bg-red-50 transition text-sm space-x-2 rounded-xl">
+                      <HiOutlineTrash className="text-red-500 mr-2 h-5 w-5" /> Delete Users
                     </button>
-                  )}
-                </Menu.Item>
-              </Menu.Items>
-            </Menu>
-          )}
-        </div>
-      </div>
-      <div className="bg-white rounded-xl p-6 mb-3 border border-gray-100">
-        <div className="w-full flex items-center justify-between">
-          <h3 className="flex items-center gap-2 text-base mb-3 text-[#1e3a5f] font-semibold">
-            <HiOutlineFilter className="inline-block text-sm text-black" />
-            <span>Filters</span>
+                  </Menu.Item>
+                </Menu.Items>
+              </Menu>
+            )}
+          </div>
+        }
+      />
+
+      <div className="bg-white rounded-xl p-6 mb-3 border border-gray-100 flex-shrink-0">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="flex items-center gap-2 text-base font-semibold text-[#1e3a5f]">
+            <HiOutlineFilter /> Filters
           </h3>
-          <button
-            onClick={handleReset}
-            className="flex items-center gap-2 text-sm mb-2 text-black cursor-pointer"
-          >
-            <HiOutlineRefresh className="inline-block text-sm text-black" />
-            <span>Reset</span>
+          <button onClick={handleReset} className="flex items-center gap-2 text-sm text-black cursor-pointer">
+            <HiOutlineRefresh /> Reset
           </button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           <div>
             <label className="block text-gray-700 text-sm mb-1">Search</label>
-            <input
-              className="bg-gray-50 border border-gray-100 rounded-lg py-2 px-4 text-gray-700 min-w-0 w-full text-sm"
-              placeholder="Search..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <input className="bg-gray-50 border border-gray-100 rounded-lg py-2 px-4 text-sm w-full"
+              placeholder="Search..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-1">Role</label>
-            <PermissionDropdown
-              selected={permission}
-              setSelected={setPermission}
-              permissionOptions={permissions}
-            />
+            <PermissionDropdown selected={filters.permission_id} setSelected={p => updateFilters({ permission_id: p })} permissionOptions={permissions} />
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-1">Type</label>
-            <TypesDropdown selected={user_type} setSelected={setUserType} />
+            <TypesDropdown selected={filters.user_type} setSelected={t => updateFilters({ user_type: t })} />
           </div>
           <div>
             <label className="block text-gray-700 text-sm mb-1">Status</label>
-            <StatusDropdown selected={status} setSelected={setStatus} />
+            <UserStatusDropdown selected={filters.status} setSelected={s => updateFilters({ status: s })} />
           </div>
         </div>
       </div>
-      <div className="flex-1 bg-white rounded-xl border border-gray-100 flex flex-col min-h-0">
-        <div className="table-scroll-container">
-          {loading ? (
-            <Loading />
-          ) : error ? (
-            <div className="w-full h-full flex flex-col items-center justify-center">
-              <MdOutlineSmsFailed className="text-6xl text-red-500" />
-              <div className="p-8 text-center text-red-500">{error}</div>
-            </div>
-          ) : (
-            <table className="min-w-full text-left text-sm align-middle">
-              <thead className="table-sticky-header">
-                <tr>
-                  {(canUpdate || canDelete) && (
-                    <th className="w-15">
-                      <input
-                        type="checkbox"
-                        name="selectAll"
-                        id="selectAll"
-                        className="w-4 h-4 accent-[#1e3a5f] cursor-pointer"
-                        checked={
-                          users.length > 0 &&
-                          selectedIds.length === pagination.totalItems
-                        }
-                        onChange={handleSelectAll}
-                      />
-                    </th>
-                  )}
-                  <th className="number">No.</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Role</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  {canView || canUpdate || canDelete ? (
-                    <th className="text-center action">Actions</th>
-                  ) : null}
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((u, index) => (
-                  <tr key={u._id} className="hover:bg-[#f1f5f9]">
-                    {(canUpdate || canDelete) && (
-                      <td className="w-15">
-                        <input
-                          type="checkbox"
-                          name="select"
-                          id="select"
-                          className="w-4 h-4 accent-[#1e3a5f] cursor-pointer"
-                          checked={selectedIds.includes(u._id)}
-                          onChange={(e) => handleSelectOne(e, u._id)}
-                        />
-                      </td>
-                    )}
-                    <td className="number">
-                      {index + 1 + (pagination.page - 1) * pagination.limit}
-                    </td>
-                    <td>
-                      {u.first_name} {u.last_name}
-                    </td>
-                    <td>{u.email || "-"}</td>
-                    <td>{u.phone || "-"}</td>
-                    <td className="capitalize">{u.role || "-"}</td>
-                    <td className="capitalize">{u.user_type || "-"}</td>
-                    <td>
-                      <span
-                        className={`inline-block px-3 py-1 rounded-full text-sm text-white ${
-                          u.status === "active"
-                            ? "bg-green-400"
-                            : u.status === "pending"
-                              ? "bg-yellow-400"
-                              : "bg-red-400"
-                        }`}
-                      >
-                        {u.status
-                          ? u.status.charAt(0).toUpperCase() + u.status.slice(1)
-                          : "Active"}
-                      </span>
-                    </td>
-                    <td className="flex items-center gap-1 justify-center action">
-                      {canView && (
-                        <button
-                          className="text-[#1e3a5f] font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200"
-                          title="View"
-                          onClick={() => handleView(u)}
-                        >
-                          <HiOutlineEye className="text-xl" />
-                        </button>
-                      )}
-                      {(canUpdate || canDelete) && (
-                        <Menu
-                          as="div"
-                          className="relative inline-block text-left"
-                        >
-                          <Menu.Button className="text-[#1e3a5f] font-semibold cursor-pointer p-2 rounded-full hover:bg-gray-200">
-                            <HiDotsVertical className="text-xl" />
-                          </Menu.Button>
-                          <Menu.Items
-                            anchor="bottom end"
-                            className="bg-white rounded-2xl shadow-lg p-2 w-45 z-50 animate-fade-in-up border border-gray-100"
-                          >
-                            {canUpdate && (
-                              <Menu.Item>
-                                {() => (
-                                  <button
-                                    onClick={() => {
-                                      setEditUser(u);
-                                      setViewUser(null);
-                                      setModalOpen(true);
-                                    }}
-                                    className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
-                                  >
-                                    <HiOutlinePencil
-                                      className="mr-2 h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                    Update
-                                  </button>
-                                )}
-                              </Menu.Item>
-                            )}
-                            {canUpdate && (
-                              <Menu.Item>
-                                {() => (
-                                  <button
-                                    onClick={() => handleResetPassword(u._id)}
-                                    className="w-full flex items-center px-2 py-3 text-[#64748b] hover:text-black hover:bg-[#f1f5f9] transition text-sm space-x-2 rounded-xl cursor-pointer"
-                                  >
-                                    <HiOutlineKey
-                                      className="mr-2 h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                    Reset Password
-                                  </button>
-                                )}
-                              </Menu.Item>
-                            )}
-                            {canDelete && (
-                              <Menu.Item>
-                                {() => (
-                                  <button
-                                    onClick={() => handleDelete(u._id)}
-                                    className="w-full flex items-center px-2 py-3 text-red-500 hover:bg-red-50 transition text-sm space-x-2 rounded-xl cursor-pointer"
-                                  >
-                                    <HiOutlineTrash
-                                      className="text-red-500 mr-2 h-5 w-5"
-                                      aria-hidden="true"
-                                    />
-                                    Delete
-                                  </button>
-                                )}
-                              </Menu.Item>
-                            )}
-                          </Menu.Items>
-                        </Menu>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-                {users.length === 0 && (
-                  <tr>
-                    <td colSpan={canCreate || canUpdate || canDelete ? 9 : 8}>
-                      <NoDataFound message="No users found." />
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
+
+      <div className="flex-1 overflow-auto min-h-0">
+        <DataTable columns={columns} data={users} loading={loading} error={error} />
       </div>
+
       {users.length > 0 && (
-        <div className="flex justify-end mt-3">
-          <Pagination
-            total={pagination.totalItems}
-            page={pagination.page}
-            limit={pagination.limit}
-            onChange={({ page, limit }) => {
-              setPagination((prev) => ({ ...prev, page, limit }));
-              fetchUsers(page, limit, search, permission, status);
-            }}
-          />
+        <div className="flex justify-end mt-3 flex-shrink-0">
+          <Pagination total={pagination.totalItems} page={pagination.page} limit={pagination.limit} onChange={({ page, limit }) => updatePage(page)} />
         </div>
       )}
     </div>

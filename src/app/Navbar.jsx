@@ -32,6 +32,7 @@ const Header = ({ onBellClick }) => {
   const [cartOpen, setCartOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const menuRef = useRef();
   const notificationRef = useRef();
   const cartRef = useRef();
@@ -112,91 +113,91 @@ const Header = ({ onBellClick }) => {
   };
 
   return (
-    <header className="bg-white border-b border-[#ececec] flex items-center justify-between px-3 py-2">
+    <header className="glass-panel flex items-center justify-between px-4 py-3 z-30 relative border-b-0 shadow-sm">
       <HiOutlineMenuAlt2
         onClick={onBellClick}
         className="text-gray-500 hover:text-[#1e3a5f] text-xl cursor-pointer transition"
       />
       <div className="flex items-center gap-3">          {/* Cart Icon */}
-          <div className="relative" ref={cartRef}>
-            <button
-              tabIndex={0}
-              className="relative mt-2 focus:outline-none hover:text-blue-700 transition hover:cursor-pointer"
-              onClick={() => setCartOpen((v) => !v)}
-              title="Cart"
-            >
-              <HiOutlineShoppingCart className="text-gray-500 hover:text-[#1e3a5f] text-xl" />
-              {cartCount > 0 && (
-                <span className="absolute -top-3 -right-3 bg-[#1e3a5f] text-white text-sm rounded-full w-6 h-6 pt-0.5 flex items-center justify-center font-bold border-2 border-white">
-                  {cartCount}
-                </span>
-              )}
-            </button>
-            {cartOpen && (
-              <div className="absolute right-0 top-10 bg-white rounded-2xl shadow-lg p-3 w-96 z-50 animate-fade-in-up border border-gray-100">
-                <div className="flex items-center justify-between px-1 pt-1 mb-2">
-                  <span className="font-bold text-sm">Cart ({cartCount} items)</span>
-                  {cartItems.length > 0 && (
-                    <button
-                      onClick={clearCart}
-                      className="text-xs text-red-500 hover:text-red-700 cursor-pointer"
-                    >
-                      Clear all
-                    </button>
-                  )}
-                </div>
-                <hr className="my-2 border-gray-100" />
-                {cartItems.length === 0 ? (
-                  <div className="text-center text-gray-400 text-sm py-6">Cart is empty</div>
-                ) : (
-                  <>
-                    <ul className="max-h-64 overflow-y-auto divide-y divide-gray-50">
-                      {cartItems.map((item) => (
-                        <li key={item.product._id} className="flex items-center gap-3 py-3">
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-800 truncate">{item.product.name}</p>
-                            <p className="text-xs text-gray-400">${Number(item.product.price).toFixed(2)} each</p>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <button
-                              onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
-                              className="p-1 rounded hover:bg-gray-100 cursor-pointer"
-                            >
-                              <HiOutlineMinus className="text-xs" />
-                            </button>
-                            <span className="text-sm font-semibold w-6 text-center">{item.quantity}</span>
-                            <button
-                              onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
-                              className="p-1 rounded hover:bg-gray-100 cursor-pointer"
-                            >
-                              <HiOutlinePlus className="text-xs" />
-                            </button>
-                          </div>
-                          <button
-                            onClick={() => removeFromCart(item.product._id)}
-                            className="p-1 rounded hover:bg-red-50 cursor-pointer text-red-400 hover:text-red-600"
-                          >
-                            <HiOutlineTrash className="text-base" />
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-3 pt-3 border-t border-gray-100">
-                      <button
-                        onClick={() => {
-                          setCartOpen(false);
-                          navigate("/order-requests");
-                        }}
-                        className="w-full bg-[#1e3a5f] hover:bg-[#16375b] text-white text-sm font-medium py-2.5 rounded-xl cursor-pointer transition"
-                      >
-                        Place Order Request
-                      </button>
-                    </div>
-                  </>
+        <div className="relative" ref={cartRef}>
+          <button
+            tabIndex={0}
+            className="relative mt-2 focus:outline-none hover:text-blue-700 transition hover:cursor-pointer"
+            onClick={() => setCartOpen((v) => !v)}
+            title="Cart"
+          >
+            <HiOutlineShoppingCart className="text-gray-500 hover:text-[#1e3a5f] text-xl" />
+            {cartCount > 0 && (
+              <span className="absolute -top-3 -right-3 bg-[#1e3a5f] text-white text-sm rounded-full w-6 h-6 pt-0.5 flex items-center justify-center font-bold border-2 border-white">
+                {cartCount}
+              </span>
+            )}
+          </button>
+          {cartOpen && (
+            <div className="absolute right-0 top-10 bg-white rounded-2xl shadow-lg p-3 w-96 z-50 animate-fade-in-up border border-gray-100">
+              <div className="flex items-center justify-between px-1 pt-1 mb-2">
+                <span className="font-bold text-sm">Cart ({cartCount} items)</span>
+                {cartItems.length > 0 && (
+                  <button
+                    onClick={clearCart}
+                    className="text-xs text-red-500 hover:text-red-700 cursor-pointer"
+                  >
+                    Clear all
+                  </button>
                 )}
               </div>
-            )}
-          </div>        <div className="relative" ref={notificationRef}>
+              <hr className="my-2 border-gray-100" />
+              {cartItems.length === 0 ? (
+                <div className="text-center text-gray-400 text-sm py-6">Cart is empty</div>
+              ) : (
+                <>
+                  <ul className="max-h-64 overflow-y-auto divide-y divide-gray-50">
+                    {cartItems.map((item) => (
+                      <li key={item.product._id} className="flex items-center gap-3 py-3">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-800 truncate">{item.product.name}</p>
+                          <p className="text-xs text-gray-400">${Number(item.product.price).toFixed(2)} each</p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
+                            className="p-1 rounded hover:bg-gray-100 cursor-pointer"
+                          >
+                            <HiOutlineMinus className="text-xs" />
+                          </button>
+                          <span className="text-sm font-semibold w-6 text-center">{item.quantity}</span>
+                          <button
+                            onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                            className="p-1 rounded hover:bg-gray-100 cursor-pointer"
+                          >
+                            <HiOutlinePlus className="text-xs" />
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => removeFromCart(item.product._id)}
+                          className="p-1 rounded hover:bg-red-50 cursor-pointer text-red-400 hover:text-red-600"
+                        >
+                          <HiOutlineTrash className="text-base" />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-3 pt-3 border-t border-gray-100">
+                    <button
+                      onClick={() => {
+                        setCartOpen(false);
+                        navigate("/order-requests");
+                      }}
+                      className="w-full bg-[#1e3a5f] hover:bg-[#16375b] text-white text-sm font-medium py-2.5 rounded-xl cursor-pointer transition"
+                    >
+                      Place Order Request
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>        <div className="relative" ref={notificationRef}>
           <button
             tabIndex={0}
             className="relative mt-2 focus:outline-none hover:text-blue-700 transition hover:cursor-pointer"
@@ -289,16 +290,18 @@ const Header = ({ onBellClick }) => {
           >
             <div className="w-8 h-8 rounded-full bg-[#1e3a5f] flex items-center justify-center text-white text-sm overflow-hidden">
               {user?.profile &&
-              user.profile !== "null" &&
-              user.profile !== "" ? (
+                user.profile !== "" && !imageError ? (
                 <img
                   src={user.profile}
                   alt={user.name || user.email || "User"}
                   className="w-8 h-8 object-cover rounded-full"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = "/default-profile.png";
-                  }}
+                  onError={() => setImageError(true)}
+                />
+              ) : imageError ? (
+                <img
+                  src="/default-profile.png"
+                  alt="Default Profile"
+                  className="w-8 h-8 object-cover rounded-full"
                 />
               ) : (
                 <HiUser className="text-white text-xl" />
@@ -312,7 +315,7 @@ const Header = ({ onBellClick }) => {
             <HiChevronDown className="text-gray-400 text-xl ml-1" />
           </button>
           {menuOpen && (
-            <div className="absolute right-0 top-11 bg-white rounded-2xl shadow-lg p-2 w-60 z-50 animate-fade-in-up border border-gray-100">
+            <div className="absolute right-0 top-10 bg-white rounded-2xl shadow-lg p-2 w-60 z-50 animate-fade-in-up border border-gray-100">
               <div className="px-3 pt-3">
                 <div className="text-sm leading-tight">
                   {user?.first_name + " " + user?.last_name}

@@ -244,33 +244,30 @@ export default function Settings() {
         <div className="w-full h-fit lg:w-64 bg-white rounded-2xl p-2 border border-gray-100">
           <button
             onClick={() => handleTabChange("profile")}
-            className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${
-              activeTab === "profile"
+            className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${activeTab === "profile"
                 ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
                 : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
-            }`}
+              }`}
           >
             <HiUser className="text-xl" />
             <span>Profile Settings</span>
           </button>
           <button
             onClick={() => handleTabChange("account")}
-            className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${
-              activeTab === "account"
+            className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${activeTab === "account"
                 ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
                 : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
-            }`}
+              }`}
           >
             <HiOutlineCog className="text-xl" />
             <span>Account & Security</span>
           </button>
           <button
             onClick={() => handleTabChange("help")}
-            className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${
-              activeTab === "help"
+            className={`w-full flex items-center gap-3 px-2 py-3 transition text-sm rounded-xl cursor-pointer ${activeTab === "help"
                 ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
                 : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
-            }`}
+              }`}
           >
             <HiOutlineQuestionMarkCircle className="text-xl" />
             <span>Help & Support</span>
@@ -686,10 +683,10 @@ export default function Settings() {
                           Our team is here to help.
                         </p>
                         <a
-                          href="mailto:stockify.support@gmail.com"
+                          href={`mailto:${import.meta.env.VITE_SMTP_USER}`}
                           className="text-blue-600 font-medium text-sm hover:underline"
                         >
-                          stockify.support@gmail.com
+                          {import.meta.env.VITE_SMTP_USER}
                         </a>
                       </div>
                     </div>

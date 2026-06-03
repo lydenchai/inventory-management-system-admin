@@ -30,6 +30,12 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    // Prevent infinite loop if the refresh token request itself fails with 401
+    if (originalRequest.url === "/auth/refresh") {
+      return Promise.reject(error);
+    }
+
     if (
       error.response &&
       error.response.status === 401 &&
@@ -55,7 +61,7 @@ api.interceptors.response.use(
         sessionStorage.clear();
 
         // Redirect to login
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
           window.location.href = "/login";
         }
 
