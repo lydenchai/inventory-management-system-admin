@@ -31,6 +31,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
+import DataTable from "../components/ui/DataTable";
 
 const COLORS = ["#FFBB28", "#00a63e", "#fb2c36", "#FF8042"];
 
@@ -113,6 +114,25 @@ const Dashboard = () => {
     { name: "Pending", value: orderStats?.pending || 0 },
     { name: "Approved", value: orderStats?.approved || 0 },
     { name: "Rejected", value: orderStats?.rejected || 0 },
+  ];
+
+  const orderColumns = [
+    { header: "No.", render: (_, index) => index + 1 },
+    { header: "ID", render: (order) => `#${order._id ? order._id.slice(-6).toUpperCase() : "-"}` },
+    { header: "Date", render: (order) => order.createdAt ? new Date(order.createdAt).toLocaleDateString() : "-" },
+    {
+      header: "Status", render: (order) => {
+        const statusColor = order.status === "approved" ? "bg-green-400"
+          : order.status === "rejected" ? "bg-red-400"
+            : order.status === "completed" ? "bg-blue-400"
+              : "bg-yellow-400";
+        return (
+          <span className={`px-3 py-1.5 rounded-full text-sm capitalize text-white ${statusColor}`}>
+            {order.status}
+          </span>
+        );
+      }
+    }
   ];
 
   return (
@@ -275,9 +295,9 @@ const Dashboard = () => {
                 {Math.ceil(
                   Math.abs(
                     new Date(dateRange.end_date) -
-                      new Date(dateRange.start_date),
+                    new Date(dateRange.start_date),
                   ) /
-                    (1000 * 60 * 60 * 24),
+                  (1000 * 60 * 60 * 24),
                 ) + 1}
                 Days)
               </h2>
@@ -439,63 +459,8 @@ const Dashboard = () => {
                 View all
               </Link>
             </div>
-            <div className="overflow-x-auto px-1">
-              <table className="min-w-full text-left text-sm align-middle">
-                <thead>
-                  <tr>
-                    <th className="number">No.</th>
-                    <th>ID</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentOrders.length > 0 ? (
-                    recentOrders.map((order, index) => {
-                      const statusColor =
-                        order.status === "approved"
-                          ? "bg-green-400"
-                          : order.status === "rejected"
-                            ? "bg-red-400"
-                            : order.status === "completed"
-                              ? "bg-blue-400"
-                              : "bg-yellow-400";
-                      return (
-                        <tr key={order._id} className="hover:bg-[#f1f5f9]">
-                          <td className="number">{index + 1}</td>
-                          <td>
-                            #
-                            {order._id
-                              ? order._id.slice(-6).toUpperCase()
-                              : "-"}
-                          </td>
-                          <td>
-                            {order.createdAt
-                              ? new Date(order.createdAt).toLocaleDateString()
-                              : "-"}
-                          </td>
-                          <td>
-                            <span
-                              className={`px-3 py-1.5 rounded-full text-sm capitalize text-white ${statusColor}`}
-                            >
-                              {order.status}
-                            </span>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  ) : (
-                    <tr>
-                      <td
-                        colSpan="4"
-                        className="px-4 py-8 text-center text-gray-500"
-                      >
-                        No recent orders
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+            <div className="px-1">
+              <DataTable columns={orderColumns} data={recentOrders} keyExtractor={(o) => o._id} />
             </div>
           </div>
 
@@ -530,10 +495,10 @@ const Dashboard = () => {
                         <p className="text-sm font-medium text-gray-900 truncate">
                           {log.action
                             ? log.action
-                                .replaceAll("_", " ")
-                                .charAt(0)
-                                .toUpperCase() +
-                              log.action.replaceAll("_", " ").slice(1)
+                              .replaceAll("_", " ")
+                              .charAt(0)
+                              .toUpperCase() +
+                            log.action.replaceAll("_", " ").slice(1)
                             : "-"}
                         </p>
                         <p className="text-xs text-gray-500 mt-0.5">

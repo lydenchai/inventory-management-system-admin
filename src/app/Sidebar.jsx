@@ -205,7 +205,7 @@ const Sidebar = ({ mini }) => {
 
   return (
     <aside
-      className={`bg-white h-screen flex flex-col border-r border-[#ececec] transition-all duration-300 ${mini ? "w-18" : "w-60"}`}
+      className={`glassmorphism h-screen flex flex-col transition-all duration-300 z-30 ${mini ? "w-18" : "w-64"}`}
     >
       <div
         className={`text-lg font-bold m-3 tracking-tight flex items-center justify-center gap-3 ${mini ? "flex-col" : ""}`}
@@ -256,11 +256,10 @@ const Sidebar = ({ mini }) => {
                             <Link
                               to={submenu.to}
                               className={`group flex items-center px-3 py-2 rounded-xl transition text-sm space-x-3
-                            ${
-                              location.pathname === submenu.to
-                                ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                                : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
-                            }`}
+                            ${location.pathname === submenu.to
+                                  ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
+                                  : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
+                                }`}
                             >
                               <span className="text-xl">{submenu.icon}</span>
                               {!mini && (
@@ -282,12 +281,11 @@ const Sidebar = ({ mini }) => {
                   <Link
                     to={link.to}
                     className={`group flex items-center px-3 py-2 rounded-xl transition text-sm space-x-3 relative
-                    ${
-                      location.pathname === link.to ||
-                      location.pathname.includes(link.to + "/")
+                    ${location.pathname === link.to ||
+                        location.pathname.includes(link.to + "/")
                         ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
                         : "text-[#64748b] hover:bg-[#f1f5f9] hover:text-black"
-                    }
+                      }
                   `}
                   >
                     <span className="text-xl">{link.icon}</span>

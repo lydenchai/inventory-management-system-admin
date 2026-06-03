@@ -34,6 +34,7 @@ import {
 } from "recharts";
 import DatePicker from "../components/DatePicker";
 import { MdOutlineSmsFailed } from "react-icons/md";
+import DataTable from "../components/ui/DataTable";
 
 const COLORS = ["#FFBB28", "#00a63e", "#fb2c36", "#FF8042"];
 
@@ -119,6 +120,13 @@ const Reports = () => {
         { name: "Rejected", value: orderStats.rejected },
       ]
     : [];
+
+  const lowStockColumns = [
+    { header: "Product", accessor: "name" },
+    { header: "Category", render: (p) => p.category?.name || "N/A" },
+    { header: "Stock", accessor: "stock" },
+    { header: "Price", render: (p) => `$${p.price || "-"}` },
+  ];
 
   return (
     <div className="h-content-available overflow-y-auto p-1">
@@ -623,34 +631,11 @@ const Reports = () => {
                     Stock Alerts
                   </h2>
                 </div>
-                <div className="overflow-x-auto">
-                  {lowStockProducts.length > 0 ? (
-                    <table className="min-w-full text-left text-sm align-middle px-1">
-                      <thead>
-                        <tr>
-                          <th>Product</th>
-                          <th>Category</th>
-                          <th>Stock</th>
-                          <th>Price</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {lowStockProducts.map((product) => (
-                          <tr key={product._id} className="hover:bg-[#f1f5f9]">
-                            <td>{product.name || "-"}</td>
-                            <td>{product.category?.name || "N/A"}</td>
-                            <td>{product.stock || "-"}</td>
-                            <td>${product.price || "-"}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  ) : (
-                    <div className="p-8 text-center text-gray-500">
-                      No low stock items found. Good job!
-                    </div>
-                  )}
-                </div>
+                <DataTable
+                  columns={lowStockColumns}
+                  data={lowStockProducts}
+                  keyExtractor={(p) => p._id}
+                />
               </div>
             </>
           )}

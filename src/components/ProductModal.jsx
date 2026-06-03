@@ -21,7 +21,7 @@ const initialProduct = {
   status: "active",
 };
 
-import { getCategories, getSuppliers, uploadFile } from "../api";
+import { uploadFile } from "../api";
 import { Listbox } from "@headlessui/react";
 import { useAuth } from "../contexts/auth/useAuth";
 import { useCart } from "../contexts/cart/useCart";
@@ -34,12 +34,12 @@ const ProductModal = ({
   data,
   viewOnly = false,
   onEdit,
+  categories = [],
+  suppliers = [],
 }) => {
   const [product, setProduct] = useState(data || initialProduct);
   const [touched, setTouched] = useState({});
   const [validateOnSave, setValidateOnSave] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [suppliers, setSuppliers] = useState([]);
   const { user } = useAuth();
   const isInternalUser = user.user_type === "internal";
   const canUpdate = user?.permission?.permissions?.includes("update_product");
@@ -60,12 +60,6 @@ const ProductModal = ({
           setValidateOnSave(false);
         }, 0);
       }
-      getCategories({ limit: -1 }).then((res) => {
-        setCategories(res.data.data || []);
-      });
-      getSuppliers({ limit: -1 }).then((res) => {
-        setSuppliers(res.data.data || []);
-      });
     }
     return undefined;
   }, [open, data]);
@@ -175,12 +169,12 @@ const ProductModal = ({
                   }
                   onChange={
                     viewOnly
-                      ? () => {}
+                      ? () => { }
                       : (cat) =>
-                          setProduct({
-                            ...product,
-                            category: cat ? cat._id : "",
-                          })
+                        setProduct({
+                          ...product,
+                          category: cat ? cat._id : "",
+                        })
                   }
                   disabled={viewOnly}
                 >
@@ -234,12 +228,12 @@ const ProductModal = ({
                   }
                   onChange={
                     viewOnly
-                      ? () => {}
+                      ? () => { }
                       : (sup) =>
-                          setProduct({
-                            ...product,
-                            supplier: sup ? sup._id : "",
-                          })
+                        setProduct({
+                          ...product,
+                          supplier: sup ? sup._id : "",
+                        })
                   }
                   disabled={viewOnly}
                 >
@@ -511,6 +505,8 @@ ProductModal.propTypes = {
   data: PropTypes.object,
   viewOnly: PropTypes.bool,
   onEdit: PropTypes.func,
+  categories: PropTypes.array,
+  suppliers: PropTypes.array,
 };
 
 export default ProductModal;
