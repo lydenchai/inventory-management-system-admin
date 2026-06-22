@@ -24,12 +24,14 @@ React (Vite) frontend for Inventory Management System.
 ## Project Structure
 
 - `src/`
-  - `components/` - Reusable UI components (`DataTable`, `PageHeader`, `Dialog`, etc.)
-  - `pages/` - Main app pages (Dashboard, Products, Order Requests, Activity Logs, etc.)
-  - `app/` - App shell, layout, Sidebar, Navbar
+  - `api/` - Domain-specific API modules (`productsApi.ts`, `salesApi.ts`, etc.)
+  - `components/ui/` - Generic and reusable UI components (`DataTable`, `PageHeader`, `Dialog`, etc.)
+  - `features/` - Domain-specific business logic components and modals grouped by feature
+  - `pages/` - Main app pages grouped by domain (`/inventory`, `/purchasing`, `/sales`, etc.)
+  - `routes/` - Main application routing configuration
+  - `layouts/` - App shell and structural layouts (`Sidebar`, `Navbar`)
   - `contexts/` - React context for authentication, dialogs, badges
   - `hooks/` - Custom hooks (e.g., `useDataFetch`, `useDebounce`)
-  - `api/` - Axios API utility functions
 
 ## Features
 - **User Authentication (JWT):** Secure login, token refresh, and profile management.

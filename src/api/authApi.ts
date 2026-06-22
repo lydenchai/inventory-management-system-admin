@@ -1,2 +1,4 @@
 import { api } from "./config";
-export const getProfile = () => api.get("/auth/profile");
+import { SingleResponse, User } from "../types/models";
+
+export const getProfile = () => api.get<SingleResponse<User>>("/auth/profile");
