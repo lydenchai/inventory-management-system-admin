@@ -1,19 +1,21 @@
 import { api } from "./config";
-export const getUsers = (params = {}) => api.get("/users", { params });
-export const getCustomers = () => api.get("/users/customers");
-export const getUser = (id) => api.get(`/users/${id}`);
-export const createUser = (data) => api.post("/users", data);
-export const updateUser = (id, data) => api.patch(`/users/${id}`, data);
-export const deleteUser = (id) => api.delete(`/users/${id}`);
-export const updateSelfProfile = (data) => api.put("/users/profile", data);
-export const resetUserPassword = (id, password) => api.patch(`/users/${id}/reset-password`, { password });
+import { PaginatedResponse, SingleResponse, User, Permission, Notification } from "../types/models";
 
-export const getPermissions = (params = {}) => api.get("/permissions", { params });
-export const createPermission = (data) => api.post("/permissions", data);
-export const updatePermission = (id, data) => api.patch(`/permissions/${id}`, data);
-export const deletePermission = (id) => api.delete(`/permissions/${id}`);
+export const getUsers = (params: any = {}) => api.get<PaginatedResponse<User>>("/users", { params });
+export const getCustomers = () => api.get<PaginatedResponse<User>>("/users/customers");
+export const getUser = (id: number | string) => api.get<SingleResponse<User>>(`/users/${id}`);
+export const createUser = (data: Partial<User>) => api.post<SingleResponse<User>>("/users", data);
+export const updateUser = (id: number | string, data: Partial<User>) => api.patch<SingleResponse<User>>(`/users/${id}`, data);
+export const deleteUser = (id: number | string) => api.delete<SingleResponse<null>>(`/users/${id}`);
+export const updateSelfProfile = (data: Partial<User>) => api.put<SingleResponse<User>>("/users/profile", data);
+export const resetUserPassword = (id: number | string, password: string) => api.patch<SingleResponse<any>>(`/users/${id}/reset-password`, { password });
 
-export const getNotifications = () => api.get("/notifications");
-export const markNotificationRead = (id) => api.patch(`/notifications/${id}/read`);
-export const markAllNotificationsRead = () => api.patch("/notifications/read-all");
-export const getUnreadNotificationCount = () => api.get("/notifications/unread/count");
+export const getPermissions = (params: any = {}) => api.get<PaginatedResponse<Permission>>("/permissions", { params });
+export const createPermission = (data: Partial<Permission>) => api.post<SingleResponse<Permission>>("/permissions", data);
+export const updatePermission = (id: number | string, data: Partial<Permission>) => api.patch<SingleResponse<Permission>>(`/permissions/${id}`, data);
+export const deletePermission = (id: number | string) => api.delete<SingleResponse<null>>(`/permissions/${id}`);
+
+export const getNotifications = () => api.get<PaginatedResponse<Notification>>("/notifications");
+export const markNotificationRead = (id: number | string) => api.patch<SingleResponse<any>>(`/notifications/${id}/read`);
+export const markAllNotificationsRead = () => api.patch<SingleResponse<any>>("/notifications/read-all");
+export const getUnreadNotificationCount = () => api.get<SingleResponse<{ count: number }>>("/notifications/unread/count");

@@ -775,7 +775,7 @@ const UserModal = ({
                   </label>
                   <div className="w-full flex flex-wrap gap-2">
                     {Array.isArray(user.product_categories) &&
-                    user.product_categories.length > 0 ? (
+                      user.product_categories.length > 0 ? (
                       user.product_categories.map((cat, index) =>
                         renderBadge(cat, index),
                       )
@@ -836,7 +836,7 @@ const UserModal = ({
                           lng: user.location_lng,
                         }}
                         readOnly={true}
-                        onLocationSelect={() => {}}
+                        onLocationSelect={() => { }}
                       />
                       <div className="mt-2 text-sm text-gray-500">
                         Coordinates: {user.location_lat}, {user.location_lng}

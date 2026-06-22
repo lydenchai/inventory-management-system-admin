@@ -1,14 +1,16 @@
 import { api } from "./config";
-export const getSales = (params = {}) => api.get("/sales", { params });
-export const createSale = (data) => api.post("/sales", data);
-export const updateSale = (id, data) => api.patch(`/sales/${id}`, data);
-export const deleteSale = (id) => api.delete(`/sales/${id}`);
-export const getSalesSummary = () => api.get("/sales/summary");
+import { PaginatedResponse, SingleResponse, Sale, Expense, Return } from "../types/models";
 
-export const createReturn = (data) => api.post("/returns", data);
-export const getReturns = (params) => api.get("/returns", { params });
+export const getSales = (params: any = {}) => api.get<PaginatedResponse<Sale>>("/sales", { params });
+export const createSale = (data: Partial<Sale>) => api.post<SingleResponse<Sale>>("/sales", data);
+export const updateSale = (id: number | string, data: Partial<Sale>) => api.patch<SingleResponse<Sale>>(`/sales/${id}`, data);
+export const deleteSale = (id: number | string) => api.delete<SingleResponse<null>>(`/sales/${id}`);
+export const getSalesSummary = () => api.get<SingleResponse<any>>("/sales/summary");
 
-export const getExpenses = (params = {}) => api.get("/expenses", { params });
-export const createExpense = (data) => api.post("/expenses", data);
-export const updateExpense = (id, data) => api.patch(`/expenses/${id}`, data);
-export const deleteExpense = (id) => api.delete(`/expenses/${id}`);
+export const createReturn = (data: Partial<Return>) => api.post<SingleResponse<Return>>("/returns", data);
+export const getReturns = (params: any) => api.get<PaginatedResponse<Return>>("/returns", { params });
+
+export const getExpenses = (params: any = {}) => api.get<PaginatedResponse<Expense>>("/expenses", { params });
+export const createExpense = (data: Partial<Expense>) => api.post<SingleResponse<Expense>>("/expenses", data);
+export const updateExpense = (id: number | string, data: Partial<Expense>) => api.patch<SingleResponse<Expense>>(`/expenses/${id}`, data);
+export const deleteExpense = (id: number | string) => api.delete<SingleResponse<null>>(`/expenses/${id}`);
