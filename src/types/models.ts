@@ -151,6 +151,21 @@ export interface Sale {
   updatedAt: string;
 }
 
+export interface Return {
+  id: number;
+  sale_id: number;
+  sale?: Sale;
+  product_id?: number;
+  product?: Product;
+  quantity: number;
+  amount: number;
+  reason: string;
+  user_id: number;
+  user?: User;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Expense {
   id: number;
   title: string;
