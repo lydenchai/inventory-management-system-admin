@@ -130,7 +130,7 @@ const Header = ({ onBellClick }) => {
           >
             <HiOutlineShoppingCart className="text-white hover:text-gray-400 text-xl" />
             {cartCount > 0 && (
-              <span className="absolute -top-3 -right-3 bg-white text-white text-sm rounded-full w-6 h-6 pt-0.5 flex items-center justify-center font-bold border-2 border-white">
+              <span className="absolute -top-4 left-2 bg-red-500 text-white text-sm rounded-full w-auto h-auto flex items-center justify-center px-2">
                 {cartCount}
               </span>
             )}
