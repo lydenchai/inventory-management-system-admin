@@ -14,9 +14,9 @@ import {
 } from "react-icons/hi";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { useDialog } from "../../contexts/dialog/useDialog.js";
-import CategoryModal from "../../components/CategoryModal";
+import CategoryModal from "../../components/modals/CategoryModal";
 import { getCategories, createCategory, updateCategory, deleteCategory } from "../../api";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";

@@ -33,7 +33,7 @@ import {
   Cell,
   Legend,
 } from "recharts";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 import { MdOutlineSmsFailed } from "react-icons/md";
 import DataTable from "../../components/ui/DataTable";
 

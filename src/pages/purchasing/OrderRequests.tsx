@@ -16,12 +16,12 @@ import {
 } from "react-icons/hi";
 import { useAuth } from "../../contexts/auth/useAuth.js";
 import { useDialog } from "../../contexts/dialog/useDialog.js";
-import OrderRequestModal from "../../components/OrderRequestModal.jsx";
+import OrderRequestModal from "../../components/modals/OrderRequestModal.jsx";
 import { getOrderRequests, cancelOrderRequest, updateOrderRequest, deleteOrderRequest, createPurchaseOrder } from "../../api";
 import { useCart } from "../../contexts/cart/useCart";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import { formatDate } from "../../utils/dateFormat";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 import { useBadge } from "../../contexts/badge/useBadge";
 
 import PageHeader from "../../components/ui/PageHeader";

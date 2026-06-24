@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { HiOutlineUpload, HiXCircle, HiOutlineDocumentDownload } from "react-icons/hi";
-import { useDialog } from "../contexts/dialog/useDialog";
+import { useDialog } from "../../contexts/dialog/useDialog";
 
 const BulkImportModal = ({ open, onClose, onImport, title, templateLink }) => {
   const [file, setFile] = useState(null);

@@ -16,7 +16,7 @@ import {
   HiOutlineClock,
   HiOutlineRefresh,
 } from "react-icons/hi";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { Link } from "react-router-dom";
 import {

@@ -15,11 +15,11 @@ import {
 } from "react-icons/hi";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { useDialog } from "../../contexts/dialog/useDialog";
-import ExpenseModal from "../../components/ExpenseModal";
+import ExpenseModal from "../../components/modals/ExpenseModal";
 import { getExpenses, deleteExpense, createExpense, updateExpense } from "../../api";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import { formatDate } from "../../utils/dateFormat";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";

@@ -19,9 +19,9 @@ import {
   getPermissions,
   resetUserPassword,
 } from "../../api";
-import UserModal from "../../components/UserModal";
+import UserModal from "../../components/modals/UserModal";
 import { useAuth } from "../../contexts/auth/useAuth";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import { Menu } from "@headlessui/react";
 import { useDialog } from "../../contexts/dialog/useDialog";
 

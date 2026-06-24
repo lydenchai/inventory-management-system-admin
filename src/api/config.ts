@@ -13,6 +13,21 @@ api.interceptors.request.use((config) => {
   if (access_token && !config.headers.Authorization) {
     config.headers.Authorization = `Bearer ${access_token}`;
   }
+
+  if (config.data) {
+    if (config.data instanceof FormData) {
+      config.data.delete("_id");
+      config.data.delete("__v");
+      config.data.delete("createdAt");
+      config.data.delete("updatedAt");
+    } else if (typeof config.data === "object" && !Array.isArray(config.data)) {
+      delete config.data._id;
+      delete config.data.__v;
+      delete config.data.createdAt;
+      delete config.data.updatedAt;
+    }
+  }
+
   return config;
 });
 

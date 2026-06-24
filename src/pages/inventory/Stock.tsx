@@ -19,15 +19,15 @@ import {
   HiOutlinePencil,
 } from "react-icons/hi";
 import { getStocks, updateStock, getProducts, getStockSummary, getUsers, deleteStock, getLocations } from "../../api";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { formatDate } from "../../utils/dateFormat";
-import StockOutModal from "../../components/StockOutModal";
-import StockInModal from "../../components/StockInModal";
-import StockViewModal from "../../components/StockViewModal";
-import StockTransferModal from "../../components/StockTransferModal";
+import StockOutModal from "../../components/modals/StockOutModal";
+import StockInModal from "../../components/modals/StockInModal";
+import StockViewModal from "../../components/modals/StockViewModal";
+import StockTransferModal from "../../components/modals/StockTransferModal";
 import { useDialog } from "../../contexts/dialog/useDialog";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";

@@ -7,7 +7,7 @@ import {
   HiOutlinePencil,
 } from "react-icons/hi";
 
-import { useAuth } from "../contexts/auth/useAuth";
+import { useAuth } from "../../contexts/auth/useAuth";
 
 const initialCategory = {
   name: "",

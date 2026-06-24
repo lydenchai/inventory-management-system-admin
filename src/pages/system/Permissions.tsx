@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import PermissionModal from "../../components/PermissionModal";
+import PermissionModal from "../../components/modals/PermissionModal";
 import {
   HiOutlineCheckCircle,
   HiOutlineArchive,
@@ -15,7 +15,7 @@ import {
 import { Menu } from "@headlessui/react";
 import { getPermissions, createPermission, updatePermission, deletePermission } from "../../api";
 import { useAuth } from "../../contexts/auth/useAuth";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import { useDialog } from "../../contexts/dialog/useDialog";
 
 import PageHeader from "../../components/ui/PageHeader";

@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { useAuth } from "../contexts/auth/useAuth.js";
-import { useNotification } from "../contexts/notification/useNotification.js";
-import { useCart } from "../contexts/cart/useCart";
+import { useAuth } from "../../contexts/auth/useAuth.js";
+import { useNotification } from "../../contexts/notification/useNotification.js";
+import { useCart } from "../../contexts/cart/useCart.js";
 import {
   HiOutlineBell,
   HiOutlineLogout,
@@ -17,7 +17,7 @@ import {
   HiOutlineMinus,
 } from "react-icons/hi";
 import { useState, useRef, useEffect } from "react";
-import { formatDate } from "../utils/dateFormat";
+import { formatDate } from "../../utils/dateFormat.js";
 import { useNavigate } from "react-router-dom";
 
 const getPermission = (user, permission) => {
@@ -231,7 +231,7 @@ const Header = ({ onBellClick }) => {
           >
             <HiOutlineBell className="text-white hover:text-gray-400 text-xl" />
             {unreadCount > 0 && (
-              <span className="absolute -top-3 -right-3 bg-red-500 text-white text-sm rounded-full w-6 h-6 pt-0.5 flex items-center justify-center font-bold border-2 border-white">
+              <span className="absolute -top-4 left-2 bg-red-500 text-white text-sm rounded-full w-auto h-auto flex items-center justify-center px-2">
                 {unreadCount}
               </span>
             )}

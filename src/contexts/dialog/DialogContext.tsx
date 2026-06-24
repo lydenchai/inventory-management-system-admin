@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useCallback } from "react";
-import Dialog from "../../components/Dialog";
+import Dialog from "../../components/ui/Dialog";
 import { DialogContextBase } from "./DialogContextBase";
 
 export function DialogProvider({ children }) {

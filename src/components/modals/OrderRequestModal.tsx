@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useAuth } from "../contexts/auth/useAuth";
+import { useAuth } from "../../contexts/auth/useAuth";
 import { Listbox } from "@headlessui/react";
 import {
   HiXCircle,
@@ -19,11 +19,11 @@ import {
   getSuppliers,
   createOrderRequest,
   updateOrderRequest,
-} from "../api";
+} from "../../api";
 import { BsCurrencyDollar } from "react-icons/bs";
-import { useDialog } from "../contexts/dialog/useDialog";
-import DatePicker from "../components/DatePicker";
-import { formatDate } from "../utils/dateFormat";
+import { useDialog } from "../../contexts/dialog/useDialog";
+import DatePicker from "../ui/DatePicker";
+import { formatDate } from "../../utils/dateFormat";
 
 const initialOrderRequest = {
   supplier_id: "",
@@ -94,10 +94,13 @@ const OrderRequestModal = ({
               data.orderItems &&
               Array.isArray(data.orderItems) &&
               data.orderItems.length > 0
-                ? data.orderItems
+                ? data.orderItems.map((item) => ({
+                    ...item,
+                    product_id: item.product?._id || item.product_id || "",
+                  }))
                 : data.items && Array.isArray(data.items)
                   ? data.items.map((item) => ({
-                      product_id: item.product_id,
+                      product_id: item.product?._id || item.product_id || "",
                       quantity: item.quantity,
                       unit_price: item.unit_price,
                       subtotal: item.subtotal,

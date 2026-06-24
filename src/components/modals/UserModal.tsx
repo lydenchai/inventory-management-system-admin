@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Listbox } from "@headlessui/react";
-import { getPermissions, uploadFile } from "../api/index";
+import { getPermissions, uploadFile } from "../../api/index";
 import {
   HiXCircle,
   HiOutlineDocumentText,
@@ -17,8 +17,8 @@ import {
   HiSelector,
   HiOutlinePencil,
 } from "react-icons/hi";
-import { locations } from "../data/locations";
-import LocationPicker from "./LocationPicker";
+import { locations } from "../../data/locations";
+import LocationPicker from "../ui/LocationPicker";
 
 const initial = {
   first_name: "",
@@ -93,10 +93,10 @@ const UserModal = ({
   // Update local state when data changes (e.g. when opening "View" for a different user)
   useEffect(() => {
     if (data && !data._id) {
-      const t = setTimeout(() => setUser({ ...initial, ...data }), 0);
+      const t = setTimeout(() => setUser({ ...initial, ...data, role: data.role?.name || data.role || "" }), 0);
       return () => clearTimeout(t);
     } else {
-      const t = setTimeout(() => setUser(data || initial), 0);
+      const t = setTimeout(() => setUser(data ? { ...data, role: data.role?.name || data.role || "" } : initial), 0);
       return () => clearTimeout(t);
     }
   }, [data]);

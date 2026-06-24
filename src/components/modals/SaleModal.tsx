@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { getProducts, getCustomers } from "../api";
+import { getProducts, getCustomers } from "../../api";
 import {
   HiXCircle,
   HiOutlineDocumentText,
@@ -12,8 +12,8 @@ import {
   HiOutlinePencil,
 } from "react-icons/hi";
 import { Listbox } from "@headlessui/react";
-import { useDialog } from "../contexts/dialog/useDialog";
-import { useAuth } from "../contexts/auth/useAuth";
+import { useDialog } from "../../contexts/dialog/useDialog";
+import { useAuth } from "../../contexts/auth/useAuth";
 
 const defaultSale = {
   customer: "",

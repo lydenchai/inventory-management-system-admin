@@ -16,7 +16,7 @@ import { register as registerApi } from "../../api/auth-services";
 import { uploadFile, getCategories } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { locations } from "../../data/locations";
-import LocationPicker from "../../components/LocationPicker";
+import LocationPicker from "../../components/ui/LocationPicker";
 
 const Register = () => {
   const navigate = useNavigate();

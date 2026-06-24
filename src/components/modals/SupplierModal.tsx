@@ -11,8 +11,8 @@ import {
   HiOutlineLocationMarker,
   HiOutlinePencil,
 } from "react-icons/hi";
-import { locations } from "../data/locations";
-import { useAuth } from "../contexts/auth/useAuth";
+import { locations } from "../../data/locations";
+import { useAuth } from "../../contexts/auth/useAuth";
 
 const statuses = [
   { _id: 1, name: "Active" },

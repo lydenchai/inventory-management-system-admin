@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import { HiOutlineCalendar } from "react-icons/hi";
 import "react-datepicker/dist/react-datepicker.css";
-import "../styles/DatePicker.css";
+import "../../styles/DatePicker.css";
 
 const CustomDatePicker = ({
   selected,

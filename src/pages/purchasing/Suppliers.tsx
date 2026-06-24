@@ -25,16 +25,16 @@ import {
   importSuppliers,
 } from "../../api";
 import { useDialog } from "../../contexts/dialog/useDialog";
-import SupplierModal from "../../components/SupplierModal";
+import SupplierModal from "../../components/modals/SupplierModal";
 import { useAuth } from "../../contexts/auth/useAuth";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";
 import DataTable from "../../components/ui/DataTable";
 import useDataFetch from "../../hooks/useDataFetch";
 import useDebounce from "../../hooks/useDebounce";
-import BulkImportModal from "../../components/BulkImportModal";
+import BulkImportModal from "../../components/modals/BulkImportModal";
 
 const statusOptions = ["Active", "Inactive"];
 const locationOptions = ["Main Warehouse", "Showroom"];

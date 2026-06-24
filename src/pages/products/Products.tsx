@@ -19,8 +19,8 @@ import {
 import { MdOutlineSmsFailed } from "react-icons/md";
 import { HiOutlineCamera } from "react-icons/hi";
 
-import ProductModal from "../../components/ProductModal.jsx";
-import BarcodeScannerModal from "../../components/BarcodeScannerModal.jsx";
+import ProductModal from "../../components/modals/ProductModal.jsx";
+import BarcodeScannerModal from "../../components/modals/BarcodeScannerModal.jsx";
 import {
   getProducts,
   createProduct,
@@ -37,13 +37,13 @@ import { useCart } from "../../contexts/cart/useCart";
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";
 import DataTable from "../../components/ui/DataTable";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import useDataFetch from "../../hooks/useDataFetch";
 import useDebounce from "../../hooks/useDebounce";
 import { CategoryDropdown, SupplierDropdown, StatusDropdown } from "../../components/filters/FilterDropdowns";
-import CardSkeleton from "../../components/CardSkeleton";
-import NoDataFound from "../../components/NoDataFound";
-import BulkImportModal from "../../components/BulkImportModal";
+import CardSkeleton from "../../components/ui/CardSkeleton";
+import NoDataFound from "../../components/ui/NoDataFound";
+import BulkImportModal from "../../components/modals/BulkImportModal";
 
 const statusOptions = [
   { value: "in_stock", label: "In Stock" },

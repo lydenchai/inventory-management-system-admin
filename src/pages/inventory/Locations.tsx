@@ -12,9 +12,9 @@ import {
 } from "react-icons/hi";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { useDialog } from "../../contexts/dialog/useDialog.js";
-import LocationModal from "../../components/LocationModal";
+import LocationModal from "../../components/modals/LocationModal";
 import { getLocations, createLocation, updateLocation, deleteLocation } from "../../api";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";

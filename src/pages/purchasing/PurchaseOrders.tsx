@@ -5,7 +5,7 @@ import { useDialog } from "../../contexts/dialog/useDialog";
 import { getPurchaseOrders, downloadPurchaseOrderPdf } from "../../api";
 import PageHeader from "../../components/ui/PageHeader";
 import DataTable from "../../components/ui/DataTable";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import useDataFetch from "../../hooks/useDataFetch";
 import { formatDate } from "../../utils/dateFormat";
 

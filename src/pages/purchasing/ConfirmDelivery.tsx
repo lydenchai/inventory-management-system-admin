@@ -15,9 +15,9 @@ import { useAuth } from "../../contexts/auth/useAuth";
 import { getOrderRequests, confirmDeliveryAction } from "../../api";
 import { formatDate } from "../../utils/dateFormat";
 import { useDialog } from "../../contexts/dialog/useDialog";
-import Pagination from "../../components/Pagination";
-import DatePicker from "../../components/DatePicker";
-import OrderRequestModal from "../../components/OrderRequestModal";
+import Pagination from "../../components/ui/Pagination";
+import DatePicker from "../../components/ui/DatePicker";
+import OrderRequestModal from "../../components/modals/OrderRequestModal";
 
 import PageHeader from "../../components/ui/PageHeader";
 import DataTable from "../../components/ui/DataTable";

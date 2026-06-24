@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../contexts/auth/useAuth.js";
-import { useBadge } from "../contexts/badge/useBadge";
+import { useAuth } from "../../contexts/auth/useAuth.js";
+import { useBadge } from "../../contexts/badge/useBadge.js";
 import {
   HiClipboardList,
   HiCollection,
@@ -23,7 +23,7 @@ import {
   HiOfficeBuilding,
   HiOutlineDocumentReport,
 } from "react-icons/hi";
-import logo from "../assets/images/logo.png";
+import logo from "../../assets/images/logo.png";
 
 const navLinks = (permissions = [], activePath = "") =>
   [

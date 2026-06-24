@@ -1,10 +1,10 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { getActivityLogs } from "../../api";
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/ui/Pagination";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { HiOutlineFilter, HiOutlineRefresh } from "react-icons/hi";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 import { formatDate } from "../../utils/dateFormat";
 
 import PageHeader from "../../components/ui/PageHeader";

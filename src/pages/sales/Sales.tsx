@@ -15,14 +15,14 @@ import {
   HiOutlineReply,
 } from "react-icons/hi";
 import { getSales, deleteSale, getUsers, createSale, updateSale } from "../../api";
-import Pagination from "../../components/Pagination";
-import SaleModal from "../../components/SaleModal";
-import ProcessReturnModal from "../../components/ProcessReturnModal";
+import Pagination from "../../components/ui/Pagination";
+import SaleModal from "../../components/modals/SaleModal";
+import ProcessReturnModal from "../../components/modals/ProcessReturnModal";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { useDialog } from "../../contexts/dialog/useDialog";
 import { formatDate } from "../../utils/dateFormat";
 import { useNotification } from "../../contexts/notification/useNotification";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";

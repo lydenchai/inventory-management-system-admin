@@ -9,11 +9,11 @@ import {
   HiSelector,
   HiOutlinePencil,
 } from "react-icons/hi";
-import { uploadFile } from "../api";
+import { uploadFile } from "../../api";
 import { Listbox } from "@headlessui/react";
-import DatePicker from "../components/DatePicker";
+import DatePicker from "../ui/DatePicker";
 
-import { useAuth } from "../contexts/auth/useAuth";
+import { useAuth } from "../../contexts/auth/useAuth";
 
 const initialExpense = {
   description: "",

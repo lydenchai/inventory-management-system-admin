@@ -140,7 +140,7 @@ function cloneRole(obj) {
   return initialRole;
 }
 
-import { useAuth } from "../contexts/auth/useAuth";
+import { useAuth } from "../../contexts/auth/useAuth";
 
 const PermissionModal = ({
   open,

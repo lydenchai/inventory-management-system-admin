@@ -22,10 +22,10 @@ const initialProduct = {
   status: "active",
 };
 
-import { uploadFile } from "../api";
+import { uploadFile } from "../../api";
 import { Listbox } from "@headlessui/react";
-import { useAuth } from "../contexts/auth/useAuth";
-import { useCart } from "../contexts/cart/useCart";
+import { useAuth } from "../../contexts/auth/useAuth";
+import { useCart } from "../../contexts/cart/useCart";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 
 const ProductModal = ({
@@ -56,7 +56,11 @@ const ProductModal = ({
         }, 0);
       } else {
         setTimeout(() => {
-          setProduct(data);
+          setProduct({
+            ...data,
+            category: data.category?._id || data.category || "",
+            supplier: data.supplier?._id || data.supplier || ""
+          });
           setTouched({});
           setValidateOnSave(false);
         }, 0);
@@ -294,7 +298,7 @@ const ProductModal = ({
                     }
                     type={viewOnly ? "text" : "number"}
                     step="0.01"
-                    className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 ${(!product.cost_price || isNaN(product.cost_price)) && !data && (touched.cost_price || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                    className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 ${(product.cost_price === "" || product.cost_price === null || product.cost_price === undefined || isNaN(product.cost_price)) && !data && (touched.cost_price || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                     disabled={viewOnly}
                   />
                 </div>
@@ -319,7 +323,7 @@ const ProductModal = ({
                   }
                   type={viewOnly ? "text" : "number"}
                   step="0.01"
-                  className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 ${(!product.price || isNaN(product.price)) && !data && (touched.price || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
+                  className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 ${(product.price === "" || product.price === null || product.price === undefined || isNaN(product.price)) && !data && (touched.price || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                   disabled={viewOnly}
                 />
               </div>
@@ -347,7 +351,7 @@ const ProductModal = ({
                   placeholder={
                     product._id ? "Current Stock" : "Initial Quantity"
                   }
-                  className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 ${(!product.stock || isNaN(product.stock)) && !data && (touched.stock || validateOnSave) ? "border-red-500" : "border-gray-100"} ${product._id ? "cursor-default" : ""}`}
+                  className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 ${(product.stock === "" || product.stock === null || product.stock === undefined || isNaN(product.stock)) && !data && (touched.stock || validateOnSave) ? "border-red-500" : "border-gray-100"} ${product._id ? "cursor-default" : ""}`}
                   disabled={viewOnly || !!product._id}
                 />
                 {!!product._id && !viewOnly && (
@@ -467,11 +471,11 @@ const ProductModal = ({
                   product.name.trim() === "" ||
                   !product.category ||
                   !product.supplier ||
-                  !product.price ||
+                  product.price === "" || product.price === null || product.price === undefined ||
                   isNaN(product.price) ||
                   (isInternalUser &&
-                    (!product.cost_price || isNaN(product.cost_price))) ||
-                  !product.stock ||
+                    (product.cost_price === "" || product.cost_price === null || product.cost_price === undefined || isNaN(product.cost_price))) ||
+                  product.stock === "" || product.stock === null || product.stock === undefined ||
                   isNaN(product.stock)
                 ) {
                   return;

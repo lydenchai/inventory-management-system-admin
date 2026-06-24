@@ -4,10 +4,10 @@ import { Listbox } from "@headlessui/react";
 import { HiSelector, HiOutlineFilter, HiOutlineRefresh } from "react-icons/hi";
 import { useAuth } from "../../contexts/auth/useAuth";
 import { getOrderRequests } from "../../api";
-import Pagination from "../../components/Pagination";
-import ProcessReturnModal from "../../components/ProcessReturnModal";
+import Pagination from "../../components/ui/Pagination";
+import ProcessReturnModal from "../../components/modals/ProcessReturnModal";
 import { formatDate } from "../../utils/dateFormat";
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "../../components/ui/DatePicker";
 
 import PageHeader from "../../components/ui/PageHeader";
 import DataTable from "../../components/ui/DataTable";

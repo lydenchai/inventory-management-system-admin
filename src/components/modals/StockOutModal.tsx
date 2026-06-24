@@ -1,29 +1,28 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useAuth } from "../contexts/auth/useAuth";
-import { createStock, updateStock } from "../api";
+import { useAuth } from "../../contexts/auth/useAuth";
 import { Listbox } from "@headlessui/react";
 import {
   HiSelector,
   HiXCircle,
   HiOutlineDocumentText,
   HiExclamationCircle,
-  HiOutlineDownload,
+  HiOutlineUpload,
   HiOutlineCamera,
 } from "react-icons/hi";
 
-import { useDialog } from "../contexts/dialog/useDialog";
+import { createStock, updateStock } from "../../api";
+import { useDialog } from "../../contexts/dialog/useDialog";
 import BarcodeScannerModal from "./BarcodeScannerModal";
 
-const StockInModal = ({ open, onClose, products, locations = [], data }) => {
+const StockOutModal = ({ open, onClose, products, locations = [], data }) => {
   const { user } = useAuth();
   const [productId, setProductId] = useState("");
   const [quantity, setQuantity] = useState("");
   const [batchNumber, setBatchNumber] = useState("");
   const [reason, setReason] = useState("");
   const [warehouse, setWarehouse] = useState("");
-  const [unitPrice, setUnitPrice] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
@@ -31,7 +30,6 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
   const [validateOnSave, setValidateOnSave] = useState(false);
   const [scannerOpen, setScannerOpen] = useState(false);
   const dialog = useDialog();
-
   useEffect(() => {
     let t;
     if (open) {
@@ -55,7 +53,6 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
           setReason("");
           setWarehouse("");
           setNotes("");
-          setUnitPrice("");
           setExpiryDate("");
           setTouched({});
           setValidateOnSave(false);
@@ -67,17 +64,12 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
-    setLoading(true);
-    if (
-      !productId ||
-      !quantity ||
-      !reason ||
-      !warehouse ||
-      (reason === "Purchase" && !unitPrice)
-    ) {
-      setLoading(false);
+    setValidateOnSave(true);
+    setTouched({});
+    if (!productId || !quantity || !reason || !warehouse) {
       return;
     }
+    setLoading(true);
     try {
       const payload = {
         product_id: productId,
@@ -87,24 +79,22 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
         location_id: warehouse,
         notes: notes,
         expiry_date: expiryDate ? new Date(expiryDate).toISOString() : undefined,
-        type: "in",
+        type: "out",
         user_id: user?._id,
         completed_at: new Date(),
-        cost_price: unitPrice ? Number(unitPrice) : undefined,
         status: "active",
       };
-
       if (data) {
         await updateStock(data._id, payload);
-        dialog.success("Stock in updated successfully");
+        dialog.success("Stock out updated successfully");
       } else {
         await createStock(payload);
-        dialog.success("Stock in created successfully");
+        dialog.success("Stock out created successfully");
       }
       onClose();
     } catch (error) {
       dialog.error(
-        `Failed to ${data ? "update" : "create"} stock in: ` +
+        `Failed to ${data ? "update" : "create"} stock out: ` +
           (error.response?.data?.error || error.message),
       );
     } finally {
@@ -113,7 +103,6 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
   };
 
   const handleScan = (decodedText) => {
-    // Find product with matching code
     const scannedProduct = products.find(p => p.code === decodedText);
     if (scannedProduct) {
       setProductId(scannedProduct._id);
@@ -134,9 +123,9 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
       />
       <div className="bg-white rounded-2xl p-5 w-full max-w-[40%] max-h-[80vh] shadow-xl relative">
         <div className="mb-6 text-center">
-          <HiOutlineDownload className="text-3xl text-green-600 mx-auto mb-2" />
+          <HiOutlineUpload className="text-3xl text-red-600 mx-auto mb-2" />
           <h2 className="text-xl font-bold mb-2 text-center">
-            {data ? "Update Stock In" : "Stock In"}
+            {data ? "Update Stock Out" : "Stock Out"}
           </h2>
           <span className="text-sm text-gray-500">
             {data
@@ -147,7 +136,7 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
         <form className="space-y-5 overflow-auto max-h-[50vh] px-1">
           <div>
             <label
-              htmlFor="product-listbox"
+              htmlFor="product"
               className="text-sm font-medium text-gray-700"
             >
               Product <sup className="text-red-500">*</sup>
@@ -156,11 +145,11 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
               <Listbox value={productId} onChange={setProductId}>
                 <div className="relative flex-1">
                 <Listbox.Button
-                  id="product-listbox"
+                  id="product"
                   className={`cursor-pointer w-full bg-gray-50 border rounded-lg px-3 py-2 text-left text-sm text-gray-900 flex items-center justify-between ${!productId && (touched.productId || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                 >
                   <span className="truncate">
-                    {products.find((p) => p._id === productId)
+                    {products.some((p) => p._id === productId)
                       ? products.find((p) => p._id === productId).name
                       : "Select product"}
                   </span>
@@ -168,20 +157,23 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
                 </Listbox.Button>
                 <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none text-sm">
                   {products.map((p) => {
+                    const isDisabled = p.stock - (p.reserved_stock || 0) <= 0;
                     return (
                       <Listbox.Option
                         key={p._id}
                         value={p._id}
                         className={({ selected }) =>
-                          `px-3 py-2 text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] cursor-pointer rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                          `px-3 py-2 text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""} ${isDisabled ? "opacity-50 cursor-default bg-gray-50 text-gray-400" : "cursor-pointer"}`
                         }
+                        disabled={isDisabled}
                       >
                         {({ selected }) => (
                           <span
                             className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
                           >
-                            {p.name} (Stock: {p.stock - (p.reserved_stock || 0)}
-                            )
+                            {p.name} (Stock:
+                            {p.stock - (p.reserved_stock || 0)})
+                            {isDisabled ? " - Out of stock" : ""}
                           </span>
                         )}
                       </Listbox.Option>
@@ -214,29 +206,21 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
                 className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 ${!quantity && (touched.quantity || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
                 value={quantity}
                 min={1}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const product = products.find((p) => p._id === productId);
+                  const maxStock = product
+                    ? product.stock - (product.reserved_stock || 0)
+                    : null;
+
+                  if (maxStock !== null && Number(val) > maxStock) {
+                    setQuantity(maxStock);
+                  } else {
+                    setQuantity(val);
+                  }
+                }}
                 onBlur={() =>
                   setTouched((prev) => ({ ...prev, quantity: true }))
-                }
-              />
-            </div>
-            <div className="flex-1">
-              <label
-                htmlFor="unitPrice"
-                className="text-sm font-medium text-gray-700"
-              >
-                Cost Price
-                {reason === "Purchase" && <sup className="text-red-500">*</sup>}
-              </label>
-              <input
-                id="unitPrice"
-                type="number"
-                className={`w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 border-gray-100 ${reason === "Purchase" && !unitPrice && (touched.unitPrice || validateOnSave) ? "border-red-500" : "border-gray-100"}`}
-                value={unitPrice}
-                min={0}
-                onChange={(e) => setUnitPrice(e.target.value)}
-                onBlur={() =>
-                  setTouched((prev) => ({ ...prev, unitPrice: true }))
                 }
               />
             </div>
@@ -253,6 +237,7 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
                 className="w-full bg-gray-50 border rounded-lg px-3 py-2 text-sm text-gray-800 border-gray-100"
                 value={batchNumber}
                 onChange={(e) => setBatchNumber(e.target.value)}
+                placeholder="Optional batch number"
               />
             </div>
           </div>
@@ -286,19 +271,17 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
                   <HiSelector className="w-5 h-5 text-gray-400 ml-2" />
                 </Listbox.Button>
                 <Listbox.Options className="absolute z-10 mt-1 w-full bg-white border border-gray-100 rounded-lg shadow-lg max-h-60 overflow-auto focus:outline-none text-sm">
-                  {["Purchase", "Return", "Adjustment", "Other"].map(
-                    (option) => (
-                      <Listbox.Option
-                        key={option}
-                        value={option}
-                        className={({ selected }) =>
-                          `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
-                        }
-                      >
-                        {option}
-                      </Listbox.Option>
-                    ),
-                  )}
+                  {["Sale", "Damage", "Adjustment", "Other"].map((option) => (
+                    <Listbox.Option
+                      key={option}
+                      value={option}
+                      className={({ selected }) =>
+                        `px-3 py-2 cursor-pointer text-[#64748b] text-sm hover:text-gray-900 hover:bg-[#f1f5f9] rounded-lg ${selected ? "bg-[#1e3a5f] text-white" : ""}`
+                      }
+                    >
+                      {option}
+                    </Listbox.Option>
+                  ))}
                 </Listbox.Options>
               </div>
             </Listbox>
@@ -374,7 +357,7 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
           </button>
           <button
             type="button"
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl focus:outline-none flex items-center gap-2 cursor-pointer"
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl focus:outline-none flex items-center gap-2 cursor-pointer"
             disabled={loading}
             onClick={() => {
               setValidateOnSave(true);
@@ -391,7 +374,7 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
             }}
           >
             <HiOutlineDocumentText className="inline-block text-xl" />
-            {data ? "Update Stock In" : "Confirm Stock In"}
+            {data ? "Update Stock Out" : "Confirm Stock Out"}
           </button>
         </div>
       </div>
@@ -399,12 +382,12 @@ const StockInModal = ({ open, onClose, products, locations = [], data }) => {
   );
 };
 
-StockInModal.propTypes = {
+StockOutModal.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   products: PropTypes.array.isRequired,
   data: PropTypes.object,
 };
 
-export default StockInModal;
+export default StockOutModal;
 

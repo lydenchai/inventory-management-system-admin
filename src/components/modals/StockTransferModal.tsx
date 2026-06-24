@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useAuth } from "../contexts/auth/useAuth";
-import { createStockTransfer } from "../api";
+import { useAuth } from "../../contexts/auth/useAuth";
+import { createStockTransfer } from "../../api";
 import { Listbox } from "@headlessui/react";
 import {
   HiSelector,
@@ -10,7 +10,7 @@ import {
   HiOutlineDocumentText,
   HiOutlineSwitchHorizontal,
 } from "react-icons/hi";
-import { useDialog } from "../contexts/dialog/useDialog";
+import { useDialog } from "../../contexts/dialog/useDialog";
 
 const StockTransferModal = ({ open, onClose, products, locations, onTransferSuccess }) => {
   const { user } = useAuth();

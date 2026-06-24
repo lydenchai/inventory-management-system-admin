@@ -13,10 +13,10 @@ import {
 import { useAuth } from "../../contexts/auth/useAuth";
 import { useDialog } from "../../contexts/dialog/useDialog";
 import { getApproveRequests, updateApproveRequests, deleteApproveRequest } from "../../api";
-import Pagination from "../../components/Pagination";
-import Dialog from "../../components/Dialog";
-import OrderRequestModal from "../../components/OrderRequestModal";
-import DatePicker from "../../components/DatePicker";
+import Pagination from "../../components/ui/Pagination";
+import Dialog from "../../components/ui/Dialog";
+import OrderRequestModal from "../../components/modals/OrderRequestModal";
+import DatePicker from "../../components/ui/DatePicker";
 import { useBadge } from "../../contexts/badge/useBadge";
 
 import PageHeader from "../../components/ui/PageHeader";

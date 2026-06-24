@@ -9,8 +9,8 @@ import {
   HiSelector,
   HiOutlineCube
 } from "react-icons/hi";
-import { useDialog } from "../contexts/dialog/useDialog";
-import { createReturn, getLocations } from "../api";
+import { useDialog } from "../../contexts/dialog/useDialog";
+import { createReturn, getLocations } from "../../api";
 
 const ProcessReturnModal = ({ open, onClose, data, type, onSuccess }) => {
   const [returnItems, setReturnItems] = useState([]);
@@ -32,7 +32,7 @@ const ProcessReturnModal = ({ open, onClose, data, type, onSuccess }) => {
         let initialItems = [];
         if (data && data.items) {
           initialItems = data.items.map(item => ({
-            product_id: item.product_id || item.product,
+            product_id: item.product?._id || item.product_id || item.product || "",
             product_name: item.product?.name || "Unknown Product",
             max_qty: item.quantity,
             return_qty: 0,

@@ -20,7 +20,7 @@ import {
   HiOutlinePhone,
   HiSelector,
 } from "react-icons/hi";
-import Loading from "../../components/Loading";
+import Loading from "../../components/ui/Loading";
 
 export default function Settings() {
   const { user, refreshProfile } = useAuth();
