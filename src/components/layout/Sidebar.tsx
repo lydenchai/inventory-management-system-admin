@@ -281,10 +281,11 @@ const Sidebar = ({ mini }) => {
                             <Link
                               to={submenu.to}
                               className={`group flex items-center px-3 py-2 rounded-xl transition text-sm space-x-3
-                            ${location.pathname === submenu.to
-                                  ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-                                }`}
+                            ${
+                              location.pathname === submenu.to
+                                ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
+                                : "text-gray-500 hover:bg-[#f1f5f9] hover:text-gray-900"
+                            }`}
                             >
                               <span className="text-xl">{submenu.icon}</span>
                               {!mini && (
@@ -306,11 +307,12 @@ const Sidebar = ({ mini }) => {
                   <Link
                     to={link.to}
                     className={`group flex items-center px-3 py-2 rounded-xl transition text-sm space-x-3 relative
-                    ${location.pathname === link.to ||
-                        location.pathname.includes(link.to + "/")
+                    ${
+                      location.pathname === link.to ||
+                      location.pathname.includes(link.to + "/")
                         ? "bg-[#1e3a5f] text-white hover:bg-[#1e3a5f]"
-                        : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
-                      }
+                        : "text-gray-500 hover:bg-[#f1f5f9] hover:text-gray-900"
+                    }
                   `}
                   >
                     <span className="text-xl">{link.icon}</span>

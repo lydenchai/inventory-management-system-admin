@@ -28,7 +28,8 @@ const Header = ({ onBellClick }) => {
   const { user, logout } = useAuth();
   const { notifications, unreadCount, markAsRead, markAllAsRead } =
     useNotification();
-  const { cartItems, removeFromCart, updateQuantity, clearCart } = useCartStore();
+  const { cartItems, removeFromCart, updateQuantity, clearCart } =
+    useCartStore();
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -136,7 +137,7 @@ const Header = ({ onBellClick }) => {
             )}
           </button>
           {cartOpen && (
-            <div className="absolute right-0 top-10 bg-white rounded-2xl shadow-lg p-3 w-96 z-50 animate-fade-in-up border border-gray-100">
+            <div className="absolute right-0 top-13 bg-white rounded-2xl shadow-lg p-3 w-96 z-50 animate-fade-in-up border border-gray-100">
               <div className="flex items-center justify-between px-1 pt-1 mb-2">
                 <span className="font-bold text-sm">
                   Cart ({cartCount} items)
@@ -237,7 +238,7 @@ const Header = ({ onBellClick }) => {
             )}
           </button>
           {notificationOpen && (
-            <div className="absolute right-0 top-10 bg-white rounded-2xl shadow-lg p-2 w-120 z-50 animate-fade-in-up border border-gray-100">
+            <div className="absolute right-0 top-13 bg-white rounded-2xl shadow-lg p-2 w-120 z-50 animate-fade-in-up border border-gray-100">
               <div className="px-2 pt-2 flex items-center justify-between">
                 <div className="font-bold text-sm leading-tight">
                   Notifications
