@@ -18,7 +18,7 @@ import { useAuth } from "../../contexts/auth/useAuth.js";
 import { useDialog } from "../../contexts/dialog/useDialog.js";
 import OrderRequestModal from "../../components/modals/OrderRequestModal.jsx";
 import { getOrderRequests, cancelOrderRequest, updateOrderRequest, deleteOrderRequest, createPurchaseOrder } from "../../api";
-import { useCart } from "../../contexts/cart/useCart";
+import { useCartStore } from "../../stores/useCartStore";
 import Pagination from "../../components/ui/Pagination";
 import { formatDate } from "../../utils/dateFormat";
 import DatePicker from "../../components/ui/DatePicker";
@@ -73,7 +73,7 @@ const OrderRequests = () => {
   const dialog = useDialog();
   const { user } = useAuth();
   const { fetchBadge } = useBadge();
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, clearCart } = useCartStore();
 
   const canView = getPermission(user, "view_order_request");
   const canCreate = getPermission(user, "create_order_request");

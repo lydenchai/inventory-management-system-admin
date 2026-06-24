@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useAuth } from "../../contexts/auth/useAuth.js";
 import { useNotification } from "../../contexts/notification/useNotification.js";
-import { useCart } from "../../contexts/cart/useCart.js";
+import { useCartStore } from "../../stores/useCartStore.js";
 import {
   HiOutlineBell,
   HiOutlineLogout,
@@ -28,7 +28,7 @@ const Header = ({ onBellClick }) => {
   const { user, logout } = useAuth();
   const { notifications, unreadCount, markAsRead, markAllAsRead } =
     useNotification();
-  const { cartItems, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, clearCart } = useCartStore();
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);

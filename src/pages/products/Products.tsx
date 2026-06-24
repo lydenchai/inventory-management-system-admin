@@ -32,7 +32,7 @@ import {
 } from "../../api";
 import { useDialog } from "../../contexts/dialog/useDialog";
 import { useAuth } from "../../contexts/auth/useAuth.js";
-import { useCart } from "../../contexts/cart/useCart";
+import { useCartStore } from "../../stores/useCartStore";
 
 import PageHeader from "../../components/ui/PageHeader";
 import Button from "../../components/ui/Button";
@@ -59,7 +59,7 @@ export default function Products() {
   const [viewMode, setViewMode] = useState("table");
   const dialog = useDialog();
   const { user } = useAuth();
-  const { addToCart, cartItems } = useCart();
+  const { addToCart, cartItems } = useCartStore();
 
   const [categories, setCategories] = useState([]);
   const [suppliers, setSuppliers] = useState([]);

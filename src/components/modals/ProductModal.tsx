@@ -25,7 +25,7 @@ const initialProduct = {
 import { uploadFile } from "../../api";
 import { Listbox } from "@headlessui/react";
 import { useAuth } from "../../contexts/auth/useAuth";
-import { useCart } from "../../contexts/cart/useCart";
+import { useCartStore } from "../../stores/useCartStore";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 
 const ProductModal = ({
@@ -44,7 +44,7 @@ const ProductModal = ({
   const { user } = useAuth();
   const isInternalUser = user.user_type === "internal";
   const canUpdate = user?.permission?.permissions?.includes("update_product");
-  const { addToCart } = useCart();
+  const { addToCart } = useCartStore();
 
   useEffect(() => {
     if (open) {

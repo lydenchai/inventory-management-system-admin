@@ -35,11 +35,11 @@ const StockOutModal = ({ open, onClose, products, locations = [], data }) => {
     if (open) {
       if (data) {
         t = setTimeout(() => {
-          setProductId(data.product_id || data.product?._id || "");
+          setProductId(data.product?._id || data.product || data.product_id?._id || data.product_id || "");
           setQuantity(data.quantity || "");
           setBatchNumber(data.batch_number || "");
           setReason(data.reason || "");
-          setWarehouse(data.location_id || data.location?._id || data.location || "");
+          setWarehouse(data.location?._id || data.location || data.location_id?._id || data.location_id || "");
           setNotes(data.notes || "");
           setExpiryDate(data.expiry_date ? new Date(data.expiry_date).toISOString().split('T')[0] : "");
           setTouched({});
